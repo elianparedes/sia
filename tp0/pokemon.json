@@ -1,0 +1,32 @@
+{
+  "jolteon": {
+      "type": ["ELECTRIC", "NONE"],
+      "stats": [65, 65, 60, 110, 95, 130],
+      "weight": 54,
+      "catch_rate": 45
+    },
+  "caterpie": {
+      "type": ["BUG", "NONE"],
+      "stats": [45, 30, 35, 20, 20, 45],
+      "weight": 6.4,
+      "catch_rate": 255
+    },
+  "snorlax": {
+      "type": ["NORMAL", "NONE"],
+      "stats": [160, 110, 65, 65, 110, 30],
+      "weight": 1014.1,
+      "catch_rate": 25
+    },
+  "onix": {
+      "type": ["ROCK", "GROUND"],
+      "stats": [35, 45, 160, 30, 45, 70],
+      "weight": 463,
+      "catch_rate": 45
+    },
+  "mewtwo": {
+      "type": ["PSYCHIC", "NONE"],
+      "stats": [106, 110, 90, 154, 90, 130],
+      "weight": 269,
+      "catch_rate": 3
+    }
+}
