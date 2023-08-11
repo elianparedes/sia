@@ -13,4 +13,3 @@ if __name__ == "__main__":
     print("No noise: ", attempt_catch(pokemon, ball))
     for _ in range(10):
         print("Noisy: ", attempt_catch(pokemon, ball, 0.15))
-
