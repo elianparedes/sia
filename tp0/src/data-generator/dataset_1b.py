@@ -23,11 +23,12 @@ def solve_1b():
     balls_catch_rates = {}
     for ball in balls:
         balls_catch_rates[ball] = pokemon_catch_rates(pokemons,ball,iterations)
-    export_csv_results(balls_catch_rates,base_ball)
+    export_csv_results(balls_catch_rates,base_ball,'./src/output/dataset_1b_rates.csv')
 
     normalized_catch_rates = {}
     for ball, pokemons in balls_catch_rates.items():
         normalized_catch_rates[ball] = {pokemon: rate/balls_catch_rates[base_ball][pokemon] for pokemon, rate in pokemons.items()}
+    export_csv_results(normalized_catch_rates,base_ball,'./src/output/dataset_1b_normalized_rates.csv')
 
     del normalized_catch_rates[base_ball]
     balls.remove(base_ball)
@@ -57,9 +58,9 @@ def export_graph(normalized_catch_rates,balls,pokemons):
 
     plt.savefig(output_path)
     
-def export_csv_results(balls_catch_rates, base_ball):
+def export_csv_results(balls_catch_rates, base_ball,path):
     header = ['PokeballType'] + list(balls_catch_rates[base_ball].keys())
-    with open('./src/output/dataset_1b.csv', 'w', newline='') as csvfile:
+    with open(path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(header)  # Writing the header
         for pokeball, rates in balls_catch_rates.items():
