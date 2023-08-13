@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-CSV_PATH = "../output/dataset_2b_noisy.csv"
+CSV_PATH = "../output/dataset_2b.csv"
 
 def PlotByPokeball(df, pokeball):
     plt.figure()
