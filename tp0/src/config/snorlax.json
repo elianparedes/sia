@@ -1,4 +1,5 @@
 {
     "pokemon": "snorlax",
-    "pokeball": "heavyball"
+    "pokeball": "pokeball",
+    "effect": "NONE"
 }

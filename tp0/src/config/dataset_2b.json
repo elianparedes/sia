@@ -1,0 +1,16 @@
+{
+    "pokemon": [ 
+        "jolteon", 
+        "caterpie", 
+        "snorlax", 
+        "onix", 
+        "mewtwo"
+    ],
+    "pokeball": [ 
+        "pokeball", 
+        "ultraball", 
+        "fastball",
+        "heavyball"
+    ]
+}
+
