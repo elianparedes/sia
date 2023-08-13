@@ -1,8 +1,9 @@
-from .pokemon import Pokemon
-from .pokeball import BasePokeball, PokeBall, UltraBall, FastBall, HeavyBall
-from typing import Tuple
-import random
 import numpy as np
+import random
+from typing import Tuple
+
+from .pokeball import BasePokeball, PokeBall, UltraBall, FastBall, HeavyBall
+from .pokemon import Pokemon
 
 _POKEBALL = {
     "pokeball": lambda x: PokeBall(x),
@@ -13,7 +14,7 @@ _POKEBALL = {
 
 
 def attempt_catch(
-    pokemon: Pokemon, pokeball_type: str, noise=0.0
+        pokemon: Pokemon, pokeball_type: str, noise=0.0
 ) -> Tuple[bool, float]:
     """Simulates throwing a pokeball to catch a pokemon
 

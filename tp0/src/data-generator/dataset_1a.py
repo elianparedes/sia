@@ -1,16 +1,17 @@
 import json
+import pandas as pd
+
 from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
-import pandas as pd
 
 CSV_PATH = "../output/dataset_1a.csv"
 POKEMON_JSON_PATH = "../../pokemon.json"
-DATASET_JSON_PATH = "../config/dataset_2b.json"
+CONFIG_JSON_PATH = "../config/dataset_2b.json"
 CATCH_ATTEMPTS = 100
 
 factory = PokemonFactory(POKEMON_JSON_PATH)
-    
-with open(DATASET_JSON_PATH) as f:
+
+with open(CONFIG_JSON_PATH) as f:
     data = json.load(f)
     POKEBALLS = data["pokeball"]
     POKEMONS = data["pokemon"]

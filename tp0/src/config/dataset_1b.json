@@ -1,8 +1,23 @@
 {
-    "pokemons": ["snorlax", "caterpie", "jolteon","onix","mewtwo"],
-    "balls": ["pokeball","ultraball","fastball","heavyball"],
-    "base_ball": "pokeball",
-    "colors": ["r","g","b"],
-    "output_path": "./src/output/dataset_1b_graph.jpg",
-    "iterations": 100000
+  "pokemons": [
+    "snorlax",
+    "caterpie",
+    "jolteon",
+    "onix",
+    "mewtwo"
+  ],
+  "balls": [
+    "pokeball",
+    "ultraball",
+    "fastball",
+    "heavyball"
+  ],
+  "base_ball": "pokeball",
+  "colors": [
+    "r",
+    "g",
+    "b"
+  ],
+  "output_path": "./src/output/dataset_1b_graph.jpg",
+  "iterations": 100000
 }

@@ -1,7 +1,7 @@
+import json
+import math
 from enum import Enum
 from typing import NamedTuple, Tuple
-import math
-import json
 
 
 class Type(str, Enum):
@@ -46,17 +46,16 @@ class StatusEffect(Enum):
 
 class Pokemon:
     def __init__(
-        self,
-        name: str,
-        type: Tuple[Type, Type],
-        current_hp: int,
-        status_effect: StatusEffect,
-        level: int,
-        stats: Stats,
-        catch_rate: int,
-        weight: float,
+            self,
+            name: str,
+            type: Tuple[Type, Type],
+            current_hp: int,
+            status_effect: StatusEffect,
+            level: int,
+            stats: Stats,
+            catch_rate: int,
+            weight: float,
     ):
-
         self._name = name  # Underscored variables denote "private"
         self._type = type
         self._stats = stats
@@ -101,7 +100,7 @@ class PokemonFactory:
         self._src_file = src_file
 
     def create(
-        self, name: str, level: int, status: StatusEffect, hp_percentage: float
+            self, name: str, level: int, status: StatusEffect, hp_percentage: float
     ) -> Pokemon:
         if (hp_percentage < 0 or hp_percentage > 1):
             raise ValueError("hp has to be value between 0 and 1")

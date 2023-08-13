@@ -1,9 +1,10 @@
-import sys
 import json
-from src.catching import attempt_catch
-from src.pokemon import PokemonFactory, StatusEffect
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
+
+from src.catching import attempt_catch
+from src.pokemon import PokemonFactory, StatusEffect
 
 if __name__ == "__main__":
     factory = PokemonFactory("pokemon.json")
