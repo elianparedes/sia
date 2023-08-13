@@ -1,0 +1,25 @@
+{
+    "pokemon": {
+        "name": "snorlax",
+        "hp": 1
+    },
+    "params": {
+        "catch_attempts": 100,
+        "level_range": [1, 100],
+        "pokeballs": ["pokeball", "ultraball", "fastball", "heavyball"],
+        "status_effect": [
+            "POISON",
+            "BURN",
+            "PARALYSIS",
+            "SLEEP",
+            "FREEZE",
+            "NONE"
+        ]
+    },
+    "plot": {
+        "width": 20,
+        "height": 10,
+        "y_max": 0.35,
+        "colorscheme": "viridis_r"
+    }
+}
