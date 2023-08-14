@@ -1,15 +1,14 @@
-from collections import defaultdict
-class BFS:
+class DFS:
     @staticmethod
-    def bfs(initial_state):
+    def dfs(initial_state):
         steps = 0
         visited = []
         queue = []
         queue.append(initial_state)
         while queue:
-            state = queue.pop(0)
+            state = queue.pop(-1)
             if state.is_solution():
-                print("Solution found in ", steps, " steps using BFS")
+                print("Solution found in ", steps, " steps using DFS")
                 return state
             if state not in visited:
                 visited.append(state)
