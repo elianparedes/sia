@@ -14,4 +14,4 @@ class Point:
         return self.x == other.x and self.y == other.y
 
     def move(self, direction):
-        return Point(self.x + direction[0], self.y + direction[1])
+        return Point(self.x + direction.value[0], self.y + direction.value[1])
