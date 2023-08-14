@@ -1,6 +1,6 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 CATCH_ATTEMPTS = 100
 CSV_PATH = "../output/dataset_1a.csv"
@@ -19,7 +19,7 @@ for pokemon in pokemon_names:
         pokemon_data = df[df["Pokemon"] == pokemon]
         pokemon_pokeball_data = pokemon_data[pokemon_data["Pokeball"] == pokeball]
         catch_results = pokemon_pokeball_data[pokemon_pokeball_data["Catch Result"] == True]
-        catch_probabilities[pokeball] += (len(catch_results)/CATCH_ATTEMPTS, )
+        catch_probabilities[pokeball] += (len(catch_results) / CATCH_ATTEMPTS,)
 
 # plot
 x_spacing = 1.3
