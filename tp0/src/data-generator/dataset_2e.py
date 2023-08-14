@@ -1,14 +1,15 @@
-import pandas as pd
 import json
+import os
+import pandas as pd
+
 from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
-import os
 
 CONFIG_FILE_PATH = os.path.join(os.path.dirname(
     __file__), os.pardir, 'config', 'dataset_2e.json')
 CSV_PATH = os.path.join(os.path.dirname(__file__),
                         os.pardir, 'output', 'dataset_2e.csv')
-POKEMONS_FILE_PATH = os.path.join(os.path.dirname(
+POKEMON_JSON_PATH = os.path.join(os.path.dirname(
     __file__), os.pardir, os.pardir, 'pokemon.json')
 
 # Load config
@@ -21,7 +22,7 @@ with open(CONFIG_FILE_PATH) as f:
     POKEBALLS = config["params"]["pokeballs"]
     STATUS_EFFECTS = config["params"]["status_effect"]
 
-factory = PokemonFactory(POKEMONS_FILE_PATH)
+factory = PokemonFactory(POKEMON_JSON_PATH)
 
 data_rows = []
 for level in range(LEVEL_RANGE[0], LEVEL_RANGE[1] + 1):

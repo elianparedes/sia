@@ -1,9 +1,9 @@
-import matplotlib.pyplot as plt
+import json
 import matplotlib.patheffects as pe
-import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np
 import os
-import json
+import pandas as pd
 
 CSV_PATH = os.path.join(os.path.dirname(__file__),
                         os.pardir, 'output', 'dataset_2e.csv')
@@ -20,8 +20,8 @@ with open(CONFIG_FILE_PATH) as f:
     Y_MAX = config["plot"]["y_max"]
     COLORSCHEME = config["plot"]["colorscheme"]
 
-def plot_capture_rate_by_level(df):
 
+def plot_capture_rate_by_level(df):
     # Prepare data
     levels = df["level"].unique()
     status_effects = df["status_effect"].unique()
@@ -33,14 +33,15 @@ def plot_capture_rate_by_level(df):
 
     # Calculate lines
     lines = []
-    
+
     for status_effect in status_effects:
         x = []
         y = []
 
         for level in levels:
             total_attempts = len(df[(df['level'] == level) & (df['status_effect'] == status_effect)])
-            successful_attempts = len(df[(df['level'] == level) & (df['status_effect'] == status_effect) & (df['catch_result'] == True)])
+            successful_attempts = len(
+                df[(df['level'] == level) & (df['status_effect'] == status_effect) & (df['catch_result'] == True)])
             capture_rate = successful_attempts / total_attempts
             x.append(level)
             y.append(capture_rate)
@@ -70,7 +71,8 @@ def plot_capture_rate_by_level(df):
     # Set titles
     ax.set_ylabel('Catch Ratio')
     ax.set_xlabel('Pokemon Level')
-    ax.set_title(f"{POKEMON_NAME.capitalize()} ({POKEMON_HP * 100:.0f} HP) Catch Ratio Level Impact Under Different Conditions")
+    ax.set_title(
+        f"{POKEMON_NAME.capitalize()} ({POKEMON_HP * 100:.0f} HP) Catch Ratio Level Impact Under Different Conditions")
     ax.legend(loc='upper left', bbox_to_anchor=(1, 1), title="Status Effects", ncol=1)
     plt.grid(axis='x')
 
