@@ -1,4 +1,4 @@
-from tp1.classes.Point import Point
+from classes.Point import Point
 
 
 class SokobanUtils:

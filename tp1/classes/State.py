@@ -1,4 +1,5 @@
-from tp1.classes.Direction import Direction
+from classes.Direction import Direction
+from classes.StateUtils import StateUtils
 
 
 class State:
@@ -7,7 +8,7 @@ class State:
         self.player_point = player_point
         self.goals_points = goals_points
         self.boxes_points = boxes_points
-        self.deadlocks_points = deadlocks_points
+        self.deadlocks_points = StateUtils.obtain_deadlocks(walls_points=walls_points, goals_points=goals_points)
 
     def __hash__(self):
         return hash((self.walls_points, self.player_point, self.goals_points, self.boxes_points))
@@ -16,7 +17,7 @@ class State:
         return self.walls_points == other.walls_points and self.player_point == other.player_point and self.goals_points == other.goals_points and self.boxes_points == other.boxes_points
 
     def can_continue_search(self, direction):
-        return self.can_move(direction) #and not self.has_deadlocks(direction)
+        return self.can_move(direction) and not self.has_deadlocks(direction)
 
     def can_move(self, direction):
         next_point = self.player_point.move(direction)

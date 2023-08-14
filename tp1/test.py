@@ -1,7 +1,7 @@
-from tp1.algorithms.BFS import BFS
-from tp1.algorithms.DFS import DFS
-from tp1.classes.SokobanUtils import SokobanUtils
-from tp1.classes.State import State
+from algorithms.DFS import DFS
+from algorithms.BFS import BFS
+from classes.SokobanUtils import SokobanUtils
+from classes.State import State
 
 # Example Sokoban board
 # sokoban_board = """
