@@ -62,7 +62,7 @@ class State:
         return self.walls_points == other.walls_points and self.player_point == other.player_point and self.goals_points == other.goals_points and self.boxes_points == other.boxes_points
 
     def can_continue_search(self, direction):
-        return self.can_move(direction) and not self.has_deadlocks(direction)
+        return self.can_move(direction) #and not self.has_deadlocks(direction)
 
     def can_move(self, direction):
         next_point = self.player_point.move(direction)

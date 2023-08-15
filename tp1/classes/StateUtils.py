@@ -6,9 +6,11 @@ class StateUtils:
     def __init__(self):
         raise NotImplementedError("Class instantiation not supported")
 
-    # A deadlock occurs when any of two conditions are met:
+    # A deadlock occurs when any of three conditions are met:
     #   - It's a corner
-    #   - It's between two deadlocks, along two walls which don't have holes
+    #   - It's between two deadlocks connected horizontally or vertically by walls.
+    #   Walls cannot have holes
+    #   - If there is an aisle without two holes in front of each other
     @staticmethod
     def obtain_deadlocks(walls_points, goals_points):
         deadlocks = []
