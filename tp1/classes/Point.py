@@ -1,4 +1,3 @@
-
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -12,6 +11,9 @@ class Point:
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
+
+    def __repr__(self):
+        return str(self)
 
     def move(self, direction):
         return Point(self.x + direction.value[0], self.y + direction.value[1])
