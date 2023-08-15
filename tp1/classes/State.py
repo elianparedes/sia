@@ -8,7 +8,7 @@ class State:
         self.player_point = player_point
         self.goals_points = goals_points
         self.boxes_points = boxes_points
-        self.deadlocks_points = StateUtils.obtain_deadlocks(walls_points=walls_points, goals_points=goals_points)
+        self.deadlocks_points = deadlocks_points
 
     def __hash__(self):
         return hash((self.walls_points, self.player_point, self.goals_points, self.boxes_points))
