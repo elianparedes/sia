@@ -27,3 +27,13 @@ class StateUtils:
         return (point.move(Direction.TOP) in walls_points or point.move(Direction.BOTTOM) in walls_points) \
             and (point.move(Direction.LEFT) or point.move(Direction.RIGHT))
 
+    @staticmethod
+    def draw_solution(node, depth):
+        depth += 1
+        if node.father is None:
+            print("Depth: ", depth)
+            print(node.state)
+            return
+        StateUtils.draw_solution(node.father, depth)
+        print(node.state)
+
