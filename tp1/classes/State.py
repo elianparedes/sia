@@ -10,6 +10,51 @@ class State:
         self.boxes_points = boxes_points
         self.deadlocks_points = deadlocks_points
 
+    def __str__(self):
+        object_symbols = {
+            'wall': '#',
+            'player': '@',
+            'goal': '.',
+            'box': '$',
+            'box_on_goal': '*',
+            'player_on_goal': '+'
+        }
+
+        all_points = [
+            self.player_point,
+            *self.boxes_points,
+            *self.walls_points,
+            *self.goals_points,
+            *self.deadlocks_points
+        ]
+
+        max_row = max(point.x for point in all_points)
+        max_col = max(point.y for point in all_points)
+
+        matrix = [[' '] * (max_col + 1) for _ in range(max_row + 1)]
+
+        for point in self.walls_points:
+            matrix[point.x][point.y] = object_symbols['wall']
+
+        for point in self.goals_points:
+            matrix[point.x][point.y] = object_symbols['goal']
+
+        for point in self.deadlocks_points:
+            matrix[point.x][point.y] = object_symbols['wall']
+
+        for point in self.boxes_points:
+            if point in self.goals_points:
+                matrix[point.x][point.y] = object_symbols['box_on_goal']
+            else:
+                matrix[point.x][point.y] = object_symbols['box']
+
+        if self.player_point in self.goals_points:
+            matrix[self.player_point.x][self.player_point.y] = object_symbols['player_on_goal']
+        else:
+            matrix[self.player_point.x][self.player_point.y] = object_symbols['player']
+
+        return '\n'.join([''.join(row) for row in matrix])
+
     def __hash__(self):
         return hash((self.walls_points, self.player_point, self.goals_points, self.boxes_points))
 
