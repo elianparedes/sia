@@ -5,7 +5,7 @@ from tp1.classes.StateUtils import StateUtils
 class BFS:
     @staticmethod
     def bfs(initial_state):
-        steps = 0
+        size = 0
         visited = []
         queue = []
         root = Node(None, initial_state)
@@ -13,12 +13,12 @@ class BFS:
         while queue:
             node = queue.pop(0)
             if node.state.is_solution():
-                print("Solution found in ", steps, " steps using BFS")
+                print("Solution found opening ", size, " nodes using BFS")
                 StateUtils.draw_solution(node, 0)
                 return node.state
             if node not in visited:
                 visited.append(node)
                 for child in node.get_children():
                     queue.append(child)
-            steps += 1
+            size += 1
         return None

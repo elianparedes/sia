@@ -1,5 +1,9 @@
 # Manhattan distance between player and box + box and goal
 # This only works with one box, remove later
+from tp1.classes.Node import Node
+from tp1.classes.StateUtils import StateUtils
+
+
 def heuristic(state):
     player_point = state.player_point
     box_point = state.boxes_points[0]
@@ -10,19 +14,21 @@ def heuristic(state):
 class LocalGreedy:
     @staticmethod
     def local_greedy(initial_state):
-        steps = 0
+        size = 0
         visited = []
         queue = []
-        queue.append(initial_state)
+        root = Node(None, initial_state)
+        queue.append(root)
         while queue:
-            state = queue.pop(0)
-            if state.is_solution():
-                print("Solution found in ", steps, " steps using Local Greedy Search")
-                return state
-            if state not in visited:
-                visited.append(state)
-                for child in state.get_children():
+            node = queue.pop(0)
+            if node.state.is_solution():
+                print("Solution found opening ", size, " nodes using Local Greedy Search")
+                StateUtils.draw_solution(node, 0)
+                return node.state
+            if node.state not in visited:
+                visited.append(node)
+                for child in node.get_children():
                     queue.append(child)
             queue= sorted(queue, key=heuristic)
-            steps += 1
+            size += 1
         return None

@@ -1,18 +1,24 @@
+from tp1.classes.Node import Node
+from tp1.classes.StateUtils import StateUtils
+
+
 class DFS:
     @staticmethod
     def dfs(initial_state):
-        steps = 0
+        size = 0
         visited = []
         queue = []
-        queue.append(initial_state)
+        root = Node(None, initial_state)
+        queue.append(root)
         while queue:
-            state = queue.pop(-1)
-            if state.is_solution():
-                print("Solution found in ", steps, " steps using DFS")
-                return state
-            if state not in visited:
-                visited.append(state)
-                for child in state.get_children():
+            node = queue.pop(-1)
+            if node.state.is_solution():
+                print("Solution found opening ", size, " nodes using DFS")
+                StateUtils.draw_solution(node, 0)
+                return node.state
+            if node not in visited:
+                visited.append(node)
+                for child in node.get_children():
                     queue.append(child)
-            steps += 1
+            size += 1
         return None

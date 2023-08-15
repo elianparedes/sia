@@ -15,3 +15,6 @@ class Node:
             children.append(Node(self, child))
         return children
 
+    def __eq__(self, other):
+        return self.state == other.state
+
