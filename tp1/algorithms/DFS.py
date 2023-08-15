@@ -6,7 +6,7 @@ class DFS:
     @staticmethod
     def dfs(initial_state):
         size = 0
-        visited = []
+        visited = set()
         queue = []
         root = Node(None, initial_state)
         queue.append(root)
@@ -17,7 +17,7 @@ class DFS:
                 StateUtils.draw_solution(node, 0)
                 return node.state
             if node not in visited:
-                visited.append(node)
+                visited.add(node)
                 for child in node.get_children():
                     queue.append(child)
             size += 1
