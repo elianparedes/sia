@@ -1,7 +1,7 @@
 # Manhattan distance between player and box + box and goal
 # This only works with one box, remove later
-from tp1.classes.Node import Node
-from tp1.classes.StateUtils import StateUtils
+from classes.Node import Node
+from classes.StateUtils import StateUtils
 
 
 def heuristic(state):
