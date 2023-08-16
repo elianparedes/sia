@@ -78,8 +78,8 @@ class StateUtils:
     def draw_solution(node, depth):
         depth += 1
         if node.father is None:
-            print("Depth: ", depth)
             print(node.state)
+            print("Depth: ", depth)
             return
         StateUtils.draw_solution(node.father, depth)
         print(node.state)
