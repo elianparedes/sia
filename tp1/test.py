@@ -3,6 +3,7 @@ from algorithms.BFS import BFS
 from algorithms.LocalGreedy import LocalGreedy
 from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
+from classes.StateUtils import StateUtils
 from classes.State import State
 from classes.StateBuilder import StateBuilder
 import time
