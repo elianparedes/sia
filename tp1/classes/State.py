@@ -25,7 +25,6 @@ class State:
             *self.boxes_points,
             *self.walls_points,
             *self.goals_points,
-            *self.deadlocks_points
         ]
 
         max_row = max(point.x for point in all_points)
@@ -39,8 +38,6 @@ class State:
         for point in self.goals_points:
             matrix[point.x][point.y] = object_symbols['goal']
 
-        for point in self.deadlocks_points:
-            matrix[point.x][point.y] = object_symbols['wall']
 
         for point in self.boxes_points:
             if point in self.goals_points:

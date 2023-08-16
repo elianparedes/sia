@@ -1,0 +1,35 @@
+[
+  {
+    "Maze": 1,
+    "File offset": "148C",
+    "DS": "00FC",
+    "table offset": "0000",
+    "Size X": 22,
+    "Size Y": 11,
+    "End": "14BD",
+    "Length": 50,
+    "Layout": "    XXXXX\n    X   X\n    X*  X\n  XXX  *XXX\n  X  *  * X\nXXX X XXX X     XXXXXX\nX   X XXX XXXXXXX  ..X\nX *  *             ..X\nXXXXX XXXX X@XXXX  ..X\n    X      XXX  XXXXXX\n    XXXXXXXX"
+  },
+  {
+    "Maze": 2,
+    "File offset": "14BE",
+    "DS": "012E",
+    "table offset": "0032",
+    "Size X": 14,
+    "Size Y": 10,
+    "End": "14E8",
+    "Length": 43,
+    "Layout": [
+      "XXXXXXXXXXXX  ",
+      "X..  X     XXX",
+      "X..  X *  *  X",
+      "X..  X*XXXX  X",
+      "X..    @ XX  X",
+      "X..  X X  * XX",
+      "XXXXXX XX* * X",
+      "  X *  * * * X",
+      "  X    X     X",
+      "  XXXXXXXXXXXX"
+    ]
+  }
+]

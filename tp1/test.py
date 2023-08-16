@@ -5,7 +5,6 @@ from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
 from classes.StateUtils import StateUtils
 from classes.State import State
-from classes.StateBuilder import StateBuilder
 import time
 
 # Example Sokoban board
@@ -46,6 +45,7 @@ builder.add_points(walls, '#').add_points(deadlocks, 'x').add_points(goals, 'o')
 grid = builder.build()
 builder.print_grid()
 
+#BFS.bfs(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
 start_time = time.time()
 BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
 #DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
