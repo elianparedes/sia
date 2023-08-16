@@ -64,29 +64,31 @@ class State:
         return self.player_point == other.player_point and self.boxes_points == other.boxes_points
 
     def can_continue_search(self, direction):
-        return self.can_move(direction)  # and not self.has_deadlocks(direction)
+        return self.can_move(direction)
 
+    # returning integer variable avoids repeating line 74
     def can_move(self, direction):
         next_point = self.player_point.move(direction)
         if next_point in self.walls_points:
-            return False
+            return 0
         if next_point in self.boxes_points:
             next_box_point = next_point.move(direction)
-            if next_box_point in self.walls_points or next_box_point in self.boxes_points:
-                return False
-        return True
+            if next_box_point in self.walls_points or next_box_point in self.boxes_points or next_box_point in self.deadlocks_points:
+                return 0
+            return 1
+        return 2
 
     def has_deadlocks(self, point):
-        return point in self.deadlocks_points
+        return point not in self.deadlocks_points
 
     def move(self, direction):
         if self.is_solution():
             print("Solution found :D")
             return
-
-        if self.can_continue_search(direction):
+        can_continue_search = self.can_continue_search(direction)
+        if can_continue_search != 0:
             next_point = self.player_point.move(direction)
-            if next_point in self.boxes_points:
+            if can_continue_search == 1:
                 next_box_point = next_point.move(direction)
                 new_boxes_points = self.boxes_points.copy()
                 new_boxes_points.remove(next_point)

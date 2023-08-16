@@ -29,7 +29,17 @@ print("Player position:", parsed_positions.get('player', []))
 print("Goal positions:", parsed_positions.get('goal', []))
 print("Box positions:", parsed_positions.get('box', []))
 print("Box on goal positions:", parsed_positions.get('box_on_goal', []))
+
+
+walls = parsed_positions.get('wall', [])
+blanks = parsed_positions.get('blank', [])
+boxes = parsed_positions.get('box', [])
+player = parsed_positions.get('player', [])[0]
+goals = parsed_positions.get('goal', [])
+deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
+
+print("Deadlock positions:", deadlocks)
+
 # BFS.bfs(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
-DFS.dfs(State(set(parsed_positions.get('box', [])), set(parsed_positions.get('wall', [])),
-              parsed_positions.get('player', [])[0], set(parsed_positions.get('goal', [])), []))
+BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
 # LocalGreedy.local_greedy(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
