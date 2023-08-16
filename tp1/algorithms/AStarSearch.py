@@ -1,6 +1,6 @@
-import heapq
 from classes.Node import Node
 from classes.StateUtils import StateUtils
+import heapq
 
 
 # Basic heuristic used for testing, remove later
@@ -26,30 +26,30 @@ class _UtilityNode:
         return f"Node: {self.node}, Priority: {self.priority}"
 
 
-class LocalGreedy:
-    @staticmethod
-    def local_greedy(initial_state):
-        size = 0
-        visited = set()
-        queue = []
-        root = Node(None, initial_state)
-        heapq.heappush(queue, _UtilityNode(root, 0))
+class AStarSearch:
 
-        while queue:
-            utility_node = heapq.heappop(queue)
+    @staticmethod
+    def a_star_search(initial_state):
+        size = 0
+        frontier = []
+        heapq.heappush(frontier, _UtilityNode(Node(None, initial_state), 0))
+        total_cost: dict[Node, float] = {Node(None, initial_state): 0}
+
+        while frontier:
+            utility_node = heapq.heappop(frontier)
             node = utility_node.node
 
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using Local Greedy Search")
+                print("Solution found opening ", size, " nodes using A*")
                 StateUtils.draw_solution(node, 0)
                 return node.state
 
-            if node not in visited:
-                visited.add(node)
-                for child in node.get_children():
-                    heuristic_value = heuristic(child.state)
-                    heapq.heappush(queue, _UtilityNode(child, heuristic_value))
+            for child in node.get_children():
+                new_cost = total_cost[node] + 1  # cost = 1
+                if child not in total_cost or new_cost < total_cost[child]:
+                    total_cost[child] = new_cost
+                    priority = new_cost + heuristic(child.getState())
+                    heapq.heappush(frontier, _UtilityNode(child, priority))
 
             size += 1
-            print(size)
         return None

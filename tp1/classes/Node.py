@@ -18,3 +18,6 @@ class Node:
     def __eq__(self, other):
         return self.state == other.state
 
+    def __hash__(self):
+        return hash(self.state)
+        #return hash((self.father, self.state))
