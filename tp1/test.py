@@ -10,18 +10,16 @@ from classes.State import State
 # #@$.##
 # #########
 # """
-sokoban_board ="""
-    #####
-    #   #
-    #   #
-  ### #$##
-  #      #
-### #$## #   ######
-#   # ## #####   .#
-# $   $         ..#
-##### ### #@##   .#
-    #     #########
-    #######
+sokoban_board = """
+  ##### 
+###   # 
+#.@$  # 
+### $.# 
+#.##$ # 
+# # . ##
+#$ *$$.#
+#   .  #
+########
 """
 
 parsed_positions = SokobanUtils.parse_sokoban_board(sokoban_board)

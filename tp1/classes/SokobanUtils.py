@@ -28,7 +28,6 @@ class SokobanUtils:
         }
 
         for row_idx in range(len(matrix)):
-            print(row_idx)
             for col_idx in range(len(matrix[row_idx])):
                 cell = matrix[row_idx][col_idx]
                 if cell in objects:
@@ -39,7 +38,4 @@ class SokobanUtils:
                         positions.setdefault('goal', []).append(Point(row_idx, col_idx))
                     elif object_type == 'player_on_goal':
                         positions.setdefault('goal', []).append(Point(row_idx, col_idx))
-                else:
-                    print("Position (%d, %d) does not correspond to an object." % (row_idx, col_idx))
-
         return positions

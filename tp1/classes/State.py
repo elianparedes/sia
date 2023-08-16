@@ -9,7 +9,7 @@ class State:
         self.goals_points = goals_points
         self.boxes_points = boxes_points
         self.deadlocks_points = deadlocks_points
-
+        self._hash_value = None
     def __str__(self):
         object_symbols = {
             'wall': '#',
@@ -56,17 +56,12 @@ class State:
         return '\n'.join([''.join(row) for row in matrix])
 
     def __hash__(self):
-        # Combine the hash values of the attributes
-        hash_tuple = (
-            tuple(self.boxes_points),
-            tuple(self.walls_points),
-            self.player_point,
-            tuple(self.goals_points),
-        )
-        return hash(hash_tuple)
+        if self._hash_value is None:
+            self._hash_value = hash((tuple(self.boxes_points), self.player_point))
+        return self._hash_value
 
     def __eq__(self, other):
-        return self.walls_points == other.walls_points and self.player_point == other.player_point and self.goals_points == other.goals_points and self.boxes_points == other.boxes_points
+        return self.player_point == other.player_point and self.boxes_points == other.boxes_points
 
     def can_continue_search(self, direction):
         return self.can_move(direction)  # and not self.has_deadlocks(direction)

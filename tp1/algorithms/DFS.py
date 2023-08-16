@@ -1,3 +1,5 @@
+from collections import deque
+
 from tp1.classes.Node import Node
 from tp1.classes.StateUtils import StateUtils
 
@@ -7,11 +9,11 @@ class DFS:
     def dfs(initial_state):
         size = 0
         visited = set()
-        queue = []
+        stack = deque()
         root = Node(None, initial_state)
-        queue.append(root)
-        while queue:
-            node = queue.pop(-1)
+        stack.append(root)
+        while stack:
+            node = stack.pop()
             if node.state.is_solution():
                 print("Solution found opening ", size, " nodes using DFS")
                 StateUtils.draw_solution(node, 0)
@@ -19,6 +21,6 @@ class DFS:
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    queue.append(child)
+                    stack.append(child)
             size += 1
         return None
