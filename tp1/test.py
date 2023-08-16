@@ -42,5 +42,5 @@ print("Deadlock positions:", deadlocks)
 
 # BFS.bfs(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
 BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-#LocalGreedy.local_greedy(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
+#AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+#LocalGreedy.local_greedy(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
