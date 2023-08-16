@@ -1,4 +1,4 @@
-from classes.Direction import Direction
+from classes.Movement import Movement
 from classes.Point import Point
 from typing import List, Set
 
@@ -17,24 +17,24 @@ class StateUtils:
         deadlocks = set()
         corners = StateUtils.__get_corners(walls_points)
         for corner in corners:
-            deadlocks.update(StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Direction.TOP))
+            deadlocks.update(StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Movement.TOP))
             deadlocks.update(
-                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Direction.LEFT))
+                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Movement.LEFT))
             deadlocks.update(
-                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Direction.BOTTOM))
+                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Movement.BOTTOM))
             deadlocks.update(
-                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Direction.RIGHT))
+                StateUtils.__get_deadlocks_in_direction(corner, walls_points, goals_points, Movement.RIGHT))
 
         return deadlocks
 
     @staticmethod
-    def __check_walls_in_directions(walls_points: Set[Point], point: Point,
-                                    direction1: Direction, direction2: Direction):
+    def __check_walls_in_movements(walls_points: Set[Point], point: Point,
+                                    direction1: Movement, direction2: Movement):
         return point.move(direction1) in walls_points and point.move(direction2) in walls_points
 
     @staticmethod
     def __get_deadlocks_in_direction(corner: Point, walls_points: Set[Point], goals_points: Set[Point],
-                                     direction: Direction):
+                                     direction: Movement):
         deadlocks = []
         point = corner
         complete_walls = [True, True]
@@ -60,17 +60,17 @@ class StateUtils:
     def __get_corners(walls_points: Set[Point]) -> List[Point]:
         corners = set()
         for wall in walls_points:
-            if StateUtils.__check_walls_in_directions(walls_points, wall, Direction.TOP, Direction.LEFT):
-                corners.add(Point.move(wall, Direction.TOP_LEFT))
+            if StateUtils.__check_walls_in_movements(walls_points, wall, Movement.TOP, Movement.LEFT):
+                corners.add(Point.move(wall, Movement.TOP_LEFT))
 
-            if StateUtils.__check_walls_in_directions(walls_points, wall, Direction.TOP, Direction.RIGHT):
-                corners.add(Point.move(wall, Direction.TOP_RIGHT))
+            if StateUtils.__check_walls_in_movements(walls_points, wall, Movement.TOP, Movement.RIGHT):
+                corners.add(Point.move(wall, Movement.TOP_RIGHT))
 
-            if StateUtils.__check_walls_in_directions(walls_points, wall, Direction.BOTTOM, Direction.LEFT):
-                corners.add(Point.move(wall, Direction.BOTTOM_LEFT))
+            if StateUtils.__check_walls_in_movements(walls_points, wall, Movement.BOTTOM, Movement.LEFT):
+                corners.add(Point.move(wall, Movement.BOTTOM_LEFT))
 
-            if StateUtils.__check_walls_in_directions(walls_points, wall, Direction.BOTTOM, Direction.RIGHT):
-                corners.add(Point.move(wall, Direction.BOTTOM_RIGHT))
+            if StateUtils.__check_walls_in_movements(walls_points, wall, Movement.BOTTOM, Movement.RIGHT):
+                corners.add(Point.move(wall, Movement.BOTTOM_RIGHT))
 
         return list(corners.difference(walls_points))
 

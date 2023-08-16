@@ -3,6 +3,7 @@ from algorithms.BFS import BFS
 from algorithms.LocalGreedy import LocalGreedy
 from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
+from classes.StateUtils import StateUtils
 from classes.State import State
 from classes.StateBuilder import StateBuilder
 import time
@@ -32,13 +33,12 @@ print("Goal positions:", parsed_positions.get('goal', []))
 print("Box positions:", parsed_positions.get('box', []))
 print("Box on goal positions:", parsed_positions.get('box_on_goal', []))
 
-
 walls = parsed_positions.get('wall', [])
 blanks = parsed_positions.get('blank', [])
 boxes = parsed_positions.get('box', [])
 player = parsed_positions.get('player', [])[0]
 goals = parsed_positions.get('goal', [])
-deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
+deadlocks = StateUtils.obtain_deadlocks(walls,goals)
 
 builder = StateBuilder(max(point.x for point in walls) + 1, max(point.y for point in walls) + 1)
 builder.add_points(walls, '#').add_points(deadlocks, 'x').add_points(goals, 'o')
