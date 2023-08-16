@@ -1,7 +1,7 @@
 from collections import deque
 
-from tp1.classes.Node import Node
-from tp1.classes.StateUtils import StateUtils
+from classes.Node import Node
+from classes.StateUtils import StateUtils
 
 
 class DFS:

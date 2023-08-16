@@ -1,6 +1,6 @@
 from classes.Point import Point
 
-from tp1.classes.Direction import Direction
+from classes.Direction import Direction
 
 
 class SokobanUtils:
