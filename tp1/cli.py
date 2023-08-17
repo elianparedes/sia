@@ -9,6 +9,7 @@ from algorithms.GlobalGreedySearch import GlobalGreedySearch
 from algorithms.LocalGreedySearch import LocalGreedySearch
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
+from classes.StateUtils import StateUtils
 
 # Argument constants
 ARG_TIME = "time"
@@ -16,6 +17,7 @@ ARG_DEADLOCKS = "deadlocks"
 ARG_MAP = "map"
 ARG_ALGORITHM = "algorithm"
 ARG_HELP = "help"
+ARG_SOLUTION = "solution"
 
 ALGORITHMS = ["bfs", "dfs", "locgreedy", "glogreedy", "astar"]
 
@@ -24,6 +26,7 @@ def show_greeting(args, map_contents):
     print("Algorithm: ", args[ARG_ALGORITHM])
     print("Deadlocks? ", args[ARG_DEADLOCKS])
     print("Show time? ", args[ARG_TIME])
+    print("Show solution?", args[ARG_SOLUTION])
     print("Map: ", args[ARG_MAP])
     print(map_contents)
     print("\nAny minute now...")
@@ -40,6 +43,8 @@ def show_help():
     print("\tShows elapsed time")
     print(f"-d, --{ARG_DEADLOCKS}")
     print("\tChecks for deadlocks before running the algorithm")
+    print(f"-s, --{ARG_SOLUTION}")
+    print("\tShows solution at the end")
     print(f"-h, --{ARG_HELP}")
     print("\tYou just typed it!")
     return
@@ -68,25 +73,25 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
         deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
 
     if algorithm.lower() == "glogreedy":
-        GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "dfs":
-        DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "locgreedy":
-        LocalGreedySearch.local_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = LocalGreedySearch.local_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "astar":
-        AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "bfs":
-        BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     else:
         print("Not a known algorithm.")
         print("Options are: bfs, dfs, astar, glogreedy.")
         exit(1)
 
-    return
+    return solution
 
 
 def main():
-    args = {ARG_ALGORITHM: None, ARG_MAP: None, ARG_HELP: False, ARG_TIME: False, ARG_DEADLOCKS: False}
+    args = {ARG_ALGORITHM: None, ARG_MAP: None, ARG_HELP: False, ARG_TIME: False, ARG_DEADLOCKS: False, ARG_SOLUTION: False}
 
     # Parse command-line arguments
     i = 1
@@ -105,6 +110,8 @@ def main():
             args[ARG_TIME] = True
         elif arg in ("-d", f"--{ARG_DEADLOCKS}"):
             args[ARG_DEADLOCKS] = True
+        elif arg in ("-s", f"--{ARG_SOLUTION}"):
+            args[ARG_SOLUTION] = True
 
         i += 1
 
@@ -114,6 +121,7 @@ def main():
     help_flag = args[ARG_HELP]
     show_time = args[ARG_TIME]
     deadlocks = args[ARG_DEADLOCKS]
+    show_solution = args[ARG_SOLUTION]
 
     if len(sys.argv) == 1 or help_flag:
         show_help()
@@ -133,11 +141,15 @@ def main():
         show_greeting(args, map_contents)
         if show_time is True:
             start_time = time.time()
-            execute_algorithm(parsed_contents, algorithm, deadlocks)
+            solution = execute_algorithm(parsed_contents, algorithm, deadlocks)
             elapsed_time = time.time() - start_time
             print(f"Elapsed time: {elapsed_time:.6f} seconds")
         else:
-            execute_algorithm(parsed_contents, algorithm, deadlocks)
+            solution = execute_algorithm(parsed_contents, algorithm, deadlocks)
+
+        print(f"Solution found in {solution[1]} nodes")
+        if show_solution is True:
+            StateUtils.draw_solution(solution[0], 0)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 from collections import deque
+
 from algorithms.AlgorithmsUtils import Heuristics
 from classes.Node import Node
-from classes.StateUtils import StateUtils
 
 
 class LocalGreedySearch:
@@ -17,13 +17,12 @@ class LocalGreedySearch:
             node = stack.pop()
 
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using Local Greedy Search")
-                StateUtils.draw_solution(node, 0)
-                return node.state
+                return node, size
 
             if node not in visited:
                 visited.add(node)
-                sorted_children = sorted(node.get_children(), key=lambda child: Heuristics.heuristic_manhattan_distance(child.state))
+                sorted_children = sorted(node.get_children(),
+                                         key=lambda child: Heuristics.heuristic_manhattan_distance(child.state))
                 stack.extend(reversed(sorted_children))
 
             size += 1

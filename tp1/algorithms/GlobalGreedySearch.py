@@ -2,7 +2,6 @@ import heapq
 
 from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
 from classes.Node import Node
-from classes.StateUtils import StateUtils
 
 
 class GlobalGreedySearch:
@@ -19,9 +18,7 @@ class GlobalGreedySearch:
             node = utility_node.node
 
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using Global Greedy Search")
-                StateUtils.draw_solution(node, 0)
-                return node.state
+                return node, size
 
             if node not in visited:
                 visited.add(node)

@@ -1,7 +1,7 @@
+import heapq
+
 from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
 from classes.Node import Node
-from classes.StateUtils import StateUtils
-import heapq
 
 
 class AStarSearch:
@@ -18,9 +18,7 @@ class AStarSearch:
             node = utility_node.node
 
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using A*")
-                StateUtils.draw_solution(node, 0)
-                return node.state
+                return node, size
 
             for child in node.get_children():
                 new_cost = total_cost[node] + 1  # cost = 1

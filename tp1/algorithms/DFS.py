@@ -1,7 +1,6 @@
 from collections import deque
 
 from classes.Node import Node
-from classes.StateUtils import StateUtils
 
 
 class DFS:
@@ -15,12 +14,12 @@ class DFS:
         while stack:
             node = stack.pop()
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using DFS")
-                StateUtils.draw_solution(node, 0)
-                return node.state
+                return node, size
+
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
                     stack.append(child)
+
             size += 1
         return None

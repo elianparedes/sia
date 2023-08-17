@@ -1,9 +1,6 @@
-from classes.Node import Node
-from classes.StateUtils import StateUtils
 from collections import deque
 
 from classes.Node import Node
-from classes.StateUtils import StateUtils
 
 
 class BFS:
@@ -17,9 +14,7 @@ class BFS:
         while queue:
             node = queue.popleft()
             if node.state.is_solution():
-                print("Solution found opening ", size, " nodes using BFS")
-                StateUtils.draw_solution(node, 0)
-                return node.state
+                return node, size
 
             if node not in visited:
                 visited.add(node)
