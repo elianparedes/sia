@@ -90,17 +90,17 @@ def main():
     while i < len(sys.argv):
         arg = sys.argv[i]
 
-        if arg in ("-a", "--algorithm"):
+        if arg in ("-a", f"--{ARG_ALGORITHM}"):
             i += 1
             args[ARG_ALGORITHM] = sys.argv[i] if i < len(sys.argv) else None
-        elif arg in ("-m", "--map"):
+        elif arg in ("-m", f"--{ARG_MAP}"):
             i += 1
             args[ARG_MAP] = sys.argv[i] if i < len(sys.argv) else None
-        elif arg in ("-h", "--help"):
+        elif arg in ("-h", f"--{ARG_HELP}"):
             args[ARG_HELP] = True
-        elif arg in ("-t", "--time"):
+        elif arg in ("-t", f"--{ARG_TIME}"):
             args[ARG_TIME] = True
-        elif arg in ("-d", "--deadlocks"):
+        elif arg in ("-d", f"--{ARG_DEADLOCKS}"):
             args[ARG_DEADLOCKS] = True
 
         i += 1
@@ -122,6 +122,7 @@ def main():
             exit(1)
         elif args[ARG_ALGORITHM] not in ALGORITHMS:
             print("Not a known algorithm.")
+            exit(1)
 
         map_path = os.path.join(".", "resources", "maps", f"{map_name}.txt")
         map_contents = open_map(map_path)
