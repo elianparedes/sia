@@ -1,11 +1,12 @@
 from collections import deque
 
+from algorithms.AlgorithmABC import AlgorithmABC
 from classes.Node import Node
 
 
-class DFS:
-    @staticmethod
-    def dfs(initial_state):
+class DFS(AlgorithmABC):
+    @classmethod
+    def execute(cls, initial_state):
         size = 0
         visited = set()
         stack = deque()

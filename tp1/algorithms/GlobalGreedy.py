@@ -1,12 +1,13 @@
 import heapq
 
+from algorithms.AlgorithmABC import AlgorithmABC
 from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
 from classes.Node import Node
 
 
-class GlobalGreedySearch:
-    @staticmethod
-    def global_greedy_search(initial_state):
+class GlobalGreedy(AlgorithmABC):
+    @classmethod
+    def execute(cls, initial_state):
         size = 0
         visited = set()
         queue = []
@@ -16,7 +17,6 @@ class GlobalGreedySearch:
         while queue:
             utility_node = heapq.heappop(queue)
             node = utility_node.node
-
             if node.state.is_solution():
                 return node, size
 
@@ -25,6 +25,6 @@ class GlobalGreedySearch:
                 for child in node.get_children():
                     heuristic_value = Heuristics.heuristic_manhattan_distance(child.state)
                     heapq.heappush(queue, _UtilityNode(child, heuristic_value))
-
             size += 1
+
         return None

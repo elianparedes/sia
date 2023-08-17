@@ -2,11 +2,11 @@ import sys
 import os
 import time
 
-from algorithms.AStarSearch import AStarSearch
+from algorithms.AStar import AStar
 from algorithms.BFS import BFS
 from algorithms.DFS import DFS
-from algorithms.GlobalGreedySearch import GlobalGreedySearch
-from algorithms.LocalGreedySearch import LocalGreedySearch
+from algorithms.GlobalGreedy import GlobalGreedy
+from algorithms.LocalGreedy import LocalGreedy
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 from classes.StateUtils import StateUtils
@@ -73,15 +73,15 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
         deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
 
     if algorithm.lower() == "glogreedy":
-        solution = GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = GlobalGreedy.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "dfs":
-        solution = DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = DFS.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "locgreedy":
-        solution = LocalGreedySearch.local_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = LocalGreedy.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "astar":
-        solution = AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = AStar.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "bfs":
-        solution = BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+        solution = BFS.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     else:
         print("Not a known algorithm.")
         print("Options are: bfs, dfs, astar, glogreedy.")

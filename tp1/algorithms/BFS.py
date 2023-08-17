@@ -1,11 +1,12 @@
 from collections import deque
 
+from algorithms.AlgorithmABC import AlgorithmABC
 from classes.Node import Node
 
 
-class BFS:
-    @staticmethod
-    def bfs(initial_state):
+class BFS(AlgorithmABC):
+    @classmethod
+    def execute(cls, initial_state):
         size = 0
         visited = set()
         queue = deque()

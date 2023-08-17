@@ -1,13 +1,14 @@
 import heapq
 
+from algorithms.AlgorithmABC import AlgorithmABC
 from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
 from classes.Node import Node
 
 
-class AStarSearch:
+class AStar(AlgorithmABC):
 
-    @staticmethod
-    def a_star_search(initial_state):
+    @classmethod
+    def execute(cls, initial_state):
         size = 0
         frontier = []
         heapq.heappush(frontier, _UtilityNode(Node(None, initial_state), 0))

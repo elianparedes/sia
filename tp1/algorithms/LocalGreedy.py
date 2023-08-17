@@ -1,12 +1,13 @@
 from collections import deque
 
+from algorithms.AlgorithmABC import AlgorithmABC
 from algorithms.AlgorithmsUtils import Heuristics
 from classes.Node import Node
 
 
-class LocalGreedySearch:
-    @staticmethod
-    def local_greedy_search(initial_state):
+class LocalGreedy(AlgorithmABC):
+    @classmethod
+    def execute(cls, initial_state):
         size = 0
         visited = set()
         stack = deque()
@@ -15,7 +16,6 @@ class LocalGreedySearch:
 
         while stack:
             node = stack.pop()
-
             if node.state.is_solution():
                 return node, size
 
@@ -24,6 +24,6 @@ class LocalGreedySearch:
                 sorted_children = sorted(node.get_children(),
                                          key=lambda child: Heuristics.heuristic_manhattan_distance(child.state))
                 stack.extend(reversed(sorted_children))
-
             size += 1
+
         return None
