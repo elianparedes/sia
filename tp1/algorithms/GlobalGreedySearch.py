@@ -7,9 +7,9 @@ from classes.Node import Node
 from classes.StateUtils import StateUtils
 
 
-class LocalGreedy:
+class GlobalGreedySearch:
     @staticmethod
-    def local_greedy(initial_state):
+    def global_greedy_search(initial_state):
         size = 0
         visited = set()
         queue = []

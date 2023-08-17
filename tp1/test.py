@@ -1,6 +1,6 @@
 from algorithms.DFS import DFS
 from algorithms.BFS import BFS
-from algorithms.LocalGreedy import LocalGreedy
+from algorithms.GlobalGreedySearch import GlobalGreedySearch
 from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
 from classes.StateBuilder import StateBuilder
@@ -27,6 +27,7 @@ sokoban_board = """
 ####  ###  ####
    #### ####   
 """
+
 parsed_positions = SokobanUtils.parse_sokoban_board(sokoban_board)
 
 walls = parsed_positions.get('wall', [])
@@ -48,12 +49,11 @@ builder.add_points(walls, '#').add_points(deadlocks, 'x').add_points(goals, 'o')
 grid = builder.build()
 builder.print_grid()
 
-#BFS.bfs(State(parsed_positions.get('box', []), parsed_positions.get('wall', []), parsed_positions.get('player', [])[0], parsed_positions.get('goal', []), []))
 start_time = time.time()
 #BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+#DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
 #AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-#LocalGreedy.local_greedy(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
 end_time = time.time()
 elapsed_time = end_time - start_time
 print(f"Time taken to execute the algorithm: {elapsed_time:.6f} seconds")

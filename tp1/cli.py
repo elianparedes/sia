@@ -5,7 +5,7 @@ import time
 from algorithms.AStarSearch import AStarSearch
 from algorithms.BFS import BFS
 from algorithms.DFS import DFS
-from algorithms.LocalGreedy import LocalGreedy
+from algorithms.GlobalGreedySearch import GlobalGreedySearch
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 
@@ -16,7 +16,7 @@ ARG_MAP = "map"
 ARG_ALGORITHM = "algorithm"
 ARG_HELP = "help"
 
-ALGORITHMS = ["bfs", "dfs", "locgreedy", "astar"]
+ALGORITHMS = ["bfs", "dfs", "glogreedy", "astar"]
 
 
 def show_greeting(args, map_contents):
@@ -66,8 +66,8 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
     if wants_deadlocks is True:
         deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
 
-    if algorithm.lower() == "locgreedy":
-        LocalGreedy.local_greedy(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+    if algorithm.lower() == "glogreedy":
+        GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "dfs":
         DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "astar":
@@ -76,7 +76,7 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
         BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     else:
         print("Not a known algorithm.")
-        print("Options are: bfs, dfs, astar, locgreedy.")
+        print("Options are: bfs, dfs, astar, glogreedy.")
         exit(1)
 
     return
