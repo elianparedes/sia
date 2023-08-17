@@ -6,6 +6,7 @@ from algorithms.AStarSearch import AStarSearch
 from algorithms.BFS import BFS
 from algorithms.DFS import DFS
 from algorithms.GlobalGreedySearch import GlobalGreedySearch
+from algorithms.LocalGreedySearch import LocalGreedySearch
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 
@@ -16,7 +17,7 @@ ARG_MAP = "map"
 ARG_ALGORITHM = "algorithm"
 ARG_HELP = "help"
 
-ALGORITHMS = ["bfs", "dfs", "glogreedy", "astar"]
+ALGORITHMS = ["bfs", "dfs", "locgreedy", "glogreedy", "astar"]
 
 
 def show_greeting(args, map_contents):
@@ -70,6 +71,8 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
         GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "dfs":
         DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+    elif algorithm.lower() == "locgreedy":
+        LocalGreedySearch.local_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "astar":
         AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     elif algorithm.lower() == "bfs":
