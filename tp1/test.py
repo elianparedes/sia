@@ -5,6 +5,7 @@ from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
 from classes.StateBuilder import StateBuilder
 from classes.StateUtils import StateUtils
+from classes.StateBuilder import StateBuilder
 from classes.State import State
 import time
 

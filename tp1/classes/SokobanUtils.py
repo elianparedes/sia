@@ -21,7 +21,6 @@ class SokobanUtils:
 
         rows = board.split('\n')
         matrix = [list(row.rstrip()) for row in rows]
-        matrix = matrix[1:-1]
 
         positions = {
             'wall': [],

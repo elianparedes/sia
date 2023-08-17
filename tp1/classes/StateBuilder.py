@@ -10,6 +10,9 @@ class StateBuilder:
     def build(self):
         return self.grid
 
+    def __str__(self):
+        return '\n'.join(''.join(row) for row in self.grid)
+
     def print_grid(self):
         for row in self.grid:
             print(''.join(row))

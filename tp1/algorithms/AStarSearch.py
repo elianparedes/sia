@@ -1,6 +1,6 @@
 from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
-from tp1.classes.Node import Node
-from tp1.classes.StateUtils import StateUtils
+from classes.Node import Node
+from classes.StateUtils import StateUtils
 import heapq
 
 
