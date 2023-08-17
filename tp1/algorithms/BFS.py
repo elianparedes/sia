@@ -14,7 +14,6 @@ class BFS:
         queue = deque()
         root = Node(None, initial_state)
         queue.append(root)
-
         while queue:
             node = queue.popleft()
             if node.state.is_solution():

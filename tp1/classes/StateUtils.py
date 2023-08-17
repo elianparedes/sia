@@ -76,10 +76,14 @@ class StateUtils:
 
     @staticmethod
     def draw_solution(node, depth):
-        depth += 1
-        if node.father is None:
+        stack = []
+
+        while node is not None:
+            stack.append((node, depth))
+            node = node.father
+            depth += 1
+
+        while stack:
+            node, depth = stack.pop()
             print(node.state)
             print("Depth: ", depth)
-            return
-        StateUtils.draw_solution(node.father, depth)
-        print(node.state)
