@@ -1,4 +1,5 @@
 from classes.Direction import Direction
+from classes.StateBuilder import StateBuilder
 from classes.StateUtils import StateUtils
 
 
@@ -10,6 +11,7 @@ class State:
         self.boxes_points = boxes_points
         self.deadlocks_points = deadlocks_points
         self._hash_value = None
+
     def __str__(self):
         object_symbols = {
             'wall': '#',
@@ -17,7 +19,7 @@ class State:
             'goal': '.',
             'box': '$',
             'box_on_goal': '*',
-            'player_on_goal': '+'
+            'player_on_goal': '+',
         }
 
         all_points = [
@@ -27,30 +29,22 @@ class State:
             *self.goals_points,
         ]
 
-        max_row = max(point.x for point in all_points)
-        max_col = max(point.y for point in all_points)
+        max_x = max(point.x for point in all_points) + 1
+        max_y = max(point.y for point in all_points) + 1
 
-        matrix = [[' '] * (max_col + 1) for _ in range(max_row + 1)]
+        boxes_on_goals = [point for point in self.boxes_points if point in self.goals_points]
+        boxes = [point for point in self.boxes_points if point not in boxes_on_goals]
+        player_symbol = object_symbols['player_on_goal'] if self.player_point in self.goals_points else object_symbols[
+            'player']
 
-        for point in self.walls_points:
-            matrix[point.x][point.y] = object_symbols['wall']
+        builder = StateBuilder(max_x, max_y)
+        builder.add_points(self.walls_points, object_symbols['wall']) \
+            .add_points(self.goals_points, object_symbols['goal']) \
+            .add_points(boxes_on_goals, object_symbols['box_on_goal']) \
+            .add_points(boxes, object_symbols['box']) \
+            .add_points([self.player_point], player_symbol)
 
-        for point in self.goals_points:
-            matrix[point.x][point.y] = object_symbols['goal']
-
-
-        for point in self.boxes_points:
-            if point in self.goals_points:
-                matrix[point.x][point.y] = object_symbols['box_on_goal']
-            else:
-                matrix[point.x][point.y] = object_symbols['box']
-
-        if self.player_point in self.goals_points:
-            matrix[self.player_point.x][self.player_point.y] = object_symbols['player_on_goal']
-        else:
-            matrix[self.player_point.x][self.player_point.y] = object_symbols['player']
-
-        return '\n'.join([''.join(row) for row in matrix])
+        return str(builder)
 
     def __hash__(self):
         if self._hash_value is None:

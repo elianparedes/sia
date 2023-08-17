@@ -4,6 +4,7 @@ from algorithms.LocalGreedy import LocalGreedy
 from algorithms.AStarSearch import AStarSearch
 from classes.SokobanUtils import SokobanUtils
 from classes.StateUtils import StateUtils
+from classes.StateBuilder import StateBuilder
 from classes.State import State
 import time
 
@@ -31,7 +32,7 @@ blanks = parsed_positions.get('blank', [])
 boxes = parsed_positions.get('box', [])
 player = parsed_positions.get('player', [])[0]
 goals = parsed_positions.get('goal', [])
-deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
+deadlocks = StateUtils.obtain_deadlocks(walls, goals)
 
 
 print("Wall positions:", walls)
