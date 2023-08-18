@@ -51,10 +51,9 @@ builder.print_grid()
 
 start_time = time.time()
 #BFS.bfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-#DFS.dfs(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-#AStarSearch.a_star_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
-#GlobalGreedySearch.global_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks))
-#LocalGreedySearch.local_greedy_search(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+#DFS.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+AStar.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
+#LocalGreedy.local_greedy(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
 end_time = time.time()
 elapsed_time = end_time - start_time
 print(f"Time taken to execute the algorithm: {elapsed_time:.6f} seconds")
