@@ -11,19 +11,7 @@ from algorithms.GlobalGreedy import GlobalGreedy
 
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
-
-
-def open_map(map_path):
-    try:
-        with open(map_path, "r") as map_file:
-            map_contents = map_file.read()
-    except FileNotFoundError:
-        print(f"Map '{map_path}' not found.")
-        print("Make sure it is under the resources/maps folder.")
-        exit(1)
-
-    return map_contents
-
+from classes.FileUtils import FileUtils
 
 def algorithms_benchmark_df():
     algorithms = [
@@ -47,7 +35,7 @@ def algorithms_benchmark_df():
         map_path = os.path.join(maps_dir, map)
         map_name = os.path.splitext(os.path.basename(map))[0]
 
-        map_contents = open_map(map_path)
+        map_contents = FileUtils.open_map(map_path)
         parsed_contents = SokobanUtils.parse_sokoban_board(map_contents)
 
         walls = parsed_contents.get('wall', [])
