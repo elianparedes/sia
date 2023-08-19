@@ -40,6 +40,7 @@ class SokobanUtils:
                         positions.setdefault('box', []).append(Point(row_idx, col_idx))
                         positions.setdefault('goal', []).append(Point(row_idx, col_idx))
                     elif object_type == 'player_on_goal':
+                        positions.setdefault('player', []).append(Point(row_idx, col_idx))
                         positions.setdefault('goal', []).append(Point(row_idx, col_idx))
 
         return positions

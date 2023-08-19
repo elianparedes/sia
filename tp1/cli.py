@@ -148,11 +148,14 @@ def main():
         else:
             solution = execute_algorithm(parsed_contents, algorithm, deadlocks)
 
-        print(f"Solution cost: {solution[0].get_depth()}")
-        print(f"Expanded nodes: {solution[1]}")
-        print(f"Frontier nodes: {solution[2]}")
-        if show_solution is True:
-            StateUtils.draw_solution(solution[0], 0)
+        if solution is None:
+            print("Map has no solution")
+        else:
+            print(f"Solution cost: {solution[0].get_depth()}")
+            print(f"Expanded nodes: {solution[1]}")
+            print(f"Frontier nodes: {solution[2]}")
+            if show_solution is True:
+                StateUtils.draw_solution(solution[0], 0)
 
 
 if __name__ == "__main__":

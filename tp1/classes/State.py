@@ -1,6 +1,5 @@
 from classes.Direction import Direction
 from classes.StateBuilder import StateBuilder
-from classes.StateUtils import StateUtils
 
 
 class State:
