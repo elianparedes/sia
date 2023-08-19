@@ -33,7 +33,7 @@ def show_greeting(args, map_contents):
 
 
 def show_help():
-    print("Usage: python my_script.py -a <algorithm> -m <map_name> [-t] [-d] [-h]")
+    print("Usage: python cli.py -a <algorithm> -m <map_name> [-t] [-d] [-h] [-s]")
     print(f"-a, --{ARG_ALGORITHM}")
     formatted_algorithms = ", ".join([f"'{algorithm}'" for algorithm in ALGORITHMS])
     print(f"\tCan be any of: {formatted_algorithms}")
@@ -83,8 +83,9 @@ def execute_algorithm(parsed_positions, algorithm, wants_deadlocks):
     elif algorithm.lower() == "bfs":
         solution = BFS.execute(State(set(boxes), set(walls), player, set(goals), set(deadlocks)))
     else:
+        formatted_algorithms = ", ".join([f"'{algorithm}'" for algorithm in ALGORITHMS])
         print("Not a known algorithm.")
-        print("Options are: bfs, dfs, astar, glogreedy.")
+        print(f"\tOptions are: {formatted_algorithms}")
         exit(1)
 
     return solution

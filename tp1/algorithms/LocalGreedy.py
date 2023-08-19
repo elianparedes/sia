@@ -1,8 +1,8 @@
 from collections import deque
 
 from algorithms.AlgorithmABC import AlgorithmABC
-from algorithms.AlgorithmsUtils import Heuristics
 from classes.Node import Node
+from heuristics.ManhattanDistance import ManhattanDistance
 
 
 class LocalGreedy(AlgorithmABC):
@@ -22,7 +22,7 @@ class LocalGreedy(AlgorithmABC):
             if node not in visited:
                 visited.add(node)
                 sorted_children = sorted(node.get_children(),
-                                         key=lambda child: Heuristics.heuristic_manhattan_distance(child.state))
+                                         key=lambda child: ManhattanDistance.calculate(child.state))
                 stack.extend(reversed(sorted_children))
             size += 1
 

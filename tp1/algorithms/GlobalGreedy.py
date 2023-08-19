@@ -1,8 +1,9 @@
 import heapq
 
 from algorithms.AlgorithmABC import AlgorithmABC
-from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
+from algorithms.AlgorithmsUtils import _UtilityNode
 from classes.Node import Node
+from heuristics.ManhattanDistance import ManhattanDistance
 
 
 class GlobalGreedy(AlgorithmABC):
@@ -23,7 +24,7 @@ class GlobalGreedy(AlgorithmABC):
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    heuristic_value = Heuristics.heuristic_manhattan_distance(child.state)
+                    heuristic_value = ManhattanDistance.calculate(child.state)
                     heapq.heappush(queue, _UtilityNode(child, heuristic_value))
             size += 1
 

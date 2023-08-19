@@ -1,8 +1,9 @@
 import heapq
 
 from algorithms.AlgorithmABC import AlgorithmABC
-from algorithms.AlgorithmsUtils import _UtilityNode, Heuristics
+from algorithms.AlgorithmsUtils import _UtilityNode
 from classes.Node import Node
+from heuristics.ManhattanDistance import ManhattanDistance
 
 
 class AStar(AlgorithmABC):
@@ -25,7 +26,7 @@ class AStar(AlgorithmABC):
                 new_cost = total_cost[node] + 1  # cost = 1
                 if child not in total_cost or new_cost < total_cost[child]:
                     total_cost[child] = new_cost
-                    priority = new_cost + Heuristics.heuristic_manhattan_distance(child.getState())
+                    priority = new_cost + ManhattanDistance.calculate(child.getState())
                     heapq.heappush(frontier, _UtilityNode(child, priority))
 
             size += 1
