@@ -9,23 +9,23 @@ from heuristics.ManhattanDistance import ManhattanDistance
 class GlobalGreedy(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state):
-        size = 0
+        expanded_nodes = 0
         visited = set()
-        queue = []
-        root = Node(None, initial_state)
-        heapq.heappush(queue, _UtilityNode(root, 0))
+        frontier = []
+        root = Node(None, initial_state, 0)
+        heapq.heappush(frontier, _UtilityNode(root, 0))
 
-        while queue:
-            utility_node = heapq.heappop(queue)
+        while frontier:
+            utility_node = heapq.heappop(frontier)
             node = utility_node.node
             if node.state.is_solution():
-                return node, size
+                return node, expanded_nodes, len(frontier)
 
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
                     heuristic_value = ManhattanDistance.calculate(child.state)
-                    heapq.heappush(queue, _UtilityNode(child, heuristic_value))
-            size += 1
+                    heapq.heappush(frontier, _UtilityNode(child, heuristic_value))
+            expanded_nodes += 1
 
         return None

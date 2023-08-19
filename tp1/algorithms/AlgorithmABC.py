@@ -4,7 +4,11 @@ from classes.Node import Node
 
 
 class AlgorithmABC(ABC):
+
+    """ Execute algorithm
+    :returns If None, then no solution. Else tuple[last_node, expanded_nodes, frontier_size]
+    """
     @classmethod
     @abstractmethod
-    def execute(cls, initial_state) -> tuple[Node, int] | None:
+    def execute(cls, initial_state) -> tuple[Node, int, int] | None:
         pass

@@ -7,20 +7,20 @@ from classes.Node import Node
 class DFS(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state):
-        size = 0
+        expanded_nodes = 0
         visited = set()
-        stack = deque()
-        root = Node(None, initial_state)
-        stack.append(root)
-        while stack:
-            node = stack.pop()
+        frontier = deque()
+        root = Node(None, initial_state, 0)
+        frontier.append(root)
+        while frontier:
+            node = frontier.pop()
             if node.state.is_solution():
-                return node, size
+                return node, expanded_nodes, len(frontier)
 
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    stack.append(child)
+                    frontier.append(child)
 
-            size += 1
+            expanded_nodes += 1
         return None

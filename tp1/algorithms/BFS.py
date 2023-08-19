@@ -7,21 +7,21 @@ from classes.Node import Node
 class BFS(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state):
-        size = 0
+        expanded_nodes = 0
         visited = set()
-        queue = deque()
-        root = Node(None, initial_state)
-        queue.append(root)
-        while queue:
-            node = queue.popleft()
+        frontier = deque()
+        root = Node(None, initial_state, 0)
+        frontier.append(root)
+        while frontier:
+            node = frontier.popleft()
             if node.state.is_solution():
-                return node, size
+                return node, expanded_nodes, len(frontier)
 
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    queue.append(child)
+                    frontier.append(child)
 
-            size += 1
+            expanded_nodes += 1
 
         return None

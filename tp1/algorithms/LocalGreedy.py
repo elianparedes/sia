@@ -8,22 +8,22 @@ from heuristics.ManhattanDistance import ManhattanDistance
 class LocalGreedy(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state):
-        size = 0
+        expanded_nodes = 0
         visited = set()
-        stack = deque()
-        root = Node(None, initial_state)
-        stack.append(root)
+        frontier = deque()
+        root = Node(None, initial_state, 0)
+        frontier.append(root)
 
-        while stack:
-            node = stack.pop()
+        while frontier:
+            node = frontier.pop()
             if node.state.is_solution():
-                return node, size
+                return node, expanded_nodes, len(frontier)
 
             if node not in visited:
                 visited.add(node)
                 sorted_children = sorted(node.get_children(),
                                          key=lambda child: ManhattanDistance.calculate(child.state))
-                stack.extend(reversed(sorted_children))
-            size += 1
+                frontier.extend(reversed(sorted_children))
+            expanded_nodes += 1
 
         return None

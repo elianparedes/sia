@@ -10,24 +10,24 @@ class AStar(AlgorithmABC):
 
     @classmethod
     def execute(cls, initial_state):
-        size = 0
+        expanded_nodes = 0
         frontier = []
-        heapq.heappush(frontier, _UtilityNode(Node(None, initial_state), 0))
-        total_cost: dict[Node, float] = {Node(None, initial_state): 0}
+        heapq.heappush(frontier, _UtilityNode(Node(None, initial_state, 0), 0))
+        total_cost: dict[Node, float] = {Node(None, initial_state, 0): 0}
 
         while frontier:
             utility_node = heapq.heappop(frontier)
             node = utility_node.node
 
             if node.state.is_solution():
-                return node, size
+                return node, expanded_nodes, len(frontier)
 
             for child in node.get_children():
                 new_cost = total_cost[node] + 1  # cost = 1
                 if child not in total_cost or new_cost < total_cost[child]:
                     total_cost[child] = new_cost
-                    priority = new_cost + ManhattanDistance.calculate(child.getState())
+                    priority = new_cost + ManhattanDistance.calculate(child.get_state())
                     heapq.heappush(frontier, _UtilityNode(child, priority))
 
-            size += 1
+            expanded_nodes += 1
         return None
