@@ -1,17 +1,10 @@
-import json
-import os
-import time
 import pandas as pd
 import numpy as np
 
-from algorithms.AStar import AStar
-from algorithms.BFS import BFS
-from algorithms.DFS import DFS
-from algorithms.LocalGreedy import LocalGreedy
-from algorithms.GlobalGreedy import GlobalGreedy
-
 from classes.SokobanUtils import SokobanUtils
+from classes.StateUtils import StateUtils
 from classes.State import State
+from classes.Config import Config
 
 def get_player_heatmap(map_solution, map_width, map_height):
     map_points = np.array([np.array([0 for _ in range(map_height)]) for _ in range(map_width)])
@@ -55,48 +48,35 @@ def open_map(map_path):
     return map_contents
 
 
-def algorithms_heatmap_df(map: str):
-    algorithms = [
-        {"name": "bfs", "function": BFS.execute},
-        {"name": "dfs", "function": DFS.execute},
-        {"name": "a-star", "function": AStar.execute},
-        {"name": "local_greedy", "function": LocalGreedy.execute},
-        {"name": "global_greedy", "function": GlobalGreedy.execute},
-    ]
+def algorithms_heatmap_df():
+    config = Config("heatmap")
 
-    maps_dir = os.path.join(os.path.dirname(
-        __file__), os.pardir, os.pardir,
-        "resources", "maps")
+    if len(config.maps.values()) > 1:
+        raise RuntimeError("Method supports only one map")
 
-    maps = os.listdir(maps_dir)
-    maps.sort()
+    for map in config.maps.values():
+        width, height = get_map_bounding_box(map)
+        parsed_contents = SokobanUtils.parse_sokoban_board(map)
 
-  
-    map_path = os.path.join(maps_dir, map)
+        walls = parsed_contents.get('wall', [])
+        blanks = parsed_contents.get('blank', [])
+        boxes = parsed_contents.get('box', [])
+        player = parsed_contents.get('player', [])[0]
+        goals = parsed_contents.get('goal', [])
 
-    map_contents = open_map(map_path)
-    width, height = get_map_bounding_box(map_contents)
-    parsed_contents = SokobanUtils.parse_sokoban_board(map_contents)
+        deadlocks = StateUtils.obtain_deadlocks(walls,goals)
 
-    walls = parsed_contents.get('wall', [])
-    blanks = parsed_contents.get('blank', [])
-    boxes = parsed_contents.get('box', [])
-    player = parsed_contents.get('player', [])[0]
-    goals = parsed_contents.get('goal', [])
+        state = State(set(boxes), set(walls), player, set(goals), set([]))
+        state_wdeadlocks = State(set(boxes), set(walls), player, set(goals), set(deadlocks))
 
-    deadlocks = SokobanUtils.get_deadlocks(walls, blanks)
+        heatmaps = []
+        for algorithm, alg_function in config.algorithms.items():
+            solution = alg_function(state)
+            player_heatmap = get_player_heatmap(solution, width, height)
 
-    state = State(set(boxes), set(walls), player, set(goals), set([]))
-    state_wdeadlocks = State(set(boxes), set(walls), player, set(goals), set(deadlocks))
+            solution_wdeadlocks = alg_function(state_wdeadlocks)
+            player_heatmap_wdeadlocks = get_player_heatmap(solution_wdeadlocks, width, height)
 
-    heatmaps = []
-    for algorithm in algorithms:
-        solution = algorithm['function'](state)
-        player_heatmap = get_player_heatmap(solution, width, height)
-        
-        solution_wdeadlocks = algorithm['function'](state_wdeadlocks)
-        player_heatmap_wdeadlocks = get_player_heatmap(solution_wdeadlocks, width, height)
-        
-        heatmaps.append({"algorithm": algorithm["name"], "without_deadlocks": player_heatmap, "with_deadlocks": player_heatmap_wdeadlocks})
+            heatmaps.append({"algorithm": algorithm, "without_deadlocks": player_heatmap, "with_deadlocks": player_heatmap_wdeadlocks})
 
-    return pd.DataFrame(heatmaps)
+        return pd.DataFrame(heatmaps)

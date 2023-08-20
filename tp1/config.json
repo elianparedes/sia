@@ -1,0 +1,9 @@
+{
+  "algorithms": {
+    "deadlocks": true
+  },
+  "heatmap": {
+    "deadlocks": true,
+    "maps": ["example5"]
+  }
+}
