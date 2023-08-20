@@ -7,7 +7,8 @@ from classes.State import State
 from classes.Config import Config
 
 def get_player_heatmap(map_solution, map_width, map_height):
-    map_points = np.array([np.array([0 for _ in range(map_height)]) for _ in range(map_width)])
+    max_side = max(map_width, map_height)
+    map_points = np.array([np.array([0 for _ in range(max_side)]) for _ in range(max_side)])
 
     node = map_solution[0]
     depth = map_solution[1]

@@ -1,7 +1,6 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-
 def algorithms_heatmaps_plot(df):
     algorithms = df["algorithm"].unique()
 
@@ -19,6 +18,7 @@ def algorithms_heatmaps_plot(df):
         fig.add_trace(
             go.Heatmap(
                 z=z,
+                text=z,
                 showscale=False if i > 0 else True
             ),
             row=1,
@@ -28,12 +28,22 @@ def algorithms_heatmaps_plot(df):
         fig.add_trace(
             go.Heatmap(
                 z=z_wdeadlocks,
+                text=z_wdeadlocks,
                 showscale=False if i > 0 else True
             ),
             row=2,
             col=i + 1
         )
 
+    
+    for i in range(1, cols + 1):
+        fig.update_xaxes(title_text="X map point", row=2, col=i)
+        fig.update_xaxes(title_text="X map point", row=1, col=i)
+        fig.update_yaxes(title_text="Y map point", row=1, col=i)
+        fig.update_yaxes(title_text="Y map point", row=2, col=i)
+        
+   
     fig.update_layout(yaxis=dict(scaleanchor='x'))
     fig.update_yaxes(autorange="reversed")
+    
     fig.show()
