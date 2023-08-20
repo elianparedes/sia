@@ -8,7 +8,9 @@ from heuristics.ManhattanDistance import ManhattanDistance
 
 class GlobalGreedy(AlgorithmABC):
     @classmethod
-    def execute(cls, initial_state):
+    def execute(cls, initial_state, heuristic_fn=None):
+        if heuristic_fn is None:
+            heuristic_fn = ManhattanDistance
         expanded_nodes = 0
         visited = set()
         frontier = []
@@ -24,7 +26,7 @@ class GlobalGreedy(AlgorithmABC):
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    heuristic_value = ManhattanDistance.calculate(child.state)
+                    heuristic_value = heuristic_fn.calculate(child.state)
                     heapq.heappush(frontier, _UtilityNode(child, heuristic_value))
             expanded_nodes += 1
 

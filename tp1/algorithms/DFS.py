@@ -6,7 +6,7 @@ from classes.Node import Node
 
 class DFS(AlgorithmABC):
     @classmethod
-    def execute(cls, initial_state):
+    def execute(cls, initial_state, heuristic_fn=None):
         expanded_nodes = 0
         visited = set()
         frontier = deque()

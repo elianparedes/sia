@@ -11,7 +11,9 @@ from heuristics.MinDistance import MinDistance
 class AStar(AlgorithmABC):
 
     @classmethod
-    def execute(cls, initial_state):
+    def execute(cls, initial_state, heuristic_fn=None):
+        if heuristic_fn is None:
+            heuristic_fn = ManhattanDistance
         expanded_nodes = 0
         frontier = []
         heapq.heappush(frontier, _UtilityNode(Node(None, initial_state, 0), 0))
@@ -27,7 +29,7 @@ class AStar(AlgorithmABC):
                 new_cost = total_cost[node] + 1  # cost = 1
                 if child not in total_cost or new_cost < total_cost[child]:
                     total_cost[child] = new_cost
-                    priority = new_cost + HeuristicCombination.calculate(child.get_state(), ManhattanDistance, MinDistance)
+                    priority = new_cost + heuristic_fn.calculate(child.state)
                     heapq.heappush(frontier, _UtilityNode(child, priority))
 
             expanded_nodes += 1
