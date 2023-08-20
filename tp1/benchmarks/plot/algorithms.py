@@ -6,15 +6,15 @@ def algorithms_benchmarks_plot(df):
     maps = df["map"].unique()
     algorithms = df["algorithm"].unique()
 
-    cols = 2
-    rows = len(maps) // cols + (len(maps) % cols)
+    cols = 3
+    rows = math.ceil(len(maps) / cols)
 
     fig = make_subplots(rows=rows, cols=cols, subplot_titles=maps)
 
     for i, map in enumerate(maps):
 
         row = (i % rows) + 1
-        col = (i // cols) + 1
+        col = (i % cols) + 1
 
         map_timestamps = df[df['map'] == map]
 
