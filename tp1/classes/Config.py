@@ -20,7 +20,9 @@ class Config:
             "global_greedy": GlobalGreedy.execute
         }
 
-        with open("../config.json", "r") as f:
+        config_path = os.path.join(os.path.dirname(__file__), os.pardir, "config.json")
+
+        with open(config_path, "r") as f:
             config = json.load(f)
             config = config[config_key]
             deadlocks = config["deadlocks"]
