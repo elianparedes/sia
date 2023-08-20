@@ -4,6 +4,6 @@
   },
   "heatmap": {
     "deadlocks": true,
-    "maps": ["example5"]
+    "maps": ["level5"]
   }
 }
