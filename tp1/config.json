@@ -5,5 +5,10 @@
   "heatmap": {
     "deadlocks": true,
     "maps": ["level5"]
+  },
+  "heuristic": {
+    "deadlocks": true,
+    "maps": ["level2"],
+    "algorithms": ["a-star", "global_greedy", "local_greedy"]
   }
 }
