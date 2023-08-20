@@ -31,7 +31,7 @@ def heuristics_benchmark_df():
         player = parsed_contents.get('player', [])[0]
         goals = parsed_contents.get('goal', [])
 
-        deadlocks = StateUtils.obtain_deadlocks(walls, blanks)
+        deadlocks = StateUtils.obtain_deadlocks(walls, goals)
 
         state_wdeadlocks = State(set(boxes), set(
             walls), player, set(goals), set(deadlocks))
