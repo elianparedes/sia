@@ -1,12 +1,8 @@
-import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from benchmarks.df.heatmaps import algorithms_heatmap_df
 
-def algorithms_benchmarks_plot():
-    df = algorithms_heatmap_df("example3.txt")
-
+def algorithms_heatmaps_plot(df):
     algorithms = df["algorithm"].unique()
 
     cols = 5
@@ -15,7 +11,6 @@ def algorithms_benchmarks_plot():
     fig = make_subplots(rows=rows, cols=cols, subplot_titles=algorithms)
 
     for i, algorithm in enumerate(algorithms):
-
         heatmap = df[df['algorithm'] == algorithm]
 
         z = heatmap["without_deadlocks"].tolist()[0]
@@ -28,7 +23,7 @@ def algorithms_benchmarks_plot():
             ),
             row=1,
             col=i + 1
-        )   
+        )
 
         fig.add_trace(
             go.Heatmap(
@@ -37,10 +32,8 @@ def algorithms_benchmarks_plot():
             ),
             row=2,
             col=i + 1
-        )   
+        )
 
-    fig.update_layout(yaxis = dict(scaleanchor = 'x'))
+    fig.update_layout(yaxis=dict(scaleanchor='x'))
     fig.update_yaxes(autorange="reversed")
     fig.show()
-
-algorithms_benchmarks_plot()
