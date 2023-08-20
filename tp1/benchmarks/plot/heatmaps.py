@@ -37,13 +37,11 @@ def algorithms_heatmaps_plot(df):
 
     
     for i in range(1, cols + 1):
-        fig.update_xaxes(title_text="X map point", row=2, col=i)
-        fig.update_xaxes(title_text="X map point", row=1, col=i)
-        fig.update_yaxes(title_text="Y map point", row=1, col=i)
-        fig.update_yaxes(title_text="Y map point", row=2, col=i)
+        fig.update_xaxes(title_text="X map point", scaleanchor='x', row=2, col=i)
+        fig.update_xaxes(title_text="X map point", scaleanchor='x', row=1, col=i)
+        fig.update_yaxes(title_text="Y map point", scaleanchor='x', row=1, col=i)
+        fig.update_yaxes(title_text="Y map point", scaleanchor='x', row=2, col=i)
         
-   
-    fig.update_layout(yaxis=dict(scaleanchor='x'))
     fig.update_yaxes(autorange="reversed")
     
     fig.show()
