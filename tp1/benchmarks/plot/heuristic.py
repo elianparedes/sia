@@ -71,6 +71,24 @@ def heuristics_benchmarks_plot(df):
             col=col,
         )
 
+        x = algorithms
+        data = map_timestamps[map_timestamps.heuristic.str.contains('bipartite')]
+        y = data['expanded_nodes']
+
+        fig.add_trace(
+            go.Bar(
+                x=x,
+                y=y,
+                text=y,
+                name="Bipartite",
+                marker_color="#293462",
+                textposition="outside",
+                showlegend=False if i > 0 else True
+            ),
+            row=row,
+            col=col,
+        )
+
         fig.update_xaxes(title_text="Algorithms used", row=row, col=col)
         fig.update_yaxes(title_text="Expanded nodes", row=row, col=col)
 

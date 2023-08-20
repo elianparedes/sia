@@ -8,6 +8,7 @@ from classes.StateUtils import StateUtils
 from heuristics.ManhattanDistance import ManhattanDistance
 from heuristics.MinDistance import MinDistance
 from heuristics.HeuristicCombination import HeuristicCombination
+from heuristics.BipartiteHeuristic import BipartiteHeuristic
 
 def heuristics_benchmark_df():
     config = Config("heuristic")
@@ -17,7 +18,8 @@ def heuristics_benchmark_df():
     heuristics = [
         {"name": "manhattan_distance", "function": ManhattanDistance},
         {"name": "min_distance", "function": MinDistance},
-        {"name": "heuristic_combination", "function": HeuristicCombination}
+        {"name": "heuristic_combination", "function": HeuristicCombination},
+        {"name": "bipartite", "function": BipartiteHeuristic}
     ]
 
     for map_name,map in config.maps.items():
