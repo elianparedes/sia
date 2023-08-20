@@ -14,7 +14,9 @@ class BipartiteHeuristic(HeuristicABC):
                     box_distance = abs(box.x - goal.x) + abs(box.y - goal.y)
                     box_distance += abs(state.player_point.x - box.x) + abs(state.player_point.y - box.y)
                     distance.append(box_distance)
-            distances.append(distance)
+
+            if len(distance) > 0:
+                distances.append(distance)
 
         # We now find the minimum row-col combination by iterating over all possible scenarios
         for permutation in itertools.permutations(range(len(distances)), len(distances)):
