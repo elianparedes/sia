@@ -8,7 +8,7 @@
   },
   "heuristic": {
     "deadlocks": true,
-    "maps": ["level2"],
+    "maps": ["level1","level2", "level3", "level4", "level5"],
     "algorithms": ["a-star", "global_greedy", "local_greedy"]
   }
 }
