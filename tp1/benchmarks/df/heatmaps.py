@@ -49,8 +49,7 @@ def open_map(map_path):
     return map_contents
 
 
-def algorithms_heatmap_df():
-    config = Config("heatmap")
+def algorithms_heatmap_df(config):
 
     if len(config.maps.values()) > 1:
         raise RuntimeError("Method supports only one map")

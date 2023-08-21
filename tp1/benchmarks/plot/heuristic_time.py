@@ -15,8 +15,8 @@ def standard_deviation(times):
         sum += (time-mean) ** 2
     return (sum/len(times))**0.5
 
-def heuristics_time_benchmarks_plot():
-    df = pd.read_csv(CSV_PATH)
+def heuristics_time_benchmarks_plot(df):
+
 
     maps = df["map"].unique()
     algorithms = df["algorithm"].unique()

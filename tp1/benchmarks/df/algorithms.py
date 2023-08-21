@@ -6,8 +6,7 @@ from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 from classes.StateUtils import StateUtils
 
-def algorithms_benchmark_df():
-    config = Config("algorithms")
+def algorithms_benchmark_df(config):
     data_rows = []
 
     for map_name,map in config.maps.items():
