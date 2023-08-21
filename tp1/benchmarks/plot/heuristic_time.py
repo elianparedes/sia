@@ -1,13 +1,21 @@
 import os
 import math
 import pandas as pd
+import statistics
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "heuristic.csv")
 
-def heuristics_benchmarks_plot():
+def standard_deviation(times):
+    mean = statistics.mean(times)
+    sum = 0
+    for time in times:
+        sum += (time-mean) ** 2
+    return (sum/len(times))**0.5
+
+def heuristics_time_benchmarks_plot():
     df = pd.read_csv(CSV_PATH)
 
     maps = df["map"].unique()
@@ -26,8 +34,12 @@ def heuristics_benchmarks_plot():
         map_timestamps = df[df['map'] == map]
 
         x = algorithms
-        data = map_timestamps[map_timestamps.heuristic.str.contains('manhattan_distance')]
-        y = data['expanded_nodes'].unique()
+        filtered_data = map_timestamps[map_timestamps['heuristic'] == 'manhattan_distance']
+        filtered_times = filtered_data.groupby(['algorithm'])['time']
+        y = filtered_times.mean()
+        deviations = []
+        for filter_time in filtered_times:
+            deviations.append(standard_deviation(filter_time))
 
         fig.add_trace(
             go.Bar(
@@ -35,17 +47,19 @@ def heuristics_benchmarks_plot():
                 y=y,
                 text=y,
                 name="Manhattan distance",
+                texttemplate='%{text:.3f}',
                 marker_color="#F7BE15",
                 textposition="outside",
-                showlegend=False if i > 0 else True
+                showlegend=False if i > 0 else True,
+                error_y = dict(type='data', array=deviations)
             ),
             row=row,
             col=col
         )
 
         x = algorithms
-        data = map_timestamps[map_timestamps.heuristic.str.contains('min_distance')]
-        y = data['expanded_nodes'].unique()
+        filtered_data = map_timestamps[map_timestamps['heuristic'] == 'min_distance']
+        y = filtered_data.groupby(['algorithm'])['time'].mean()
 
         fig.add_trace(
             go.Bar(
@@ -53,6 +67,7 @@ def heuristics_benchmarks_plot():
                 y=y,
                 text=y,
                 name="Min distance",
+                texttemplate='%{text:.3f}',
                 marker_color="#1C818A",
                 textposition="outside",
                 showlegend=False if i > 0 else True
@@ -62,8 +77,8 @@ def heuristics_benchmarks_plot():
         )
 
         x = algorithms
-        data = map_timestamps[map_timestamps.heuristic.str.contains('bipartite')]
-        y = data['expanded_nodes'].unique()
+        filtered_data = map_timestamps[map_timestamps['heuristic'] == 'bipartite']
+        y = filtered_data.groupby(['algorithm'])['time'].mean()
 
         fig.add_trace(
             go.Bar(
@@ -71,6 +86,7 @@ def heuristics_benchmarks_plot():
                 y=y,
                 text=y,
                 name="Bipartite",
+                texttemplate='%{text:.3f}',
                 marker_color="#293462",
                 textposition="outside",
                 showlegend=False if i > 0 else True
@@ -80,8 +96,8 @@ def heuristics_benchmarks_plot():
         )
 
         x = algorithms
-        data = map_timestamps[map_timestamps.heuristic.str.contains('heuristic_combination')]
-        y = data['expanded_nodes'].unique()
+        filtered_data = map_timestamps[map_timestamps['heuristic'] == 'heuristic_combination']
+        y = filtered_data.groupby(['algorithm'])['time'].mean()
 
         fig.add_trace(
             go.Bar(
@@ -89,6 +105,7 @@ def heuristics_benchmarks_plot():
                 y=y,
                 text=y,
                 name="Heuristic combination",
+                texttemplate='%{text:.3f}',
                 marker_color="#F0B26E",
                 textposition="outside",
                 showlegend=False if i > 0 else True
@@ -98,6 +115,6 @@ def heuristics_benchmarks_plot():
         )
 
         fig.update_xaxes(title_text="Algorithms used", row=row, col=col)
-        fig.update_yaxes(title_text="Expanded nodes", row=row, col=col)
+        fig.update_yaxes(title_text="Execution time [seconds]", row=row, col=col)
 
     fig.show()

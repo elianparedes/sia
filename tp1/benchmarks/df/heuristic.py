@@ -1,3 +1,5 @@
+import os
+import time
 import pandas as pd
 
 from classes.Config import Config
@@ -9,6 +11,8 @@ from heuristics.ManhattanDistance import ManhattanDistance
 from heuristics.MinDistance import MinDistance
 from heuristics.HeuristicCombination import HeuristicCombination
 from heuristics.BipartiteHeuristic import BipartiteHeuristic
+
+CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "heuristic.csv")
 
 def heuristics_benchmark_df():
     config = Config("heuristic")
@@ -40,11 +44,16 @@ def heuristics_benchmark_df():
 
         for algorithm, alg_function in config.algorithms.items():
             for heuristic in heuristics:
-                print(f"Executing {algorithm} with deadlocks and with heuristic {heuristic['name']}")
+                for _ in range(10):
+                    print(f"Executing {algorithm} with deadlocks and with heuristic {heuristic['name']}")
 
-                nodes, expanded_nodes, frontier = alg_function(state_wdeadlocks, heuristic["function"])
+                    start_time = time.time()
+                    nodes, expanded_nodes, frontier = alg_function(state_wdeadlocks, heuristic["function"])
+                    end_time = time.time() - start_time
 
-                data_rows.append(
-                    {"map": map_name, "algorithm": algorithm, "expanded_nodes": expanded_nodes, "heuristic": heuristic['name']})
+                    data_rows.append(
+                        {"map": map_name, "algorithm": algorithm, "time": end_time,
+                         "expanded_nodes": expanded_nodes, "heuristic": heuristic['name']})
 
-    return pd.DataFrame(data_rows)
+    df = pd.DataFrame(data_rows)
+    df.to_csv(CSV_PATH)
