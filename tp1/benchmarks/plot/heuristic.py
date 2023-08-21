@@ -38,7 +38,7 @@ def heuristics_benchmarks_plot():
                 marker_color="#F7BE15",
                 textposition="outside",
                 showlegend=False if i > 0 else True
-            ),
+            ).update(textfont=dict(size=8)),
             row=row,
             col=col
         )
@@ -56,7 +56,7 @@ def heuristics_benchmarks_plot():
                 marker_color="#1C818A",
                 textposition="outside",
                 showlegend=False if i > 0 else True
-            ),
+            ).update(textfont=dict(size=8)),
             row=row,
             col=col,
         )
@@ -73,11 +73,12 @@ def heuristics_benchmarks_plot():
                 name="Bipartite",
                 marker_color="#293462",
                 textposition="outside",
-                showlegend=False if i > 0 else True
-            ),
+                showlegend=False if i > 0 else True,
+            ).update(textfont=dict(size=8)),
             row=row,
             col=col,
         )
+
 
         x = algorithms
         data = map_timestamps[map_timestamps.heuristic.str.contains('heuristic_combination')]
@@ -92,12 +93,14 @@ def heuristics_benchmarks_plot():
                 marker_color="#F0B26E",
                 textposition="outside",
                 showlegend=False if i > 0 else True
-            ),
+            ).update(textfont=dict(size=8)),
             row=row,
             col=col,
         )
 
         fig.update_xaxes(title_text="Algorithms used", row=row, col=col)
         fig.update_yaxes(title_text="Expanded nodes", row=row, col=col)
+
+        fig.update_traces(cliponaxis=False)
 
     fig.show()
