@@ -36,10 +36,10 @@ def heuristics_time_benchmarks_plot():
         x = algorithms
         filtered_data = map_timestamps[map_timestamps['heuristic'] == 'manhattan_distance']
         filtered_times = filtered_data.groupby(['algorithm'])['time']
-        y = filtered_times.mean()
         deviations = []
-        for filter_time in filtered_times:
-            deviations.append(standard_deviation(filter_time))
+        for name, group in filtered_times:
+            deviations.append(standard_deviation(group))
+        y = filtered_times.mean()
 
         fig.add_trace(
             go.Bar(
@@ -51,15 +51,17 @@ def heuristics_time_benchmarks_plot():
                 marker_color="#F7BE15",
                 textposition="outside",
                 showlegend=False if i > 0 else True,
-                error_y = dict(type='data', array=deviations)
+                error_y=dict(type='data', array=deviations)
             ),
             row=row,
             col=col
         )
 
-        x = algorithms
         filtered_data = map_timestamps[map_timestamps['heuristic'] == 'min_distance']
-        y = filtered_data.groupby(['algorithm'])['time'].mean()
+        filtered_times = filtered_data.groupby(['algorithm'])['time']
+        for name, group in filtered_times:
+            deviations.append(standard_deviation(group))
+        y = filtered_times.mean()
 
         fig.add_trace(
             go.Bar(
@@ -70,15 +72,18 @@ def heuristics_time_benchmarks_plot():
                 texttemplate='%{text:.3f}',
                 marker_color="#1C818A",
                 textposition="outside",
-                showlegend=False if i > 0 else True
+                showlegend=False if i > 0 else True,
+                error_y = dict(type='data', array=deviations)
             ),
             row=row,
             col=col,
         )
 
-        x = algorithms
         filtered_data = map_timestamps[map_timestamps['heuristic'] == 'bipartite']
-        y = filtered_data.groupby(['algorithm'])['time'].mean()
+        filtered_times = filtered_data.groupby(['algorithm'])['time']
+        for name, group in filtered_times:
+            deviations.append(standard_deviation(group))
+        y = filtered_times.mean()
 
         fig.add_trace(
             go.Bar(
@@ -89,15 +94,18 @@ def heuristics_time_benchmarks_plot():
                 texttemplate='%{text:.3f}',
                 marker_color="#293462",
                 textposition="outside",
-                showlegend=False if i > 0 else True
+                showlegend=False if i > 0 else True,
+                error_y=dict(type='data', array=deviations)
             ),
             row=row,
             col=col,
         )
 
-        x = algorithms
         filtered_data = map_timestamps[map_timestamps['heuristic'] == 'heuristic_combination']
-        y = filtered_data.groupby(['algorithm'])['time'].mean()
+        filtered_times = filtered_data.groupby(['algorithm'])['time']
+        for name, group in filtered_times:
+            deviations.append(standard_deviation(group))
+        y = filtered_times.mean()
 
         fig.add_trace(
             go.Bar(
@@ -108,7 +116,8 @@ def heuristics_time_benchmarks_plot():
                 texttemplate='%{text:.3f}',
                 marker_color="#F0B26E",
                 textposition="outside",
-                showlegend=False if i > 0 else True
+                showlegend=False if i > 0 else True,
+                error_y=dict(type='data', array=deviations)
             ),
             row=row,
             col=col,
