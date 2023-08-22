@@ -6,7 +6,7 @@ from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 from classes.StateUtils import StateUtils
 
-CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms.csv")
+CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms_df.csv")
 
 
 def algorithms_benchmark_df(config):

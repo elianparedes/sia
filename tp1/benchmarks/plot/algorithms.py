@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from plotly.subplots import make_subplots
 
-CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms.csv")
+CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms_df.csv")
 
 def standard_deviation(times):
     mean = statistics.mean(times)
