@@ -27,7 +27,11 @@ class LocalGreedy(AlgorithmABC):
 
             if node not in visited:
                 visited.add(node)
-                sorted_children = sorted(node.get_children(),
+                children = []
+                for child in node.get_children():
+                    if child not in visited:
+                        children.append(child)
+                sorted_children = sorted(children,
                                          key=lambda child: heuristic_fn.calculate(child.state))
                 frontier.extend(reversed(sorted_children))
             expanded_nodes += 1

@@ -24,7 +24,8 @@ class BFS(AlgorithmABC):
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    frontier.append(child)
+                    if child not in visited:
+                        frontier.append(child)
 
             expanded_nodes += 1
 

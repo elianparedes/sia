@@ -30,8 +30,9 @@ class GlobalGreedy(AlgorithmABC):
             if node not in visited:
                 visited.add(node)
                 for child in node.get_children():
-                    heuristic_value = heuristic_fn.calculate(child.state)
-                    heapq.heappush(frontier, _UtilityNode(child, heuristic_value))
+                    if child not in visited:
+                        heuristic_value = heuristic_fn.calculate(child.state)
+                        heapq.heappush(frontier, _UtilityNode(child, heuristic_value))
             expanded_nodes += 1
 
         return None
