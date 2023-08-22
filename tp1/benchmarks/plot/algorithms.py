@@ -46,7 +46,7 @@ def algorithms_benchmarks_plot():
             go.Bar(
                 x=x,
                 y=y,
-                text=[f"{i}" for i, val in enumerate(y.values)],
+                text=y,
                 name="Without deadlocks",
                 marker_color="#F7BE15",
                 textposition="outside",
