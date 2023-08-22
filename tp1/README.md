@@ -31,7 +31,7 @@ Usage: python cli.py -a <algorithm> -m <map_name> [-t] [-d] [-h] [-s]
 _Note_: If you wish to add new maps, they MUST be under the `resources/maps` folder. Maps MUST be a .txt file. 
 
 ### Benchmarks.py
-In order to run the benchmarks.py you will need to configure the `config.json` file. 
+In order to run the `benchmarks.py` you will need to configure the `config.json` file. After configuring it simply run: `python -m benchmarks.benchmarks`.
 The structure of the file is as follows:
 ```json
 "benchmarks": {
