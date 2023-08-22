@@ -1,11 +1,11 @@
 from classes.Config import Config
-from df.algorithms import algorithms_benchmark_df
-from plot.algorithms import algorithms_benchmarks_plot
-from df.heatmaps import algorithms_heatmap_df
-from plot.heatmaps import algorithms_heatmaps_plot
-from df.heuristic import heuristics_benchmark_df
-from plot.heuristic import heuristics_benchmarks_plot
-from plot.heuristic_time import heuristics_time_benchmarks_plot
+from benchmarks.df.algorithms import algorithms_benchmark_df
+from benchmarks.plot.algorithms import algorithms_benchmarks_plot
+from benchmarks.df.heatmaps import algorithms_heatmap_df
+from benchmarks.plot.heatmaps import algorithms_heatmaps_plot
+from benchmarks.df.heuristic import heuristics_benchmark_df
+from benchmarks.plot.heuristic import heuristics_benchmarks_plot
+from benchmarks.plot.heuristic_time import heuristics_time_benchmarks_plot
 import os
 import pandas as pd
 

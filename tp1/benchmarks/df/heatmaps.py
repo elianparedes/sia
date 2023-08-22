@@ -63,9 +63,7 @@ def append_boxes_position(state, map_matrix):
 
     map_matrix[player_point.x][player_point.y] += 1
 
-def algorithms_heatmap_df():
-    config = Config("heatmap")
-
+def algorithms_heatmap_df(config):
     if len(config.maps.values()) > 1:
         raise RuntimeError("Method supports only one map")
 
