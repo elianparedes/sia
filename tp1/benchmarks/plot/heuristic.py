@@ -7,8 +7,7 @@ from plotly.subplots import make_subplots
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "heuristic.csv")
 
-def heuristics_benchmarks_plot():
-    df = pd.read_csv(CSV_PATH)
+def heuristics_benchmarks_plot(df):
 
     maps = df["map"].unique()
     algorithms = df["algorithm"].unique()

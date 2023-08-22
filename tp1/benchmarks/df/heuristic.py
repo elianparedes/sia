@@ -14,8 +14,7 @@ from heuristics.BipartiteHeuristic import BipartiteHeuristic
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "heuristic.csv")
 
-def heuristics_benchmark_df():
-    config = Config("heuristic")
+def heuristics_benchmark_df(config):
 
     data_rows = []
 
@@ -56,4 +55,4 @@ def heuristics_benchmark_df():
                          "expanded_nodes": expanded_nodes, "heuristic": heuristic['name']})
 
     df = pd.DataFrame(data_rows)
-    df.to_csv(CSV_PATH)
+    return df

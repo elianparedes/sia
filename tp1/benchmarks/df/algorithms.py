@@ -2,15 +2,15 @@ import os
 import time
 import pandas as pd
 
-from classes.Config import Config
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 from classes.StateUtils import StateUtils
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms.csv")
 
-def algorithms_benchmark_df():
-    config = Config("algorithms")
+
+def algorithms_benchmark_df(config):
+
     data_rows = []
 
     for map_name,map in config.maps.items():

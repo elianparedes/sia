@@ -1,14 +1,29 @@
 {
-  "algorithms": {
-    "deadlocks": true
-  },
-  "heatmap": {
-    "deadlocks": true,
-    "maps": ["level5"]
-  },
-  "heuristic": {
-    "deadlocks": true,
-    "maps": ["level1","level2", "level3", "level4", "level5"],
-    "algorithms": ["a-star", "global_greedy", "local_greedy"]
-  }
+    "benchmarks": {
+        "dataframe": true,
+        "export_csv": true,
+        "plot": true,
+        "run": ["heatmap"]
+    },
+    "settings": {
+        "algorithms": {
+            "deadlocks": true
+        },
+        "heatmap": {
+            "deadlocks": true,
+            "algorithms": [
+                "bfs",
+                "dfs",
+                "a-star",
+                "global_greedy",
+                "local_greedy"
+            ],
+            "maps": ["level5"]
+        },
+        "heuristic": {
+            "deadlocks": true,
+            "maps": ["level3"],
+            "algorithms": ["a-star", "global_greedy", "local_greedy"]
+        }
+    }
 }
