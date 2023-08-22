@@ -7,7 +7,7 @@ from heuristics.ManhattanDistance import ManhattanDistance
 
 class LocalGreedy(AlgorithmABC):
     @classmethod
-    def execute(cls, initial_state, heuristic_fn=None):
+    def execute(cls, initial_state, heuristic_fn=None, on_state_change=None):
         if heuristic_fn is None:
             heuristic_fn = ManhattanDistance
         expanded_nodes = 0
@@ -18,6 +18,10 @@ class LocalGreedy(AlgorithmABC):
 
         while frontier:
             node = frontier.pop()
+           
+            if (on_state_change is not None):     
+                on_state_change(node.state)
+
             if node.state.is_solution():
                 return node, expanded_nodes, len(frontier)
 

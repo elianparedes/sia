@@ -6,10 +6,19 @@ from classes.StateUtils import StateUtils
 from classes.State import State
 from classes.Config import Config
 
-def get_player_heatmap(map_solution, map_width, map_height):
-    max_side = max(map_width, map_height)
-    map_points = np.array([np.array([0 for _ in range(max_side)]) for _ in range(max_side)])
+from heuristics.BipartiteHeuristic import BipartiteHeuristic
+from heuristics.ManhattanDistance import ManhattanDistance
+from heuristics.MinDistance import MinDistance
+from heuristics.HeuristicCombination import HeuristicCombination
 
+
+def get_map_matrix(map_width, map_height):
+    max_side = max(map_width, map_height)
+    return np.array([np.array([0 for _ in range(max_side)]) for _ in range(max_side)])
+
+def get_player_heatmap(map_solution, map_width, map_height):
+    map_matrix = get_map_matrix(map_width, map_width)
+    
     node = map_solution[0]
     depth = map_solution[1]
     stack = []
@@ -22,7 +31,7 @@ def get_player_heatmap(map_solution, map_width, map_height):
     while stack:
         node, depth = stack.pop()
         player_point = node.state.player_point
-        map_points[player_point.x][player_point.y] += 1
+        map_matrix[player_point.x][player_point.y] += 1
 
     return map_points
 
@@ -49,7 +58,13 @@ def open_map(map_path):
     return map_contents
 
 
-def algorithms_heatmap_df(config):
+def append_boxes_position(state, map_matrix):
+    player_point = state.player_point
+
+    map_matrix[player_point.x][player_point.y] += 1
+
+def algorithms_heatmap_df():
+    config = Config("heatmap")
 
     if len(config.maps.values()) > 1:
         raise RuntimeError("Method supports only one map")
@@ -71,12 +86,13 @@ def algorithms_heatmap_df(config):
 
         heatmaps = []
         for algorithm, alg_function in config.algorithms.items():
-            solution = alg_function(state)
-            player_heatmap = get_player_heatmap(solution, width, height)
 
-            solution_wdeadlocks = alg_function(state_wdeadlocks)
-            player_heatmap_wdeadlocks = get_player_heatmap(solution_wdeadlocks, width, height)
+            heatmap = get_map_matrix(width, height)
+            solution = alg_function(state, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap))
 
-            heatmaps.append({"algorithm": algorithm, "without_deadlocks": player_heatmap, "with_deadlocks": player_heatmap_wdeadlocks})
+            heatmap_wdeadlocks = get_map_matrix(width, height)
+            solution_wdeadlocks = alg_function(state_wdeadlocks, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap_wdeadlocks))
+
+            heatmaps.append({"algorithm": algorithm, "without_deadlocks": heatmap, "with_deadlocks": heatmap_wdeadlocks})
 
         return pd.DataFrame(heatmaps)

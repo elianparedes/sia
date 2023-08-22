@@ -6,7 +6,7 @@ from classes.Node import Node
 
 class BFS(AlgorithmABC):
     @classmethod
-    def execute(cls, initial_state, heuristic_fn=None):
+    def execute(cls, initial_state, heuristic_fn=None, on_state_change=None):
         expanded_nodes = 0
         visited = set()
         frontier = deque()
@@ -14,6 +14,10 @@ class BFS(AlgorithmABC):
         frontier.append(root)
         while frontier:
             node = frontier.popleft()
+
+            if (on_state_change is not None):
+                on_state_change(node.state)
+                
             if node.state.is_solution():
                 return node, expanded_nodes, len(frontier)
 

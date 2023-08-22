@@ -10,5 +10,5 @@ class AlgorithmABC(ABC):
     """
     @classmethod
     @abstractmethod
-    def execute(cls, initial_state, heuristic_fn=None) -> tuple[Node, int, int] | None:
+    def execute(cls, initial_state, heuristic_fn=None, on_state_change=None) -> tuple[Node, int, int] | None:
         pass

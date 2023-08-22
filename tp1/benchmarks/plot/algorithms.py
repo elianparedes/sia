@@ -2,6 +2,7 @@ import os
 import math
 import statistics
 
+import numpy as np
 import plotly.graph_objects as go
 import pandas as pd
 from plotly.subplots import make_subplots
@@ -47,8 +48,7 @@ def algorithms_benchmarks_plot():
             go.Bar(
                 x=x,
                 y=y,
-                text=y,
-                texttemplate='%{text:.4f}',
+                text=[f"{i}" for i, val in enumerate(y.values)],
                 name="Without deadlocks",
                 marker_color="#F7BE15",
                 textposition="outside",
@@ -72,7 +72,6 @@ def algorithms_benchmarks_plot():
                 x=x,
                 y=y,
                 text=y,
-                texttemplate='%{text:.4f}',
                 name="With deadlocks",
                 marker_color="#1C818A",
                 textposition="outside",
