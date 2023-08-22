@@ -49,7 +49,7 @@ The structure of the file is as follows:
 	},
 }
 ```
-`<benchmark>`: heatmap, algorithms, heuristic
+`<benchmark>`: heatmap, algorithms, heuristic, nodes_expanded
 
 `<algorithm>`: bfs, dfs, a-star, global_greedy, local_greedy
 

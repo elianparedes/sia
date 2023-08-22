@@ -3,7 +3,7 @@
         "dataframe": true,
         "export_csv": true,
         "plot": true,
-        "run": ["heatmap"]
+        "run": ["nodes_expanded"]
     },
     "settings": {
         "algorithms": {
@@ -18,12 +18,15 @@
                 "global_greedy",
                 "local_greedy"
             ],
-            "maps": ["level5"]
+            "maps": ["level4"]
         },
         "heuristic": {
             "deadlocks": true,
             "maps": ["level3"],
             "algorithms": ["a-star", "global_greedy", "local_greedy"]
+        },
+        "nodes_expanded": {
+            "deadlocks": true
         }
     }
 }

@@ -6,6 +6,8 @@ from benchmarks.plot.heatmaps import algorithms_heatmaps_plot
 from benchmarks.df.heuristic import heuristics_benchmark_df
 from benchmarks.plot.heuristic import heuristics_benchmarks_plot
 from benchmarks.plot.heuristic_time import heuristics_time_benchmarks_plot
+from benchmarks.df.nodes_expanded import nodes_expanded_benchmarks_df
+from benchmarks.plot.nodes_expanded import nodes_expanded_benchmarks_plot
 import os
 import pandas as pd
 
@@ -25,6 +27,10 @@ benchmarks = {
     'heuristic': {
         'df': heuristics_benchmark_df,
         'plot': [heuristics_benchmarks_plot, heuristics_time_benchmarks_plot]
+    },
+    'nodes_expanded': {
+        'df': nodes_expanded_benchmarks_df,
+        'plot': [nodes_expanded_benchmarks_plot]
     }
 }
 
