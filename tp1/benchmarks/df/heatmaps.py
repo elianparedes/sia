@@ -57,11 +57,16 @@ def open_map(map_path):
 
     return map_contents
 
-
-def append_boxes_position(state, map_matrix):
+def append_player_position(state, map_matrix):
     player_point = state.player_point
 
     map_matrix[player_point.x][player_point.y] += 1
+
+def append_boxes_position(state, map_matrix):
+    boxes_points = state.boxes_points
+
+    for box_points in boxes_points:
+        map_matrix[box_points.x][box_points.y] += 1
 
 def algorithms_heatmap_df(config):
     if len(config.maps.values()) > 1:
@@ -85,11 +90,13 @@ def algorithms_heatmap_df(config):
         heatmaps = []
         for algorithm, alg_function in config.algorithms.items():
 
+            # !! use append_player_position instead for calculating player heatmap
+
             heatmap = get_map_matrix(width, height)
-            solution = alg_function(state, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap))
+            alg_function(state, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap))
 
             heatmap_wdeadlocks = get_map_matrix(width, height)
-            solution_wdeadlocks = alg_function(state_wdeadlocks, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap_wdeadlocks))
+            alg_function(state_wdeadlocks, heuristic_fn=ManhattanDistance, on_state_change=lambda state: append_boxes_position(state, heatmap_wdeadlocks))
 
             heatmaps.append({"algorithm": algorithm, "without_deadlocks": heatmap, "with_deadlocks": heatmap_wdeadlocks})
 
