@@ -1,3 +1,4 @@
+import os
 import time
 import pandas as pd
 
@@ -5,6 +6,8 @@ from classes.Config import Config
 from classes.SokobanUtils import SokobanUtils
 from classes.State import State
 from classes.StateUtils import StateUtils
+
+CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "algorithms.csv")
 
 def algorithms_benchmark_df():
     config = Config("algorithms")
@@ -28,19 +31,21 @@ def algorithms_benchmark_df():
         print(f"Solving {map_name} map")
 
         for algorithm, alg_function in config.algorithms.items():
-            print(f"Executing {algorithm} without deadlocks")
+            for _ in range(10):
+                print(f"Executing {algorithm} without deadlocks")
 
-            start_time = time.time()
-            alg_function(state)
-            end_time = time.time() - start_time
+                start_time = time.time()
+                alg_function(state)
+                end_time = time.time() - start_time
 
-            print(f"Executing {algorithm} with deadlocks")
+                print(f"Executing {algorithm} with deadlocks")
 
-            start_time = time.time()
-            alg_function(state_wdeadlocks)
-            end_time_wdeadlocks = time.time() - start_time
+                start_time = time.time()
+                alg_function(state_wdeadlocks)
+                end_time_wdeadlocks = time.time() - start_time
 
-            data_rows.append(
-                {"map": map_name, "algorithm": algorithm, "without_deadlocks": end_time, "with_deadlocks": end_time_wdeadlocks})
+                data_rows.append(
+                    {"map": map_name, "algorithm": algorithm, "without_deadlocks": end_time, "with_deadlocks": end_time_wdeadlocks})
 
-    return pd.DataFrame(data_rows)
+    df = pd.DataFrame(data_rows)
+    df.to_csv(CSV_PATH)
