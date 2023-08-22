@@ -28,7 +28,6 @@ def algorithms_benchmarks_plot():
     fig = make_subplots(rows=rows, cols=cols, subplot_titles=maps)
 
     for i, map in enumerate(maps):
-        print(map)
 
         row = (i // cols) + 1
         col = (i % cols) + 1
@@ -42,7 +41,6 @@ def algorithms_benchmarks_plot():
         for name, group in filtered_data:
             deviations.append(standard_deviation(group))
         y = filtered_data.mean()
-        print(y)
 
         fig.add_trace(
             go.Bar(
@@ -65,7 +63,6 @@ def algorithms_benchmarks_plot():
         for name, group in filtered_data:
             deviations.append(standard_deviation(group))
         y = filtered_data.mean()
-        print(y)
 
         fig.add_trace(
             go.Bar(
@@ -84,5 +81,5 @@ def algorithms_benchmarks_plot():
 
         fig.update_xaxes(title_text="Algorithms used", row=row, col=col)
         fig.update_yaxes(title_text="Execution time [seconds]", row=row, col=col)    
-        print(i)
+
     fig.show()

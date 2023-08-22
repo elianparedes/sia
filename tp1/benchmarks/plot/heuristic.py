@@ -19,7 +19,7 @@ def heuristics_benchmarks_plot(df):
 
     for i, map in enumerate(maps):
 
-        row = (i % rows) + 1
+        row = (i // cols) + 1
         col = (i % cols) + 1
 
         map_timestamps = df[df['map'] == map]
