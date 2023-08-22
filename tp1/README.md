@@ -49,6 +49,9 @@ The structure of the file is as follows:
 	},
 }
 ```
+- In order to change the heuristic used in heatmaps you have to go to `benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `ManhattanDistance`, `BipartiteHeuristic`, `HeuristicCombination`, `MinDistance`.
+- In order to change the heatmap to use player/boxes points you have to go to `benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `append_box_position()`, `append_player_position()`
+
 `<benchmark>`: heatmap, algorithms, heuristic, nodes_expanded
 
 `<algorithm>`: bfs, dfs, a-star, global_greedy, local_greedy
