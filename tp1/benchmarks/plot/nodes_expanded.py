@@ -54,6 +54,8 @@ def nodes_expanded_benchmarks_plot(df):
         )
 
         fig.update_xaxes(title_text="Algorithms used", row=row, col=col)
-        fig.update_yaxes(title_text="Nodes expanded", row=row, col=col)    
+        fig.update_yaxes(title_text="Nodes expanded", row=row, col=col)
+
+        fig.update_traces(cliponaxis=False)
 
     fig.show()

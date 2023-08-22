@@ -16,8 +16,7 @@ def standard_deviation(times):
         sum += (time-mean) ** 2
     return (sum/len(times))**0.5
 
-def algorithms_benchmarks_plot():
-    df = pd.read_csv(CSV_PATH)
+def algorithms_benchmarks_plot(df):
 
     maps = df["map"].unique()
     algorithms = df["algorithm"].unique()
@@ -51,6 +50,7 @@ def algorithms_benchmarks_plot():
                 marker_color="#F7BE15",
                 textposition="outside",
                 showlegend=False if i > 0 else True,
+                texttemplate='%{text:.3f}',
                 error_y=dict(type='data', array=deviations)
             ),
             row=row,
@@ -73,6 +73,7 @@ def algorithms_benchmarks_plot():
                 marker_color="#1C818A",
                 textposition="outside",
                 showlegend=False if i > 0 else True,
+                texttemplate='%{text:.3f}',
                 error_y=dict(type='data', array=deviations)
             ),
             row=row,

@@ -47,5 +47,4 @@ def algorithms_benchmark_df(config):
                 data_rows.append(
                     {"map": map_name, "algorithm": algorithm, "without_deadlocks": end_time, "with_deadlocks": end_time_wdeadlocks})
 
-    df = pd.DataFrame(data_rows)
-    df.to_csv(CSV_PATH)
+    return pd.DataFrame(data_rows)
