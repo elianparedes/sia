@@ -18,7 +18,7 @@ Usage: python cli.py -a <algorithm> -m <map_name> [-t] [-d] [-h] [-s]
 -a, --algorithm
         Can be any of: 'bfs', 'dfs', 'locgreedy', 'glogreedy', 'astar'
 -m, --map
-        The name of a map (without the suffix .txt) inside the resources/maps folder
+        The name of a map (without the suffix .txt) inside the "src/resources/maps" folder
 -t, --time
         Shows elapsed time
 -d, --deadlocks
@@ -28,10 +28,10 @@ Usage: python cli.py -a <algorithm> -m <map_name> [-t] [-d] [-h] [-s]
 -h, --help
         Print usage
 ```
-_Note_: If you wish to add new maps, they MUST be under the `resources/maps` folder. Maps MUST be a .txt file. 
+_Note_: If you wish to add new maps, they MUST be under the `src/resources/maps` folder. Maps MUST be a .txt file. 
 
 ### Benchmarks.py
-In order to run the `benchmarks.py` you will need to configure the `config.json` file. After configuring it simply run: `python -m benchmarks.benchmarks`.
+In order to run the `benchmarks.py` you will need to configure the `config.json` file. After configuring it simply run: `python -m src.benchmarks.benchmarks`.
 The structure of the file is as follows:
 ```json
 "benchmarks": {
@@ -49,11 +49,11 @@ The structure of the file is as follows:
 	},
 }
 ```
-- In order to change the heuristic used in heatmaps you have to go to `benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `ManhattanDistance`, `BipartiteHeuristic`, `HeuristicCombination`, `MinDistance`.
-- In order to change the heatmap to use player/boxes points you have to go to `benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `append_box_position()`, `append_player_position()`
+- In order to change the heuristic used in heatmaps you have to go to `src/benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `ManhattanDistance`, `BipartiteHeuristic`, `HeuristicCombination`, `MinDistance`.
+- In order to change the heatmap to use player/boxes points you have to go to `src/benchmarks/df/heatmaps.py` and change lines 96 and 99. Options are: `append_box_position()`, `append_player_position()`
 
 `<benchmark>`: heatmap, algorithms, heuristic, nodes_expanded
 
 `<algorithm>`: bfs, dfs, a-star, global_greedy, local_greedy
 
-`<map>`: any map under the `resources/maps` folder. If you wish to add new maps, they MUST be under the `resources/maps` folder. Maps MUST be a .txt file. 
+`<map>`: any map under the `src/resources/maps` folder. If you wish to add new maps, they MUST be under the `src/resources/maps` folder. Maps MUST be a .txt file. 
