@@ -33,8 +33,7 @@ class Config:
                 self.algorithms = all_algorithms
 
             maps_dir = os.path.join(os.path.dirname(
-                __file__), os.pardir,
-                "resources", "maps")
+                __file__), os.pardir, "resources", "maps")
 
             if not maps_names:
                 maps_names = [os.path.splitext(filename)[0] for filename in os.listdir(maps_dir) if
@@ -47,7 +46,7 @@ class Config:
                 self.maps[map_name] = FileUtils.open_map(map_path)
 
     def __init__(self):
-        config_path = os.path.join(os.path.dirname(__file__), os.pardir, "config.json")
+        config_path = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "config.json")
 
         with open(config_path, "r") as f:
             config = json.load(f)

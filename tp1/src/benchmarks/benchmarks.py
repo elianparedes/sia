@@ -11,8 +11,10 @@ from src.benchmarks.plot.nodes_expanded import nodes_expanded_benchmarks_plot
 import os
 import pandas as pd
 
-if not os.path.exists('../output'):
-    os.makedirs('../output')
+OUTPUT_PATH=os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "output")
+
+if not os.path.exists(OUTPUT_PATH):
+    os.makedirs(OUTPUT_PATH)
 
 config = Config()
 benchmarks = {
@@ -41,11 +43,11 @@ for benchmark_name in config.benchmarks.keys():
     if config.dataframe:
         df = benchmark_functions['df'](config.benchmarks[benchmark_name])
         if config.export_csv:
-            df.to_csv('../output/' + benchmark_name + '_df.csv', index=False)
+            df.to_csv(os.path.join(OUTPUT_PATH, benchmark_name + '_df.csv'), index=False)
 
     if config.plot:
         if not config.dataframe:
-            df = pd.read_csv('../output/' + benchmark_name + '_df.csv')
+            df = pd.read_csv(os.path.join(OUTPUT_PATH, benchmark_name + '_df.csv'))
         for function in benchmark_functions['plot']:
             function(df)
     print("---------------------------------------------------------------")
