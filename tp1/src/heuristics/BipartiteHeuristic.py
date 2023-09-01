@@ -1,5 +1,5 @@
 import itertools
-from heuristics.HeuristicABC import HeuristicABC
+from src.heuristics.HeuristicABC import HeuristicABC
 
 
 class BipartiteHeuristic(HeuristicABC):

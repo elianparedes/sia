@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from classes.State import State
+from src.classes.State import State
 
 
 class HeuristicABC(ABC):

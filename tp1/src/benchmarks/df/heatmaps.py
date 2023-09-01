@@ -1,15 +1,15 @@
 import pandas as pd
 import numpy as np
 
-from classes.SokobanUtils import SokobanUtils
-from classes.StateUtils import StateUtils
-from classes.State import State
-from classes.Config import Config
+from src.classes.SokobanUtils import SokobanUtils
+from src.classes.StateUtils import StateUtils
+from src.classes.State import State
+from src.classes.Config import Config
 
-from heuristics.BipartiteHeuristic import BipartiteHeuristic
-from heuristics.ManhattanDistance import ManhattanDistance
-from heuristics.MinDistance import MinDistance
-from heuristics.HeuristicCombination import HeuristicCombination
+from src.heuristics.BipartiteHeuristic import BipartiteHeuristic
+from src.heuristics.ManhattanDistance import ManhattanDistance
+from src.heuristics.MinDistance import MinDistance
+from src.heuristics.HeuristicCombination import HeuristicCombination
 
 
 def get_map_matrix(map_width, map_height):

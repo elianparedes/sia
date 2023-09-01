@@ -2,14 +2,14 @@ import sys
 import os
 import time
 
-from algorithms.AStar import AStar
-from algorithms.BFS import BFS
-from algorithms.DFS import DFS
-from algorithms.GlobalGreedy import GlobalGreedy
-from algorithms.LocalGreedy import LocalGreedy
-from classes.SokobanUtils import SokobanUtils
-from classes.State import State
-from classes.StateUtils import StateUtils
+from src.algorithms.AStar import AStar
+from src.algorithms.BFS import BFS
+from src.algorithms.DFS import DFS
+from src.algorithms.GlobalGreedy import GlobalGreedy
+from src.algorithms.LocalGreedy import LocalGreedy
+from src.classes.SokobanUtils import SokobanUtils
+from src.classes.State import State
+from src.classes.StateUtils import StateUtils
 
 # Argument constants
 ARG_TIME = "time"
@@ -136,7 +136,7 @@ def main():
             print("Not a known algorithm.")
             exit(1)
 
-        map_path = os.path.join(".", "resources", "maps", f"{map_name}.txt")
+        map_path = os.path.join(os.path.dirname(__file__), "src", "resources", "maps", f"{map_name}.txt")
         map_contents = open_map(map_path)
         parsed_contents = SokobanUtils.parse_sokoban_board(map_contents)
         show_greeting(args, map_contents)

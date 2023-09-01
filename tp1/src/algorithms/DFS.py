@@ -1,10 +1,10 @@
 from collections import deque
 
-from algorithms.AlgorithmABC import AlgorithmABC
-from classes.Node import Node
+from src.algorithms.AlgorithmABC import AlgorithmABC
+from src.classes.Node import Node
 
 
-class BFS(AlgorithmABC):
+class DFS(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state, heuristic_fn=None, on_state_change=None):
         expanded_nodes = 0
@@ -13,7 +13,7 @@ class BFS(AlgorithmABC):
         root = Node(None, initial_state, 0)
         frontier.append(root)
         while frontier:
-            node = frontier.popleft()
+            node = frontier.pop()
 
             if (on_state_change is not None):
                 on_state_change(node.state)
@@ -28,5 +28,4 @@ class BFS(AlgorithmABC):
                         frontier.append(child)
 
             expanded_nodes += 1
-
         return None

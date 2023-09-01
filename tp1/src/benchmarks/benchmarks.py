@@ -1,13 +1,13 @@
-from classes.Config import Config
-from benchmarks.df.algorithms import algorithms_benchmark_df
-from benchmarks.plot.algorithms import algorithms_benchmarks_plot
-from benchmarks.df.heatmaps import algorithms_heatmap_df
-from benchmarks.plot.heatmaps import algorithms_heatmaps_plot
-from benchmarks.df.heuristic import heuristics_benchmark_df
-from benchmarks.plot.heuristic import heuristics_benchmarks_plot
-from benchmarks.plot.heuristic_time import heuristics_time_benchmarks_plot
-from benchmarks.df.nodes_expanded import nodes_expanded_benchmarks_df
-from benchmarks.plot.nodes_expanded import nodes_expanded_benchmarks_plot
+from src.classes.Config import Config
+from src.benchmarks.df.algorithms import algorithms_benchmark_df
+from src.benchmarks.plot.algorithms import algorithms_benchmarks_plot
+from src.benchmarks.df.heatmaps import algorithms_heatmap_df
+from src.benchmarks.plot.heatmaps import algorithms_heatmaps_plot
+from src.benchmarks.df.heuristic import heuristics_benchmark_df
+from src.benchmarks.plot.heuristic import heuristics_benchmarks_plot
+from src.benchmarks.plot.heuristic_time import heuristics_time_benchmarks_plot
+from src.benchmarks.df.nodes_expanded import nodes_expanded_benchmarks_df
+from src.benchmarks.plot.nodes_expanded import nodes_expanded_benchmarks_plot
 import os
 import pandas as pd
 

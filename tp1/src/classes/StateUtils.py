@@ -1,5 +1,5 @@
-from classes.Movement import Movement
-from classes.Point import Point
+from src.classes.Movement import Movement
+from src.classes.Point import Point
 from typing import List, Set
 
 

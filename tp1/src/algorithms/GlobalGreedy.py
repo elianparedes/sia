@@ -1,25 +1,27 @@
-from collections import deque
+import heapq
 
-from algorithms.AlgorithmABC import AlgorithmABC
-from classes.Node import Node
-from heuristics.ManhattanDistance import ManhattanDistance
+from src.algorithms.AlgorithmABC import AlgorithmABC
+from src.algorithms.AlgorithmsUtils import _UtilityNode
+from src.classes.Node import Node
+from src.heuristics.ManhattanDistance import ManhattanDistance
 
 
-class LocalGreedy(AlgorithmABC):
+class GlobalGreedy(AlgorithmABC):
     @classmethod
     def execute(cls, initial_state, heuristic_fn=None, on_state_change=None):
         if heuristic_fn is None:
             heuristic_fn = ManhattanDistance
         expanded_nodes = 0
         visited = set()
-        frontier = deque()
+        frontier = []
         root = Node(None, initial_state, 0)
-        frontier.append(root)
+        heapq.heappush(frontier, _UtilityNode(root, 0))
 
         while frontier:
-            node = frontier.pop()
-           
-            if (on_state_change is not None):     
+            utility_node = heapq.heappop(frontier)
+            node = utility_node.node
+
+            if (on_state_change is not None):
                 on_state_change(node.state)
 
             if node.state.is_solution():
@@ -27,13 +29,10 @@ class LocalGreedy(AlgorithmABC):
 
             if node not in visited:
                 visited.add(node)
-                children = []
                 for child in node.get_children():
                     if child not in visited:
-                        children.append(child)
-                sorted_children = sorted(children,
-                                         key=lambda child: heuristic_fn.calculate(child.state))
-                frontier.extend(reversed(sorted_children))
+                        heuristic_value = heuristic_fn.calculate(child.state)
+                        heapq.heappush(frontier, _UtilityNode(child, heuristic_value))
             expanded_nodes += 1
 
         return None

@@ -1,4 +1,4 @@
-from heuristics.HeuristicABC import HeuristicABC
+from src.heuristics.HeuristicABC import HeuristicABC
 
 
 class ManhattanDistance(HeuristicABC):

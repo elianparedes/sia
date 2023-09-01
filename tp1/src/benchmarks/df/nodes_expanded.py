@@ -1,10 +1,10 @@
 import time
 import pandas as pd
 
-from classes.Config import Config
-from classes.SokobanUtils import SokobanUtils
-from classes.State import State
-from classes.StateUtils import StateUtils
+from src.classes.Config import Config
+from src.classes.SokobanUtils import SokobanUtils
+from src.classes.State import State
+from src.classes.StateUtils import StateUtils
 
 def nodes_expanded_benchmarks_df(config):
     data_rows = []

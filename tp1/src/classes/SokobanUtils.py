@@ -1,6 +1,6 @@
-from classes.Point import Point
+from src.classes.Point import Point
 
-from classes.Direction import Direction
+from src.classes.Direction import Direction
 
 
 class SokobanUtils:

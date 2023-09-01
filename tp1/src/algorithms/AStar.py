@@ -1,12 +1,12 @@
 import heapq
 
-from algorithms.AlgorithmABC import AlgorithmABC
-from algorithms.AlgorithmsUtils import _UtilityNode
-from classes.Node import Node
-from heuristics.HeuristicCombination import HeuristicCombination
-from heuristics.ManhattanDistance import ManhattanDistance
-from heuristics.MinDistance import MinDistance
-from heuristics.BipartiteHeuristic import BipartiteHeuristic
+from src.algorithms.AlgorithmABC import AlgorithmABC
+from src.algorithms.AlgorithmsUtils import _UtilityNode
+from src.classes.Node import Node
+from src.heuristics.HeuristicCombination import HeuristicCombination
+from src.heuristics.ManhattanDistance import ManhattanDistance
+from src.heuristics.MinDistance import MinDistance
+from src.heuristics.BipartiteHeuristic import BipartiteHeuristic
 
 
 class AStar(AlgorithmABC):

@@ -2,15 +2,15 @@ import os
 import time
 import pandas as pd
 
-from classes.Config import Config
-from classes.SokobanUtils import SokobanUtils
-from classes.State import State
-from classes.StateUtils import StateUtils
+from src.classes.Config import Config
+from src.classes.SokobanUtils import SokobanUtils
+from src.classes.State import State
+from src.classes.StateUtils import StateUtils
 
-from heuristics.ManhattanDistance import ManhattanDistance
-from heuristics.MinDistance import MinDistance
-from heuristics.HeuristicCombination import HeuristicCombination
-from heuristics.BipartiteHeuristic import BipartiteHeuristic
+from src.heuristics.ManhattanDistance import ManhattanDistance
+from src.heuristics.MinDistance import MinDistance
+from src.heuristics.HeuristicCombination import HeuristicCombination
+from src.heuristics.BipartiteHeuristic import BipartiteHeuristic
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), os.pardir, "output", "heuristic.csv")
 

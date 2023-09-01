@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from classes.Node import Node
+from src.classes.Node import Node
 
 
 class AlgorithmABC(ABC):

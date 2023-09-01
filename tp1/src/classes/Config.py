@@ -1,13 +1,13 @@
 import os
 import json
 
-from algorithms.AStar import AStar
-from algorithms.BFS import BFS
-from algorithms.DFS import DFS
-from algorithms.LocalGreedy import LocalGreedy
-from algorithms.GlobalGreedy import GlobalGreedy
+from src.algorithms.AStar import AStar
+from src.algorithms.BFS import BFS
+from src.algorithms.DFS import DFS
+from src.algorithms.LocalGreedy import LocalGreedy
+from src.algorithms.GlobalGreedy import GlobalGreedy
 
-from classes.FileUtils import FileUtils
+from src.classes.FileUtils import FileUtils
 
 
 class Config:

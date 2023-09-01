@@ -1,5 +1,5 @@
-from classes.Direction import Direction
-from classes.StateBuilder import StateBuilder
+from src.classes.Direction import Direction
+from src.classes.StateBuilder import StateBuilder
 
 
 class State:
