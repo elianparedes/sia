@@ -1,9 +1,7 @@
-from abc import ABC
-
-from Player import Player
+from src.classes.Player import Player
 
 
-class Defensor(Player, ABC):
+class Defensor(Player):
 
     def fitness(self):
         return 0.1 * super.ataque() + 0.9 * super.defensa()

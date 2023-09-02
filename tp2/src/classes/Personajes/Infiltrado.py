@@ -1,9 +1,7 @@
-from abc import ABC
-
-from Player import Player
+from src.classes.Player import Player
 
 
-class Infiltrado(Player, ABC):
+class Infiltrado(Player):
 
     def fitness(self):
         return 0.8 * super.ataque() + 0.3 * super.defensa()
