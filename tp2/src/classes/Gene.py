@@ -49,3 +49,6 @@ class Gene:
 
     def to_array(self):
         return [self.fuerza, self.agilidad, self.pericia, self.resistencia, self.vida, self.altura]
+
+    def __str__(self):
+        return f'Gene(fuerza={self.fuerza}, agilidad={self.agilidad}, pericia={self.pericia}, resistencia={self.resistencia}, vida={self.vida}, altura={self.altura})'
