@@ -1,29 +1,37 @@
+from src.classes.Stats.Agilidad import Agilidad
+from src.classes.Stats.Altura import Altura
+from src.classes.Stats.Fuerza import Fuerza
+from src.classes.Stats.Pericia import Pericia
+from src.classes.Stats.Resistencia import Resistencia
+from src.classes.Stats.Vida import Vida
+from typing import List
+
 class Gene:
 
-    def __init__(self, fuerza, agilidad, pericia, resistencia, vida, altura):
-        self.fuerza = fuerza
-        self.agilidad = agilidad
-        self.pericia = pericia
-        self.resistencia = resistencia
-        self.vida = vida
-        self.altura = altura
+    def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
+        self.fuerza = Fuerza(fuerza)
+        self.agilidad = Agilidad(agilidad)
+        self.pericia = Pericia(pericia)
+        self.resistencia = Resistencia(resistencia)
+        self.vida = Vida(vida)
+        self.altura = Altura(altura)
 
-    def get_fuerza(self):
+    def get_fuerza(self) -> Fuerza:
         return self.fuerza
 
-    def get_agilidad(self):
+    def get_agilidad(self) -> Agilidad:
         return self.agilidad
 
-    def get_pericia(self):
+    def get_pericia(self) -> Pericia:
         return self.pericia
 
-    def get_resistencia(self):
+    def get_resistencia(self) -> Resistencia:
         return self.resistencia
 
-    def get_vida(self):
+    def get_vida(self) -> Vida:
         return self.vida
 
-    def get_altura(self):
+    def get_altura(self) -> Altura:
         return self.altura
 
     def set_agilidad(self, agilidad):
@@ -45,10 +53,10 @@ class Gene:
         self.altura = altura
 
     @staticmethod
-    def from_array(arr):
+    def from_array(arr: List[float]):
         return Gene(*arr)
 
-    def to_array(self):
+    def to_array(self) -> [Fuerza, Agilidad, Pericia, Resistencia, Vida, Altura]:
         return [self.fuerza, self.agilidad, self.pericia, self.resistencia, self.vida, self.altura]
 
     def __str__(self):
