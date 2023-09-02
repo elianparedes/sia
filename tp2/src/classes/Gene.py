@@ -44,6 +44,7 @@ class Gene:
     def set_altura(self, altura):
         self.altura = altura
 
+    @staticmethod
     def from_array(arr):
         return Gene(*arr)
 
@@ -52,3 +53,11 @@ class Gene:
 
     def __str__(self):
         return f'Gene(fuerza={self.fuerza}, agilidad={self.agilidad}, pericia={self.pericia}, resistencia={self.resistencia}, vida={self.vida}, altura={self.altura})'
+
+    def __eq__(self, other):
+        if not isinstance(other, Gene):
+            return NotImplemented
+
+        return (self.fuerza == other.fuerza) and (self.altura == other.altura) \
+               and (self.vida == other.vida) and (self.resistencia == other.resistencia) \
+               and (self.agilidad == other.agilidad) and (self.pericia == other.pericia)
