@@ -21,3 +21,6 @@ class Player(ABC):
 
     def __str__(self):
         return self.gene.__str__()
+
+    def __lt__(self, other):
+        return self.fitness() < other.fitness()
