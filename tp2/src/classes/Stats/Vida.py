@@ -19,3 +19,6 @@ class Vida:
             return self.value == other.value
         else:
             return False
+
+    def __str__(self):
+        return self.value.__str__()
