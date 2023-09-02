@@ -44,5 +44,8 @@ class Gene:
     def set_altura(self, altura):
         self.altura = altura
 
+    def from_array(arr):
+        return Gene(*arr)
+
     def to_array(self):
         return [self.fuerza, self.agilidad, self.pericia, self.resistencia, self.vida, self.altura]
