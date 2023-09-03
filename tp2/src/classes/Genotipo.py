@@ -1,4 +1,4 @@
-class Gene:
+class Genotipo:
 
     def __init__(self, fuerza, agilidad, pericia, resistencia, vida, altura):
         self.fuerza = fuerza
