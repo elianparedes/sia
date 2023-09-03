@@ -24,3 +24,11 @@ class Player(ABC):
 
     def __lt__(self, other):
         return self.fitness() < other.fitness()
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Player):
+            return NotImplemented
+
+        return self.gene == other.gene
+
+
