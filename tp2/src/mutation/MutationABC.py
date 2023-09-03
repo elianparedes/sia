@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 from src.classes.Gene import Gene
 
+from src.classes.Genotipo import Genotipo
+
 
 class MutationABC(ABC):
 
@@ -10,5 +12,5 @@ class MutationABC(ABC):
     """
     @classmethod
     @abstractmethod
-    def mutate(cls, genes: list[Gene], probability: float) -> list[Gene] | None:
+    def mutate(cls, genes: Genotipo, probability: float) -> Genotipo | None:
         pass

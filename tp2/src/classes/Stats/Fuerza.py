@@ -1,4 +1,6 @@
 import math
+import random
+
 
 class Fuerza:
 
@@ -21,3 +23,8 @@ class Fuerza:
 
     def __str__(self):
         return self.value.__str__()
+
+    def mutate(self):
+        new_val = random.uniform(0, 150)
+        return Fuerza(new_val)
+

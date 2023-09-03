@@ -1,4 +1,5 @@
 import math
+import random
 
 
 class Vida:
@@ -22,3 +23,8 @@ class Vida:
 
     def __str__(self):
         return self.value.__str__()
+
+    def mutate(self):
+        new_val = random.uniform(0, 150)
+        return Vida(new_val)
+

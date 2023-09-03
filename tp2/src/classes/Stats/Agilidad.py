@@ -1,7 +1,10 @@
+import random
+
+from src.classes.Stats.StatABC import StatABC
 import math
 
 
-class Agilidad:
+class Agilidad(StatABC):
 
     def __init__(self, value):
         self.value = value
@@ -22,3 +25,7 @@ class Agilidad:
 
     def __str__(self):
         return self.value.__str__()
+
+    def mutate(self):
+        new_val = random.uniform(0, 150)
+        return Agilidad(new_val)

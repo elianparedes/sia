@@ -1,4 +1,5 @@
 import math
+import random
 
 
 class Resistencia:
@@ -22,3 +23,8 @@ class Resistencia:
 
     def __str__(self):
         return self.value.__str__()
+
+    def mutate(self):
+        new_val = random.uniform(0, 150)
+        return Resistencia(new_val)
+

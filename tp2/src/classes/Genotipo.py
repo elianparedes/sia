@@ -10,8 +10,8 @@ class Genotipo:
 
     def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
         # Instantiation of the genotype normalizing stats
-        sum = fuerza + agilidad + pericia + resistencia + vida
-        percentage = 150 / sum
+        total = fuerza + agilidad + pericia + resistencia + vida
+        percentage = 150 / total
         self.fuerza = Fuerza(fuerza * percentage)
         self.agilidad = Agilidad(agilidad * percentage)
         self.pericia = Pericia(pericia * percentage)
