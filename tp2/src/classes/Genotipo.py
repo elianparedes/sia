@@ -9,12 +9,16 @@ from typing import List
 class Genotipo:
 
     def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
-        self.fuerza = Fuerza(fuerza)
-        self.agilidad = Agilidad(agilidad)
-        self.pericia = Pericia(pericia)
-        self.resistencia = Resistencia(resistencia)
-        self.vida = Vida(vida)
+        # Instantiation of the genotype normalizing stats
+        sum = fuerza + agilidad + pericia + resistencia + vida
+        percentage = 150 / sum
+        self.fuerza = Fuerza(fuerza * percentage)
+        self.agilidad = Agilidad(agilidad * percentage)
+        self.pericia = Pericia(pericia * percentage)
+        self.resistencia = Resistencia(resistencia * percentage)
+        self.vida = Vida(vida * percentage)
         self.altura = Altura(altura)
+
 
     def get_fuerza(self) -> Fuerza:
         return self.fuerza
