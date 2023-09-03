@@ -18,3 +18,17 @@ class Player(ABC):
 
     def defensa(self):
         return (self.gene.get_resistencia().get_p() + self.gene.get_pericia().get_p()) * self.gene.get_vida().get_p() * self.gene.get_altura().get_DEM()
+
+    def __str__(self):
+        return self.gene.__str__()
+
+    def __lt__(self, other):
+        return self.fitness() < other.fitness()
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Player):
+            return NotImplemented
+
+        return self.gene == other.gene
+
+
