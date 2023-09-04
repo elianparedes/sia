@@ -19,6 +19,7 @@ class TestUniform(unittest.TestCase):
         self.assertEqual(children[1], Genotype.from_array([20, 40, 60, 5, 20, 1.7]))
 
     def test_child_not_equals(self):
+        #FIXME
         children = Uniform.cross(self.gene1, self.gene2)
         self.assertNotEqual(children[0], self.gene1)
         self.assertNotEqual(children[0], self.gene2)

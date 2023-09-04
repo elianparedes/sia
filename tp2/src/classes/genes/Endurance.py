@@ -1,10 +1,10 @@
 import math
 import random
 
-from src.classes.stats.StatABC import StatABC
+from src.classes.genes.GeneABC import GeneABC
 
 
-class Agilidad(StatABC):
+class Endurance(GeneABC):
 
     def __init__(self, value):
         super().__init__(value)
@@ -13,12 +13,12 @@ class Agilidad(StatABC):
         return math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Agilidad))
+        return hash((self.value, Endurance))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Agilidad):
+        if isinstance(other, Endurance):
             return self.value == other.value
         else:
             return False
@@ -28,4 +28,4 @@ class Agilidad(StatABC):
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Agilidad(new_val)
+        return Endurance(new_val)

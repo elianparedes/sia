@@ -1,24 +1,24 @@
 import math
 import random
 
-from src.classes.stats.StatABC import StatABC
+from src.classes.genes.GeneABC import GeneABC
 
 
-class Pericia(StatABC):
+class Strength(GeneABC):
 
     def __init__(self, value):
         super().__init__(value)
 
     def get_p(self):
-        return 0.6 * math.tanh(self.value * 0.01)
+        return 100 * math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Pericia))
+        return hash((self.value, Strength))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Pericia):
+        if isinstance(other, Strength):
             return self.value == other.value
         else:
             return False
@@ -28,4 +28,4 @@ class Pericia(StatABC):
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Pericia(new_val)
+        return Strength(new_val)

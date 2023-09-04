@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class StatABC(ABC):
+class GeneABC(ABC):
 
     def __init__(self, value: float):
         self.value = value
@@ -9,7 +9,7 @@ class StatABC(ABC):
     def __add__(self, other):
         if isinstance(other, (int, float)):
             return self.value + other
-        elif isinstance(other, StatABC):
+        elif isinstance(other, GeneABC):
             return self.value + other.value
         else:
             raise TypeError(f"Unsupported operand type: {type(other)}")
@@ -17,7 +17,7 @@ class StatABC(ABC):
     def __mul__(self, other):
         if isinstance(other, (int, float)):
             return self.value * other
-        elif isinstance(other, StatABC):
+        elif isinstance(other, GeneABC):
             return self.value * other.value
         else:
             raise TypeError(f"Unsupported operand type: {type(other)}")

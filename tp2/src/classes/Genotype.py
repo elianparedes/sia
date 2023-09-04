@@ -1,75 +1,76 @@
-from src.classes.stats.Agilidad import Agilidad
-from src.classes.stats.Altura import Altura
-from src.classes.stats.Fuerza import Fuerza
-from src.classes.stats.Pericia import Pericia
-from src.classes.stats.Resistencia import Resistencia
-from src.classes.stats.Vida import Vida
+from src.classes.genes.Agility import Agility
+from src.classes.genes.Height import Height
+from src.classes.genes.Strength import Strength
+from src.classes.genes.Intelligence import Intelligence
+from src.classes.genes.Endurance import Endurance
+from src.classes.genes.Health import Health
 from typing import List
 
 
 class Genotype:
 
-    def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
-        # Instantiation of the genotype normalizing stats
-        total = fuerza + agilidad + pericia + resistencia + vida
+    def __init__(self, strength: float, agility: float, intelligence: float, endurance: float, health: float, height: float):
+        # Instantiation of the genotype normalizing genes
+        total = strength + agility + intelligence + endurance + health
         percentage = 150 / total
-        self.fuerza = Fuerza(fuerza * percentage)
-        self.agilidad = Agilidad(agilidad * percentage)
-        self.pericia = Pericia(pericia * percentage)
-        self.resistencia = Resistencia(resistencia * percentage)
-        self.vida = Vida(vida * percentage)
-        self.altura = Altura(altura)
+        self.strength = Strength(strength * percentage)
+        self.agility = Agility(agility * percentage)
+        self.intelligence = Intelligence(intelligence * percentage)
+        self.endurance = Endurance(endurance * percentage)
+        self.health = Health(health * percentage)
+        self.height = Height(height)
 
-    def get_fuerza(self) -> Fuerza:
-        return self.fuerza
+    def get_strength(self) -> Strength:
+        return self.strength
 
-    def get_agilidad(self) -> Agilidad:
-        return self.agilidad
+    def get_agility(self) -> Agility:
+        return self.agility
 
-    def get_pericia(self) -> Pericia:
-        return self.pericia
+    def get_intelligence(self) -> Intelligence:
+        return self.intelligence
 
-    def get_resistencia(self) -> Resistencia:
-        return self.resistencia
+    def get_endurance(self) -> Endurance:
+        return self.endurance
 
-    def get_vida(self) -> Vida:
-        return self.vida
+    def get_health(self) -> Health:
+        return self.health
 
-    def get_altura(self) -> Altura:
-        return self.altura
+    def get_height(self) -> Height:
+        return self.height
 
-    def set_agilidad(self, agilidad):
-        self.agilidad = agilidad
+    def set_agility(self, agility):
+        self.agility = agility
 
-    def set_fuerza(self, fuerza):
-        self.fuerza = fuerza
+    def set_strength(self, strength):
+        self.strength = strength
 
-    def set_pericia(self, pericia):
-        self.pericia = pericia
+    def set_intelligence(self, intelligence):
+        self.intelligence = intelligence
 
-    def set_resistencia(self, resistencia):
-        self.resistencia = resistencia
+    def set_endurance(self, endurance):
+        self.endurance = endurance
 
-    def set_vida(self, vida):
-        self.vida = vida
+    def set_health(self, health):
+        self.health = health
 
-    def set_altura(self, altura):
-        self.altura = altura
+    def set_height(self, height):
+        self.height = height
 
     @staticmethod
     def from_array(arr: List[float]):
         return Genotype(*arr)
 
     def to_array(self) -> [float, float, float, float, float, float]:
-        return [self.fuerza.value, self.agilidad.value, self.pericia.value, self.resistencia.value, self.vida.value, self.altura.value]
+        return [self.strength.value, self.agility.value, self.intelligence.value, self.endurance.value, self.health.value, self.height.value]
 
     def __str__(self):
-        return f'Gene(fuerza={self.fuerza}, agilidad={self.agilidad}, pericia={self.pericia}, resistencia={self.resistencia}, vida={self.vida}, altura={self.altura})'
+        return f'Gene(strength={self.strength}, agility={self.agility}, intelligence={self.intelligence}, ' \
+               f'endurance={self.endurance}, health={self.health}, height={self.height})'
 
     def __eq__(self, other):
         if not isinstance(other, Genotype):
             return NotImplemented
 
-        return (self.fuerza == other.fuerza) and (self.altura == other.altura) \
-            and (self.vida == other.vida) and (self.resistencia == other.resistencia) \
-            and (self.agilidad == other.agilidad) and (self.pericia == other.pericia)
+        return (self.strength == other.strength) and (self.height == other.height) \
+               and (self.health == other.health) and (self.endurance == other.endurance) \
+               and (self.agility == other.agility) and (self.intelligence == other.intelligence)

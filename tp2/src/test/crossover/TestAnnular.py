@@ -26,6 +26,7 @@ class TestAnnular(unittest.TestCase):
         self.assertEqual(children[1], Genotype.from_array([30, 20, 45, 40, 20, 1.3]))
 
     def test_child_not_equals(self):
+        #FIXME : mock probabilities
         children = Annular.cross(self.gene1, self.gene2)
         self.assertNotEqual(children[0], self.gene1)
         self.assertNotEqual(children[0], self.gene2)

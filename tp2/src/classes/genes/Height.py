@@ -1,4 +1,4 @@
-class Altura:
+class Height:
 
     def __init__(self, value):
         self.value = value
@@ -15,7 +15,7 @@ class Altura:
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Altura):
+        if isinstance(other, Height):
             return self.value == other.value
         else:
             return False

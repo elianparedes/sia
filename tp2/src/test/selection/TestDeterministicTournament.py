@@ -4,10 +4,10 @@ from unittest.mock import patch
 
 from src.classes.Genotype import Genotype
 from src.selection.DeterministicTournament import DeterministicTournament
-from src.classes.characters.Arquero import Arquero
-from src.classes.characters.Defensor import Defensor
-from src.classes.characters.Guerrero import Guerrero
-from src.classes.characters.Infiltrado import Infiltrado
+from src.classes.characters.Archer import Archer
+from src.classes.characters.Defender import Defender
+from src.classes.characters.Warrior import Warrior
+from src.classes.characters.Spy import Spy
 
 
 class DeterministicTournamentBase(unittest.TestCase, ABC):
@@ -38,17 +38,17 @@ class DeterministicTournamentBase(unittest.TestCase, ABC):
             self.assertEqual(player, max(self.population[i], self.population[i + 1]))
 
 
-class TestArquero(DeterministicTournamentBase):
-    character_class = Arquero
+class TestArcher(DeterministicTournamentBase):
+    character_class = Archer
 
 
-class TestDefensor(DeterministicTournamentBase):
-    character_class = Defensor
+class TestDefender(DeterministicTournamentBase):
+    character_class = Defender
 
 
-class TestGuerrero(DeterministicTournamentBase):
-    character_class = Guerrero
+class TestWarrior(DeterministicTournamentBase):
+    character_class = Warrior
 
 
-class TestInfiltrado(DeterministicTournamentBase):
-    character_class = Infiltrado
+class TestSpy(DeterministicTournamentBase):
+    character_class = Spy
