@@ -10,9 +10,9 @@ class CompleteMutation(MutationABC):
         new_genes = genes.to_array()
 
         if random.uniform(0, 1) <= probability:
-            for i in range(len(genes)):
+            for i in range(len(new_genes)):
                 # Mutation
-                stat = genes[i].mutate()
+                stat = new_genes[i].mutate()
 
                 # Search and replace with mutated gene
                 new_genes[i] = stat
