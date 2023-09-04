@@ -26,6 +26,4 @@ class Strength(GeneABC):
     def __str__(self):
         return self.value.__str__()
 
-    def mutate(self):
-        new_val = random.uniform(0, 150)
-        return Strength(new_val)
+

@@ -22,6 +22,4 @@ class GeneABC(ABC):
         else:
             raise TypeError(f"Unsupported operand type: {type(other)}")
 
-    @abstractmethod
-    def mutate(self):
-        pass
+
