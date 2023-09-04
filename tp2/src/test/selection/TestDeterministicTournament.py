@@ -28,7 +28,7 @@ class DeterministicTournamentBase(unittest.TestCase, ABC):
 
     @patch('random.sample')
     def test_results(self, mock_sample):
-        DeterministicTournament.set_tournament_size(2)
+        DeterministicTournament.configure(2)
         mock_sample.side_effect = [[self.population[0], self.population[1]],
                                    [self.population[1], self.population[2]],
                                    [self.population[2], self.population[3]]]

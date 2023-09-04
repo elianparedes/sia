@@ -13,25 +13,24 @@ class Boltzmann(SelectionABC):
     generation = 0
 
     @classmethod
-    def set_T0(cls, t0: float):
-        if t0 <= 0:
-            raise ValueError("Size must be greater than 0")
-        cls.T0 = t0
-    @classmethod
-    def set_TC(cls, tc: float):
-        if tc <= 0:
-            raise ValueError("Size must be greater than 0")
-        cls.TC = tc
-    @classmethod
-    def set_K(cls, k: float):
-        if k <= 0:
-            raise ValueError("Size must be greater than 0")
-        cls.K = k
-    @classmethod
-    def set_generation(cls, generation: int):
-        if generation <= 0:
-            raise ValueError("Size must be greater than 0")
-        cls.generation = generation
+    def configure(cls, t0=None, tc=None, k=None, generation=None, **kwargs):
+        if t0 is not None:
+            if tc <= 0:
+                raise ValueError("Size must be greater than 0")
+            cls.T0 = t0
+        if tc is not None:
+            if tc <= 0:
+                raise ValueError("Size must be greater than 0")
+            cls.TC = tc
+        if k is not None:
+            if k <= 0:
+                raise ValueError("Size must be greater than 0")
+            cls.K = k
+        if generation is not None:
+            if generation <= 0:
+                raise ValueError("Size must be greater than 0")
+            cls.generation = generation
+        pass
 
     @classmethod
     def select(cls, population: [], individuals: int):
