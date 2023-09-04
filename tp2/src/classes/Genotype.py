@@ -1,59 +1,59 @@
-from src.classes.stats.Agilidad import Agilidad
-from src.classes.stats.Altura import Altura
-from src.classes.stats.Fuerza import Fuerza
-from src.classes.stats.Pericia import Pericia
-from src.classes.stats.Resistencia import Resistencia
-from src.classes.stats.Vida import Vida
+from src.classes.stats.Agility import Agility
+from src.classes.stats.Height import Height
+from src.classes.stats.Strength import Strength
+from src.classes.stats.Intelligence import Intelligence
+from src.classes.stats.Endurance import Endurance
+from src.classes.stats.Health import Health
 from typing import List
 
 
 class Genotype:
 
-    def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
+    def __init__(self, strength: float, agility: float, intelligence: float, endurance: float, health: float, height: float):
         # Instantiation of the genotype normalizing stats
-        total = fuerza + agilidad + pericia + resistencia + vida
+        total = strength + agility + intelligence + endurance + health
         percentage = 150 / total
-        self.fuerza = Fuerza(fuerza * percentage)
-        self.agilidad = Agilidad(agilidad * percentage)
-        self.pericia = Pericia(pericia * percentage)
-        self.resistencia = Resistencia(resistencia * percentage)
-        self.vida = Vida(vida * percentage)
-        self.altura = Altura(altura)
+        self.fuerza = Strength(strength * percentage)
+        self.agilidad = Agility(agility * percentage)
+        self.pericia = Intelligence(intelligence * percentage)
+        self.resistencia = Endurance(endurance * percentage)
+        self.vida = Health(health * percentage)
+        self.altura = Height(height)
 
-    def get_fuerza(self) -> Fuerza:
+    def get_strength(self) -> Strength:
         return self.fuerza
 
-    def get_agilidad(self) -> Agilidad:
+    def get_agility(self) -> Agility:
         return self.agilidad
 
-    def get_pericia(self) -> Pericia:
+    def get_intelligence(self) -> Intelligence:
         return self.pericia
 
-    def get_resistencia(self) -> Resistencia:
+    def get_endurance(self) -> Endurance:
         return self.resistencia
 
-    def get_vida(self) -> Vida:
+    def get_health(self) -> Health:
         return self.vida
 
-    def get_altura(self) -> Altura:
+    def get_height(self) -> Height:
         return self.altura
 
-    def set_agilidad(self, agilidad):
+    def set_agility(self, agilidad):
         self.agilidad = agilidad
 
-    def set_fuerza(self, fuerza):
+    def set_strength(self, fuerza):
         self.fuerza = fuerza
 
-    def set_pericia(self, pericia):
+    def set_intelligence(self, pericia):
         self.pericia = pericia
 
-    def set_resistencia(self, resistencia):
+    def set_endurance(self, resistencia):
         self.resistencia = resistencia
 
-    def set_vida(self, vida):
+    def set_health(self, vida):
         self.vida = vida
 
-    def set_altura(self, altura):
+    def set_height(self, altura):
         self.altura = altura
 
     @staticmethod

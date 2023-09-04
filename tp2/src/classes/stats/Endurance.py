@@ -4,21 +4,21 @@ import random
 from src.classes.stats.StatABC import StatABC
 
 
-class Vida(StatABC):
+class Endurance(StatABC):
 
     def __init__(self, value):
         super().__init__(value)
 
     def get_p(self):
-        return 100 * math.tanh(self.value * 0.01)
+        return math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Vida))
+        return hash((self.value, Endurance))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Vida):
+        if isinstance(other, Endurance):
             return self.value == other.value
         else:
             return False
@@ -28,4 +28,4 @@ class Vida(StatABC):
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Vida(new_val)
+        return Endurance(new_val)

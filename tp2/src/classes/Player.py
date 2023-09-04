@@ -14,10 +14,10 @@ class Player(ABC):
         return self.gene
 
     def ataque(self):
-        return (self.gene.get_agilidad().get_p() + self.gene.get_pericia().get_p()) * self.gene.get_fuerza().get_p() * self.gene.get_altura().get_ATM()
+        return (self.gene.get_agility().get_p() + self.gene.get_intelligence().get_p()) * self.gene.get_strength().get_p() * self.gene.get_height().get_ATM()
 
     def defensa(self):
-        return (self.gene.get_resistencia().get_p() + self.gene.get_pericia().get_p()) * self.gene.get_vida().get_p() * self.gene.get_altura().get_DEM()
+        return (self.gene.get_endurance().get_p() + self.gene.get_intelligence().get_p()) * self.gene.get_health().get_p() * self.gene.get_height().get_DEM()
 
     def __str__(self):
         return self.gene.__str__()

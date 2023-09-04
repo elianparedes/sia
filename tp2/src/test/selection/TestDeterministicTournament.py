@@ -4,10 +4,10 @@ from unittest.mock import patch
 
 from src.classes.Genotype import Genotype
 from src.selection.DeterministicTournament import DeterministicTournament
-from src.classes.characters.Arquero import Arquero
-from src.classes.characters.Defensor import Defensor
-from src.classes.characters.Guerrero import Guerrero
-from src.classes.characters.Infiltrado import Infiltrado
+from src.classes.characters.Archer import Arquero
+from src.classes.characters.Defender import Defensor
+from src.classes.characters.Warrior import Guerrero
+from src.classes.characters.Spy import Spy
 
 
 class DeterministicTournamentBase(unittest.TestCase, ABC):
@@ -51,4 +51,4 @@ class TestGuerrero(DeterministicTournamentBase):
 
 
 class TestInfiltrado(DeterministicTournamentBase):
-    character_class = Infiltrado
+    character_class = Spy

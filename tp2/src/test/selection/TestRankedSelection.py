@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 from src.classes.Genotype import Genotype
 from src.classes.Player import Player
-from src.classes.characters.Arquero import Arquero
-from src.classes.characters.Guerrero import Guerrero
+from src.classes.characters.Archer import Arquero
+from src.classes.characters.Warrior import Guerrero
 from src.selection.Ranked import Ranked
 
 
