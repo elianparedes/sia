@@ -1,12 +1,13 @@
-from src.classes.Stats.Agilidad import Agilidad
-from src.classes.Stats.Altura import Altura
-from src.classes.Stats.Fuerza import Fuerza
-from src.classes.Stats.Pericia import Pericia
-from src.classes.Stats.Resistencia import Resistencia
-from src.classes.Stats.Vida import Vida
+from src.classes.stats.Agilidad import Agilidad
+from src.classes.stats.Altura import Altura
+from src.classes.stats.Fuerza import Fuerza
+from src.classes.stats.Pericia import Pericia
+from src.classes.stats.Resistencia import Resistencia
+from src.classes.stats.Vida import Vida
 from typing import List
 
-class Genotipo:
+
+class Genotype:
 
     def __init__(self, fuerza: float, agilidad: float, pericia: float, resistencia: float, vida: float, altura: float):
         # Instantiation of the genotype normalizing stats
@@ -18,7 +19,6 @@ class Genotipo:
         self.resistencia = Resistencia(resistencia * percentage)
         self.vida = Vida(vida * percentage)
         self.altura = Altura(altura)
-
 
     def get_fuerza(self) -> Fuerza:
         return self.fuerza
@@ -58,18 +58,18 @@ class Genotipo:
 
     @staticmethod
     def from_array(arr: List[float]):
-        return Genotipo(*arr)
+        return Genotype(*arr)
 
-    def to_array(self) -> [Fuerza, Agilidad, Pericia, Resistencia, Vida, Altura]:
-        return [self.fuerza, self.agilidad, self.pericia, self.resistencia, self.vida, self.altura]
+    def to_array(self) -> [float, float, float, float, float, float]:
+        return [self.fuerza.value, self.agilidad.value, self.pericia.value, self.resistencia.value, self.vida.value, self.altura.value]
 
     def __str__(self):
         return f'Gene(fuerza={self.fuerza}, agilidad={self.agilidad}, pericia={self.pericia}, resistencia={self.resistencia}, vida={self.vida}, altura={self.altura})'
 
     def __eq__(self, other):
-        if not isinstance(other, Genotipo):
+        if not isinstance(other, Genotype):
             return NotImplemented
 
         return (self.fuerza == other.fuerza) and (self.altura == other.altura) \
-               and (self.vida == other.vida) and (self.resistencia == other.resistencia) \
-               and (self.agilidad == other.agilidad) and (self.pericia == other.pericia)
+            and (self.vida == other.vida) and (self.resistencia == other.resistencia) \
+            and (self.agilidad == other.agilidad) and (self.pericia == other.pericia)

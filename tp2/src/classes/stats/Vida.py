@@ -1,24 +1,24 @@
+import math
 import random
 
-from src.classes.Stats.StatABC import StatABC
-import math
+from src.classes.stats.StatABC import StatABC
 
 
-class Agilidad(StatABC):
+class Vida(StatABC):
 
     def __init__(self, value):
-        self.value = value
+        super().__init__(value)
 
     def get_p(self):
-        return math.tanh(self.value * 0.01)
+        return 100 * math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Agilidad))
+        return hash((self.value, Vida))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Agilidad):
+        if isinstance(other, Vida):
             return self.value == other.value
         else:
             return False
@@ -28,4 +28,4 @@ class Agilidad(StatABC):
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Agilidad(new_val)
+        return Vida(new_val)

@@ -2,12 +2,13 @@ import unittest
 import random
 from abc import ABC
 from unittest.mock import patch
+
+from src.classes.Genotype import Genotype
 from src.selection.ProbabilisticTournament import ProbabilisticTournament
-from src.classes.Personajes.Arquero import Arquero
-from src.classes.Personajes.Defensor import Defensor
-from src.classes.Personajes.Guerrero import Guerrero
-from src.classes.Personajes.Infiltrado import Infiltrado
-from src.classes.Gene import Gene
+from src.classes.characters.Arquero import Arquero
+from src.classes.characters.Defensor import Defensor
+from src.classes.characters.Guerrero import Guerrero
+from src.classes.characters.Infiltrado import Infiltrado
 
 half_to_one_values = iter([0.75, 0.65, 0.85])
 zero_to_one_values = iter([0.85, 0.2, 0.90])
@@ -28,8 +29,9 @@ class ProbabilisticTournamentBase(unittest.TestCase, ABC):
     def setUp(self) -> None:
         self.population = []
         for i in range(10):
-            gene = Gene(10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i)
-            self.population.append(self.character_class(gene))
+            if i != 0:
+                gene = Genotype(10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i)
+                self.population.append(self.character_class(gene))
 
         self.samples = [[self.population[0], self.population[1]],
                         [self.population[1], self.population[2]],

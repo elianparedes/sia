@@ -1,22 +1,22 @@
 import unittest
+
+from src.classes.Genotype import Genotype
 from src.crossover.OnePoint import OnePoint
-from src.classes.Gene import Gene
 from unittest.mock import patch
 
 
 class TestOnePoint(unittest.TestCase):
 
     def setUp(self):
-        self.gene1 = Gene(1, 2, 3, 4, 5, 6)
-        self.gene2 = Gene(10, 20, 30, 40, 50, 60)
+        self.gene1 = Genotype(20, 40, 60, 10, 20, 1.5)
+        self.gene2 = Genotype(30, 35, 65, 5, 15, 1.7)
 
     @patch('random.randrange')
     def test_deterministic_values(self, mock_randrange):
         mock_randrange.return_value = 2
         children = OnePoint.cross(self.gene1, self.gene2)
-        self.assertEqual(children[0], Gene.from_array([1, 2, 30, 40, 50, 60]))
-        self.assertEqual(children[1], Gene.from_array([10, 20, 3, 4, 5, 6]))
-
+        self.assertEqual(children[0], Genotype.from_array([20, 40, 65, 5, 15, 1.7]))
+        self.assertEqual(children[1], Genotype.from_array([30, 35, 60, 10, 20, 1.5]))
 
     def test_child_not_equals(self):
         children = OnePoint.cross(self.gene1, self.gene2)

@@ -1,10 +1,13 @@
 import math
 import random
 
-class Pericia:
+from src.classes.stats.StatABC import StatABC
+
+
+class Pericia(StatABC):
 
     def __init__(self, value):
-        self.value = value
+        super().__init__(value)
 
     def get_p(self):
         return 0.6 * math.tanh(self.value * 0.01)

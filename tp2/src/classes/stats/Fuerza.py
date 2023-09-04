@@ -1,11 +1,13 @@
 import math
 import random
 
+from src.classes.stats.StatABC import StatABC
 
-class Fuerza:
+
+class Fuerza(StatABC):
 
     def __init__(self, value):
-        self.value = value
+        super().__init__(value)
 
     def get_p(self):
         return 100 * math.tanh(self.value * 0.01)
@@ -27,4 +29,3 @@ class Fuerza:
     def mutate(self):
         new_val = random.uniform(0, 150)
         return Fuerza(new_val)
-

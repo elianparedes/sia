@@ -2,7 +2,7 @@ from src.selection.SelectionABC import SelectionABC
 import random
 
 
-class UniversalSelection(SelectionABC):
+class Universal(SelectionABC):
 
     @classmethod
     def select(cls, population: [], individuals: int):

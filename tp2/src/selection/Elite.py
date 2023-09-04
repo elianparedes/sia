@@ -1,7 +1,7 @@
 from src.selection.SelectionABC import SelectionABC
 
 
-class EliteSelection(SelectionABC):
+class Elite(SelectionABC):
 
     @classmethod
     def select(cls, population: [], individuals: int):

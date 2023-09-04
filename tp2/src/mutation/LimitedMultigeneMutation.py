@@ -1,12 +1,12 @@
 from src.mutation.MutationABC import MutationABC
-from src.classes.Genotipo import Genotipo
+from src.classes.Genotype import Genotype
 import random
 
 
 class LimitedMultigeneMutation(MutationABC):
 
     @classmethod
-    def mutate(cls, genes: Genotipo, probability: float) -> Genotipo | None:
+    def mutate(cls, genes: Genotype, probability: float) -> Genotype | None:
         shuffled_genes = genes.to_array()
         new_genes = genes.to_array()
         random.shuffle(shuffled_genes)
@@ -21,4 +21,4 @@ class LimitedMultigeneMutation(MutationABC):
                 # Search and replace with mutated gene
                 index = new_genes.index(shuffled_genes[i])
                 new_genes[index] = stat
-        return Genotipo.from_array(new_genes)
+        return Genotype.from_array(new_genes)

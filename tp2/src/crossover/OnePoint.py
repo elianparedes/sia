@@ -1,11 +1,11 @@
+from src.classes.Genotype import Genotype
 from src.crossover.CrossoverABC import CrossoverABC
-from src.classes.Gene import Gene
 import random
 
 
 class OnePoint(CrossoverABC):
     @classmethod
-    def cross(cls, gene1: Gene, gene2: Gene) -> tuple[Gene, Gene]:
+    def cross(cls, gene1: Genotype, gene2: Genotype) -> tuple[Genotype, Genotype]:
         gene1_arr = gene1.to_array()
         gene2_arr = gene2.to_array()
         genes_count = len(gene1_arr)
@@ -13,4 +13,4 @@ class OnePoint(CrossoverABC):
         child1 = gene1_arr[:locus] + gene2_arr[locus:]
         child2 = gene2_arr[:locus] + gene1_arr[locus:]
 
-        return tuple([Gene.from_array(child1), Gene.from_array(child2)])
+        return Genotype.from_array(child1), Genotype.from_array(child2)

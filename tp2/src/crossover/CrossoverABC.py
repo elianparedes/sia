@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.classes.Gene import Gene
+from src.classes.Genotype import Genotype
 
 
 class CrossoverABC(ABC):
@@ -10,5 +10,5 @@ class CrossoverABC(ABC):
     """
     @classmethod
     @abstractmethod
-    def cross(cls, gene1: Gene, gene2: Gene) -> tuple[Gene, Gene]:
+    def cross(cls, gene1: Genotype, gene2: Genotype) -> tuple[Genotype, Genotype]:
         pass

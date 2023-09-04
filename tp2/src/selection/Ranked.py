@@ -1,7 +1,8 @@
 from src.selection.SelectionABC import SelectionABC
 import random
 
-class RankedSelection(SelectionABC):
+
+class Ranked(SelectionABC):
 
     @classmethod
     def select(cls, population: [], individuals: int):

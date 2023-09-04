@@ -1,11 +1,11 @@
 import math
 import random
 
-from tp2.src.selection.SelectionABC import SelectionABC
+from src.selection.SelectionABC import SelectionABC
 
 
-#TODO implement generation
-#TODO get constants from config file
+# TODO implement generation
+# TODO get constants from config file
 class Boltzmann(SelectionABC):
     @classmethod
     def select(cls, population: [], individuals: int):

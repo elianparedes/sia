@@ -1,12 +1,13 @@
 import unittest
 from abc import ABC
 from unittest.mock import patch
+
+from src.classes.Genotype import Genotype
 from src.selection.DeterministicTournament import DeterministicTournament
-from src.classes.Personajes.Arquero import Arquero
-from src.classes.Personajes.Defensor import Defensor
-from src.classes.Personajes.Guerrero import Guerrero
-from src.classes.Personajes.Infiltrado import Infiltrado
-from src.classes.Gene import Gene
+from src.classes.characters.Arquero import Arquero
+from src.classes.characters.Defensor import Defensor
+from src.classes.characters.Guerrero import Guerrero
+from src.classes.characters.Infiltrado import Infiltrado
 
 
 class DeterministicTournamentBase(unittest.TestCase, ABC):
@@ -17,8 +18,9 @@ class DeterministicTournamentBase(unittest.TestCase, ABC):
         self.population = []
         DeterministicTournament.tournament_size = None
         for i in range(10):
-            gene = Gene(10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i)
-            self.population.append(self.character_class(gene))
+            if i != 0:
+                gene = Genotype(10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i, 10.0 * i)
+                self.population.append(self.character_class(gene))
 
     def test_size_not_set(self):
         with self.assertRaises(ValueError):

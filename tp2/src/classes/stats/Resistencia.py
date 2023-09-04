@@ -1,22 +1,24 @@
 import math
 import random
 
+from src.classes.stats.StatABC import StatABC
 
-class Vida:
+
+class Resistencia(StatABC):
 
     def __init__(self, value):
-        self.value = value
+        super().__init__(value)
 
     def get_p(self):
-        return 100 * math.tanh(self.value * 0.01)
+        return math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Vida))
+        return hash((self.value, Resistencia))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Vida):
+        if isinstance(other, Resistencia):
             return self.value == other.value
         else:
             return False
@@ -26,5 +28,4 @@ class Vida:
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Vida(new_val)
-
+        return Resistencia(new_val)

@@ -2,11 +2,12 @@ import math
 import random
 
 from src.crossover.CrossoverABC import CrossoverABC
-from src.classes.Gene import Gene
+from src.classes.Genotype import Genotype
+
 
 class Annular(CrossoverABC):
     @classmethod
-    def cross(cls, gene1: Gene, gene2: Gene) -> tuple[Gene, Gene]:
+    def cross(cls, gene1: Genotype, gene2: Genotype) -> tuple[Genotype, Genotype]:
         gene1_arr = gene1.to_array()
         gene2_arr = gene2.to_array()
 
@@ -25,4 +26,4 @@ class Annular(CrossoverABC):
         for i in range(point, point + length):
             child2[i % gene_count] = gene1_arr[i % gene_count]
 
-        return tuple([Gene.from_array(child1), Gene.from_array(child2)])
+        return Genotype.from_array(child1), Genotype.from_array(child2)
