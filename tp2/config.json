@@ -1,0 +1,15 @@
+{
+  "character": "warrior",
+  "crossover": "one-point",
+  "mutation": "single",
+  "selection": "elite",
+  "cutoff": "generations",
+  "seed": [
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.31 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.4 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.5 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.6 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 2 }
+  ]
+}
