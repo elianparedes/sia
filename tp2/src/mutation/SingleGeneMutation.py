@@ -7,14 +7,15 @@ class SingleGeneMutation(MutationABC):
 
     @classmethod
     def mutate(cls, genes: Genotype, probability: float) -> Genotype | None:
-        shuffled_genes = genes.to_array()
         new_genes = genes.to_array()
-        random.shuffle(shuffled_genes)
         if random.uniform(0, 1) <= probability:
-            # Mutation
-            stat = shuffled_genes[0].mutate()
-
-            # Search and replace with mutated gene
-            index = new_genes.index(shuffled_genes[0])
-            new_genes[index] = stat
+            # Random selection of the gene to mutate
+            rand = random.randint(0, len(new_genes) - 1)
+            # check if it is the height gene
+            if rand == (len(new_genes) - 1):
+                # Search and replace with mutated gene
+                new_genes[rand] = random.uniform(1.3, 2.0)
+            else:
+                # Search and replace with mutated gene
+                new_genes[rand] = random.uniform(0, 150)
         return Genotype.from_array(new_genes)
