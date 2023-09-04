@@ -12,7 +12,7 @@ class LimitedMultigeneMutation(MutationABC):
         random.shuffle(shuffled_genes)
 
         # Random selection of the first M genes
-        mutation_amount = random.randint(1, len(genes))
+        mutation_amount = random.randint(1, len(new_genes))
         for i in range(mutation_amount):
             if random.uniform(0, 1) <= probability:
                 # Mutation
