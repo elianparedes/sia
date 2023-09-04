@@ -1,10 +1,13 @@
-from src.classes.Player import Player
+from src.classes.characters.CharacterABC import CharacterABC
+
+ATK_PERCENT = 0.1
+DEF_PERCENT = 0.9
 
 
-class Defender(Player):
+class Defender(CharacterABC):
 
-    def fitness(self):
-        return 0.1 * super().ataque() + 0.9 * super().defensa()
+    def __init__(self, gene):
+        super().__init__(gene, ATK_PERCENT, DEF_PERCENT)
 
     def __str__(self):
         return 'Defender: ' + super().__str__()

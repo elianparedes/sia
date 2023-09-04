@@ -1,24 +1,24 @@
 import math
 import random
 
-from src.classes.stats.StatABC import StatABC
+from src.classes.genes.GeneABC import GeneABC
 
 
-class Intelligence(StatABC):
+class Endurance(GeneABC):
 
     def __init__(self, value):
         super().__init__(value)
 
     def get_p(self):
-        return 0.6 * math.tanh(self.value * 0.01)
+        return math.tanh(self.value * 0.01)
 
     def __hash__(self):
-        return hash((self.value, Intelligence))
+        return hash((self.value, Endurance))
 
     def __eq__(self, other):
         if other is None:
             return False
-        if isinstance(other, Intelligence):
+        if isinstance(other, Endurance):
             return self.value == other.value
         else:
             return False
@@ -28,4 +28,4 @@ class Intelligence(StatABC):
 
     def mutate(self):
         new_val = random.uniform(0, 150)
-        return Intelligence(new_val)
+        return Endurance(new_val)

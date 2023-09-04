@@ -1,10 +1,10 @@
 import math
 import random
 
-from src.classes.stats.StatABC import StatABC
+from src.classes.genes.GeneABC import GeneABC
 
 
-class Strength(StatABC):
+class Strength(GeneABC):
 
     def __init__(self, value):
         super().__init__(value)

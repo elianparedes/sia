@@ -5,9 +5,9 @@ from unittest.mock import patch
 
 from src.classes.Genotype import Genotype
 from src.selection.ProbabilisticTournament import ProbabilisticTournament
-from src.classes.characters.Archer import Arquero
-from src.classes.characters.Defender import Defensor
-from src.classes.characters.Warrior import Guerrero
+from src.classes.characters.Archer import Archer
+from src.classes.characters.Defender import Defender
+from src.classes.characters.Warrior import Warrior
 from src.classes.characters.Spy import Spy
 
 half_to_one_values = iter([0.75, 0.65, 0.85])
@@ -56,17 +56,17 @@ class ProbabilisticTournamentBase(unittest.TestCase, ABC):
             self.assertEqual(results[2], for_test)
 
 
-class TestArquero(ProbabilisticTournamentBase):
-    character_class = Arquero
+class TestArcher(ProbabilisticTournamentBase):
+    character_class = Archer
 
 
-class TestDefensor(ProbabilisticTournamentBase):
-    character_class = Defensor
+class TestDefender(ProbabilisticTournamentBase):
+    character_class = Defender
 
 
-class TestGuerrero(ProbabilisticTournamentBase):
-    character_class = Guerrero
+class TestWarrior(ProbabilisticTournamentBase):
+    character_class = Warrior
 
 
-class TestInfiltrado(ProbabilisticTournamentBase):
+class TestSpy(ProbabilisticTournamentBase):
     character_class = Spy
