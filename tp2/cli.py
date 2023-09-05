@@ -73,13 +73,23 @@ def get_population(genotypes, character_type):
     return population
 
 
+def get_genotypes(population):
+    genotypes = []
+    for individual in population:
+        genotypes.append(individual.get_gene())
+
+    return genotypes
+
+
 def execute_crossover(genotypes, crossover_type):
     children_genotypes = []
     for i in range(0, len(genotypes), 2):
-        child_tuple = crossover_type.cross(genotypes[i], genotypes[i + 1])
-        print()
-        children_genotypes.append(child_tuple[0])
-        children_genotypes.append(child_tuple[1])
+        if i + 1 < len(genotypes):
+            child_tuple = crossover_type.cross(genotypes[i], genotypes[i + 1])
+            children_genotypes.append(child_tuple[0])
+            children_genotypes.append(child_tuple[1])
+        else:
+            children_genotypes.append(genotypes[i])
 
     return children_genotypes
 
@@ -92,7 +102,7 @@ def execute_mutation(genotypes, mutation_type, probability):
 
 
 def execute_selection(population, individuals, selection_type):
-    new_population = selection_type(population, individuals)
+    new_population = selection_type.select(population, individuals)
     return new_population
 
 
@@ -132,10 +142,18 @@ def main():
         selection_type = SELECTION[config.selection]
         # cutoff_type = CUTOFF[config.cutoff] not implemented
 
-        new_genotypes = execute_crossover(config.genotypes, crossover_type)
-        mutated_genotypes = execute_mutation(new_genotypes, mutation_type, 0.5)
-        population = get_population(mutated_genotypes, character_type)
-        selection = execute_selection(population, 6, selection_type)
+        genotypes = config.genotypes
+        for i in range(100):
+            new_genotypes = execute_crossover(genotypes, crossover_type)
+            mutated_genotypes = execute_mutation(new_genotypes, mutation_type, 0.5)
+            population = get_population(mutated_genotypes, character_type)
+            selection = execute_selection(population, 8, selection_type)
+            print("-------------------------------------------------------------")
+            print("Generation: " + i.__str__())
+            for individual in selection:
+                print(individual)
+                print(individual.fitness())
+            genotypes = get_genotypes(selection)
 
 
 if __name__ == "__main__":
