@@ -9,8 +9,8 @@ from src.selection.Universal import Universal
 
 class SelectionFactory:
     SELECTION_CLASSES = {
-        "probabilistic_tournament": ProbabilisticTournament,
-        "deterministic_tournament": DeterministicTournament,
+        "probabilistic": ProbabilisticTournament,
+        "deterministic": DeterministicTournament,
         "elite": Elite,
         "boltzmann": Boltzmann,
         "ranked": Ranked,

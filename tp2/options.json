@@ -1,17 +1,17 @@
 {
-  "character": "warrior",
-  "crossover": "two-point",
+  "character": "[warrior | archer | defender | spy]",
+  "crossover": "[one-point | two-point | annular | uniform]",
   "mutation": {
-    "type": "complete",
-    "probability": 0.6
+    "type": "[single | limited | uniform | complete]",
+    "probability": 0.9
   },
   "selection": {
     "first": {
-      "type": "deterministic",
+      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]",
       "probability": 0.5
     },
     "second": {
-      "type": "boltzmann"
+      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]"
     },
     "individuals": 6,
     "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2, "generation": 10},
@@ -20,7 +20,7 @@
   "replacement": {},
   "cutoff": {
     "type": "generation",
-    "parameter": 100
+    "parameter": 200
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },

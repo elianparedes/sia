@@ -1,57 +1,11 @@
 import sys
+import random
 
 from Config import Config
-from src.classes.characters.Archer import Archer
-from src.classes.characters.Defender import Defender
-from src.classes.characters.Spy import Spy
-from src.classes.characters.Warrior import Warrior
-from src.crossover.Annular import Annular
-from src.crossover.OnePoint import OnePoint
-from src.crossover.TwoPoint import TwoPoint
-from src.crossover.Uniform import Uniform
-from src.mutation import UniformMultiGeneMutation
-from src.mutation.CompleteMutation import CompleteMutation
-from src.mutation.LimitedMultigeneMutation import LimitedMultigeneMutation
-from src.mutation.SingleGeneMutation import SingleGeneMutation
-from src.selection.Boltzmann import Boltzmann
-from src.selection.DeterministicTournament import DeterministicTournament
-from src.selection.Elite import Elite
-from src.selection.ProbabilisticTournament import ProbabilisticTournament
-from src.selection.Ranked import Ranked
-from src.selection.Roulette import Roulette
-from src.selection.Universal import Universal
 
 # Argument constants
 ARG_HELP = "help"
 ARG_FILE = "file"
-
-CHARACTERS = {"warrior": Warrior,
-              "archer": Archer,
-              "defender": Defender,
-              "spy": Spy}
-
-CROSSOVER = {
-    "one-point": OnePoint,
-    "two-point": TwoPoint,
-    "annular": Annular,
-    "uniform": Uniform
-}
-
-MUTATION = {
-    "single": SingleGeneMutation,
-    "limited": LimitedMultigeneMutation,
-    "uniform": UniformMultiGeneMutation,
-    "complete": CompleteMutation
-}
-
-SELECTION = {"elite": Elite,
-             "roulette": Roulette,
-             "universal": Universal,
-             "ranked": Ranked,
-             "boltzmann": Boltzmann,
-             "deterministic": DeterministicTournament,
-             "probabilistic": ProbabilisticTournament
-             }
 
 CUTOFF = {}
 
@@ -101,8 +55,9 @@ def execute_mutation(genotypes, mutation_type, probability):
     return mutated_genotypes
 
 
-def execute_selection(population, individuals, selection_type):
-    new_population = selection_type.select(population, individuals)
+def execute_selection(population, individuals, first_selection, selection_probability, second_selection):
+    #FIXME: missing second selection
+    new_population = first_selection.select(population, individuals)
     return new_population
 
 
@@ -136,18 +91,14 @@ def main():
             exit(1)
 
         config = Config(config_file)
-        character_type = CHARACTERS[config.character]
-        crossover_type = CROSSOVER[config.crossover]
-        mutation_type = MUTATION[config.mutation]
-        selection_type = SELECTION[config.selection]
-        # cutoff_type = CUTOFF[config.cutoff] not implemented
 
         genotypes = config.genotypes
-        for i in range(100):
-            new_genotypes = execute_crossover(genotypes, crossover_type)
-            mutated_genotypes = execute_mutation(new_genotypes, mutation_type, 0.5)
-            population = get_population(mutated_genotypes, character_type)
-            selection = execute_selection(population, 8, selection_type)
+        for i in range(config.cutoff_parameter):
+            new_genotypes = execute_crossover(genotypes, config.crossover)
+            mutated_genotypes = execute_mutation(new_genotypes, config.mutation, config.mutation_probability)
+            population = get_population(mutated_genotypes, config.character)
+            selection = execute_selection(population, config.individuals, config.first_selection,
+                                          config.selection_probability, config.second_selection)
             print("-------------------------------------------------------------")
             print("Generation: " + i.__str__())
             for individual in selection:
