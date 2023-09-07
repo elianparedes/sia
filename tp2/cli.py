@@ -58,11 +58,15 @@ def execute_mutation(genotypes, mutation_type, probability):
 
 def execute_selection(population, individuals, first_selection, second_selection, a_value):
     return first_selection.select(population, ceil(individuals * a_value)) \
-           + second_selection.select(population, floor(individuals * (1 - a_value)))
+        + second_selection.select(population, floor(individuals * (1 - a_value)))
 
 
 def execute_replacement(population, children, replacement, first_selection, second_selection, b_value):
     return replacement.replace(population, children, first_selection, second_selection, b_value)
+
+
+def cutoff(population, oldPopulation,cutoff_parameter,generation,cutoff_type):
+    return cutoff_type.cutoff(population,oldPopulation,generation, cutoff_parameter)
 
 
 def main():

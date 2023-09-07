@@ -14,8 +14,5 @@ class Traditional(ReplacementABC):
 
         new_population = population + children
 
-        first_selected_individuals = first_selection.select(new_population, ceil(n * B))
-        remaining_individuals = [individual for individual in new_population if individual not in first_selected_individuals]
-        second_selected_individuals = second_selection.select(remaining_individuals, floor(n * (1 - B)))
-
-        return first_selected_individuals + second_selected_individuals
+        return first_selection.select(new_population, ceil(n * B)) + second_selection.select(new_population,
+                                                                                             floor(n * (1 - B)))
