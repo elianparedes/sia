@@ -1,6 +1,6 @@
 from abc import ABC
 
-from characters.CharacterABC import CharacterABC
+from src.classes.characters.CharacterABC import CharacterABC
 from src.cutoff.CutoffABC import CutoffABC
 
 

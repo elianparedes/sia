@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-import Genotype
-from characters.CharacterABC import CharacterABC
+from src.classes.characters.CharacterABC import CharacterABC
 
 
 class CutoffABC(ABC):

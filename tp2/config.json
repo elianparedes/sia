@@ -30,7 +30,7 @@
     "b-value": 0.6
   },
   "cutoff": {
-    "type": "generation",
+    "type": "max-generation",
     "parameter": 2000
   },
   "seed": [

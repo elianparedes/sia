@@ -1,8 +1,7 @@
 from abc import ABC
 from typing import List
 
-from Genotype import Genotype
-from characters.CharacterABC import CharacterABC
+from src.classes.characters.CharacterABC import CharacterABC
 from src.cutoff.CutoffABC import CutoffABC
 
 
