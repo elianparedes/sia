@@ -57,8 +57,10 @@ def execute_mutation(genotypes, mutation_type, probability):
 
 
 def execute_selection(population, individuals, first_selection, second_selection, a_value):
-    return first_selection.select(population, ceil(individuals * a_value)) \
-           + second_selection.select(population, floor(individuals * (1 - a_value)))
+    first = first_selection.select(population, ceil(individuals * a_value))
+    new_population = [individual for individual in population if individual not in first]
+    second = second_selection.select(new_population, floor(individuals * (1 - a_value)))
+    return first + second
 
 
 def execute_replacement(population, children, replacement, first_selection, second_selection, b_value):
