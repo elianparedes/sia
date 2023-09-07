@@ -1,26 +1,37 @@
 {
-  "character": "warrior",
+  "character": "archer",
   "crossover": "two-point",
   "mutation": {
     "type": "complete",
     "probability": 0.6
   },
   "selection": {
-    "first": {
-      "type": "deterministic",
-      "probability": 0.5
+    "first-selection": {
+      "type": "probabilistic",
+      "parameters": {}
     },
-    "second": {
-      "type": "boltzmann"
+    "second-selection": {
+      "type": "roulette",
+      "parameters": {}
     },
-    "individuals": 6,
-    "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2, "generation": 10},
-    "deterministic-parameters": {"size":  2}
+    "a-value": 0.6,
+    "individuals": 10
   },
-  "replacement": {},
+  "replacement": {
+    "type": "traditional",
+    "first-selection": {
+      "type": "deterministic",
+      "parameters": {"size":  2}
+    },
+    "second-selection": {
+      "type": "elite",
+      "parameters": {}
+    },
+    "b-value": 0.6
+  },
   "cutoff": {
     "type": "generation",
-    "parameter": 100
+    "parameter": 2000
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
@@ -28,6 +39,12 @@
     {"strength":  20, "agility": 40, "skill": 20, "endurance": 20, "health": 50, "height": 1.4 },
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 15, "health": 55, "height": 1.5 },
     {"strength":  20, "agility": 5, "skill": 55, "endurance": 20, "health": 50, "height": 1.6 },
-    {"strength":  10, "agility": 30, "skill": 30, "endurance": 30, "health": 50, "height": 2 }
+    {"strength":  10, "agility": 20, "skill": 30, "endurance": 40, "health": 50, "height": 2 },
+    {"strength":  20, "agility": 10, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
+    {"strength":  10, "agility": 40, "skill": 30, "endurance": 20, "health": 50, "height": 1.31 },
+    {"strength":  10, "agility": 10, "skill": 10, "endurance": 10, "health": 10, "height": 1.35 },
+    {"strength":  20, "agility": 20, "skill": 20, "endurance": 20, "health": 20, "height": 1.5 },
+    {"strength":  30, "agility": 30, "skill": 30, "endurance": 30, "health": 30, "height": 1.6 },
+    {"strength":  5, "agility": 5, "skill": 5, "endurance": 5, "health": 5, "height": 1.9 }
   ]
 }

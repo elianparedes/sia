@@ -1,5 +1,6 @@
 import sys
 import random
+from math import ceil, floor
 
 from Config import Config
 
@@ -55,10 +56,13 @@ def execute_mutation(genotypes, mutation_type, probability):
     return mutated_genotypes
 
 
-def execute_selection(population, individuals, first_selection, selection_probability, second_selection):
-    #FIXME: missing second selection
-    new_population = first_selection.select(population, individuals)
-    return new_population
+def execute_selection(population, individuals, first_selection, second_selection, a_value):
+    return first_selection.select(population, ceil(individuals * a_value)) \
+           + second_selection.select(population, floor(individuals * (1 - a_value)))
+
+
+def execute_replacement(population, children, replacement, first_selection, second_selection, b_value):
+    return replacement.replace(population, children, first_selection, second_selection, b_value)
 
 
 def main():
@@ -92,19 +96,23 @@ def main():
 
         config = Config(config_file)
 
-        genotypes = config.genotypes
+        generation = get_population(config.genotypes, config.character)
         for i in range(config.cutoff_parameter):
-            new_genotypes = execute_crossover(genotypes, config.crossover)
-            mutated_genotypes = execute_mutation(new_genotypes, config.mutation, config.mutation_probability)
-            population = get_population(mutated_genotypes, config.character)
-            selection = execute_selection(population, config.individuals, config.first_selection,
-                                          config.selection_probability, config.second_selection)
+            selection = execute_selection(generation, config.individuals, config.first_selection,
+                                          config.second_selection, config.a_value)
+            selection_genotypes = get_genotypes(selection)
+            crossover_genotypes = execute_crossover(selection_genotypes, config.crossover)
+            mutated_genotypes = execute_mutation(crossover_genotypes, config.mutation, config.mutation_probability)
+            children = get_population(mutated_genotypes, config.character)
+            generation = execute_replacement(generation, children, config.replacement_type,
+                                             config.replacement_first_selection,
+                                             config.replacement_second_selection, config.b_value)
+
             print("-------------------------------------------------------------")
             print("Generation: " + i.__str__())
-            for individual in selection:
+            for individual in generation:
                 print(individual)
-                print(individual.fitness())
-            genotypes = get_genotypes(selection)
+                print("fitness: " + individual.fitness().__str__())
 
 
 if __name__ == "__main__":

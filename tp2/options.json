@@ -3,24 +3,35 @@
   "crossover": "[one-point | two-point | annular | uniform]",
   "mutation": {
     "type": "[single | limited | uniform | complete]",
-    "probability": 0.9
+    "probability": "[0-1]"
   },
   "selection": {
-    "first": {
+    "first-selection": {
       "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]",
-      "probability": 0.5
+      "parameters": "[deterministic: {\"size\":  2} | boltzmann {\"t0\": 10, \"tc\": 5, \"k\": 2, \"generation\": 10} | else: {} ]"
     },
-    "second": {
-      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]"
+    "second-selection": {
+      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]",
+      "parameters": "[deterministic: {\"size\":  2} | boltzmann {\"t0\": 10, \"tc\": 5, \"k\": 2, \"generation\": 10} | else: {} ]"
     },
-    "individuals": 6,
-    "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2, "generation": 10},
-    "deterministic-parameters": {"size":  2}
+    "a-value": "[0-1]",
+    "individuals": "[>0]"
   },
-  "replacement": {},
+  "replacement": {
+    "type": "[traditional | young]",
+    "first-selection": {
+      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]",
+      "parameters": "[deterministic: {\"size\":  2} | boltzmann: {\"t0\": 10, \"tc\": 5, \"k\": 2, \"generation\": 10} | else: {} ]"
+    },
+    "second-selection": {
+      "type": "[elite | roulette | universal | boltzmann | deterministic | probabilistic]",
+      "parameters": "[deterministic: {\"size\":  2} | boltzmann: {\"t0\": 10, \"tc\": 5, \"k\": 2, \"generation\": 10} | else: {} ]"
+    },
+    "b-value": "[0-1]"
+  },
   "cutoff": {
     "type": "generation",
-    "parameter": 200
+    "parameter": "[>0]"
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },

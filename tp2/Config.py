@@ -15,14 +15,9 @@ from src.mutation import UniformMultiGeneMutation
 from src.mutation.CompleteMutation import CompleteMutation
 from src.mutation.LimitedMultigeneMutation import LimitedMultigeneMutation
 from src.mutation.SingleGeneMutation import SingleGeneMutation
-from src.selection.Boltzmann import Boltzmann
-from src.selection.DeterministicTournament import DeterministicTournament
-from src.selection.Elite import Elite
-from src.selection.ProbabilisticTournament import ProbabilisticTournament
-from src.selection.Ranked import Ranked
-from src.selection.Roulette import Roulette
+from src.replacement.Traditional import Traditional
+from src.replacement.YoungBias import YoungBias
 from src.selection.SelectionFactory import SelectionFactory
-from src.selection.Universal import Universal
 
 CHARACTERS = {
     "warrior": Warrior,
@@ -44,14 +39,9 @@ MUTATION = {
     "complete": CompleteMutation
 }
 
-SELECTION = {
-    "elite": Elite,
-    "roulette": Roulette,
-    "universal": Universal,
-    "ranked": Ranked,
-    "boltzmann": Boltzmann,
-    "deterministic": DeterministicTournament,
-    "probabilistic": ProbabilisticTournament
+REPLACEMENT = {
+    "traditional": Traditional,
+    "young": YoungBias
 }
 
 
@@ -67,29 +57,24 @@ class Config:
             self.mutation = MUTATION[config['mutation']['type']]
             self.mutation_probability = config['mutation']['probability']
 
-            first_selection = config['selection']['first']['type']
-            if first_selection == 'boltzmann':
-                self.first_selection = SelectionFactory.configure(first_selection,
-                                                                  **config['selection']['boltzmann-parameters'])
-            elif first_selection == 'deterministic':
-                self.first_selection = SelectionFactory.configure(first_selection,
-                                                                  **config['selection']['deterministic-parameters'])
-            else:
-                self.first_selection = SelectionFactory.configure(first_selection, **{})
-            self.selection_probability = config['selection']['first']['probability']
+            self.first_selection = SelectionFactory.configure(config['selection']['first-selection']['type'],
+                                                              **config['selection']['first-selection']['parameters'])
+            self.second_selection = SelectionFactory.configure(config['selection']['second-selection']['type'],
+                                                               **config['selection']['second-selection']['parameters'])
 
-            second_selection = config['selection']['second']['type']
-            if second_selection == 'boltzmann':
-                self.second_selection = SelectionFactory.configure(second_selection,
-                                                                  **config['selection']['boltzmann-parameters'])
-            elif second_selection == 'deterministic':
-                self.second_selection = SelectionFactory.configure(second_selection,
-                                                                  **config['selection']['deterministic-parameters'])
-            else:
-                self.second_selection = SelectionFactory.configure(second_selection, **{})
+            self.a_value = config['selection']['a-value']
             self.individuals = config['selection']['individuals']
 
-            self.replacement = config['replacement']
+            self.replacement_type = REPLACEMENT[config['replacement']['type']]
+            self.replacement_first_selection = SelectionFactory.configure(
+                config['replacement']['first-selection']['type'],
+                **config['replacement']['first-selection']['parameters'])
+            self.replacement_second_selection = SelectionFactory.configure(
+                config['replacement']['second-selection']['type'],
+                **config['replacement']['second-selection']['parameters'])
+
+            self.b_value = config['replacement']['b-value']
+
             self.cutoff = config['cutoff']['type']
             self.cutoff_parameter = config['cutoff']['parameter']
             self.genotypes = []
