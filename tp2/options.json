@@ -30,7 +30,7 @@
     "b-value": "[0-1]"
   },
   "cutoff": {
-    "type": "generation",
+    "type": "max-generation | content | structure | optimum-environment",
     "parameter": "[>0]"
   },
   "seed": [

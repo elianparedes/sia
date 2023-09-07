@@ -1,4 +1,3 @@
-from src.classes.Genotype import Genotype
 from src.classes.characters.CharacterABC import CharacterABC
 from src.cutoff.CutoffABC import CutoffABC
 

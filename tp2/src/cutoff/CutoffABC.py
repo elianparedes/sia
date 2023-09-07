@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-import src.classes.Genotype
 from src.classes.characters.CharacterABC import CharacterABC
 
 

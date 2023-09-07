@@ -30,21 +30,28 @@
     "b-value": 0.6
   },
   "cutoff": {
-    "type": "generation",
+    "type": "max-generation",
     "parameter": 2000
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
     {"strength":  10, "agility": 40, "skill": 30, "endurance": 20, "health": 50, "height": 1.31 },
-    {"strength":  20, "agility": 40, "skill": 20, "endurance": 20, "health": 50, "height": 1.4 },
-    {"strength":  20, "agility": 30, "skill": 30, "endurance": 15, "health": 55, "height": 1.5 },
-    {"strength":  20, "agility": 5, "skill": 55, "endurance": 20, "health": 50, "height": 1.6 },
-    {"strength":  10, "agility": 20, "skill": 30, "endurance": 40, "health": 50, "height": 2 },
-    {"strength":  20, "agility": 10, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
-    {"strength":  10, "agility": 40, "skill": 30, "endurance": 20, "health": 50, "height": 1.31 },
     {"strength":  10, "agility": 10, "skill": 10, "endurance": 10, "health": 10, "height": 1.35 },
     {"strength":  20, "agility": 20, "skill": 20, "endurance": 20, "health": 20, "height": 1.5 },
+    {"strength":  20, "agility": 5, "skill": 55, "endurance": 20, "health": 50, "height": 1.6 },
+    {"strength":  20, "agility": 40, "skill": 20, "endurance": 20, "health": 50, "height": 1.4 },
+    {"strength":  20, "agility": 30, "skill": 30, "endurance": 15, "health": 55, "height": 1.5 },
+    {"strength":  10, "agility": 20, "skill": 30, "endurance": 40, "health": 50, "height": 2 },
     {"strength":  30, "agility": 30, "skill": 30, "endurance": 30, "health": 30, "height": 1.6 },
-    {"strength":  5, "agility": 5, "skill": 5, "endurance": 5, "health": 5, "height": 1.9 }
-  ]
+    {"strength":  5, "agility": 5, "skill": 5, "endurance": 5, "health": 5, "height": 1.9 },
+    {"strength":  10, "agility": 40, "skill": 30, "endurance": 20, "health": 50, "height": 1.31 },
+    {"strength":  20, "agility": 10, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 }
+  ],
+  "benchmarks": {
+    "best_crossover": {
+      "characters": ["archer","defender","spy","warrior"],
+      "crossover": ["one-point", "two-point", "annular", "uniform"],
+      "iterations": 10
+    }
+  }
 }
