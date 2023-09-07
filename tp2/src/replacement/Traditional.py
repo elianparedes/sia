@@ -10,7 +10,6 @@ class Traditional(ReplacementABC):
     @classmethod
     def replace(cls, population: List[Genotype], children: List[Genotype], first_selection: SelectionABC , second_selection: SelectionABC, B: float = 0.5) -> List[Genotype]:
         n = len(population)
-        B = .35
 
         new_population = population + children
 
