@@ -15,7 +15,6 @@ class YoungBias(ReplacementABC):
 
         if k > n:
             return first_selection.select(children, ceil(n * B)) + second_selection.select(children, floor(n * (1 - B)))
-
         else:
             return children + first_selection.select(population, ceil((n - k) * B)) + second_selection.select(
                 population, floor((n - k) * (1 - B)))

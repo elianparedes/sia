@@ -11,6 +11,10 @@ from src.crossover.Annular import Annular
 from src.crossover.OnePoint import OnePoint
 from src.crossover.TwoPoint import TwoPoint
 from src.crossover.Uniform import Uniform
+from src.cutoff.Content import Content
+from src.cutoff.MaxGeneration import MaxGeneration
+from src.cutoff.OptimumEnviroment import OptimumEnviroment
+from src.cutoff.Structure import Structure
 from src.mutation import UniformMultiGeneMutation
 from src.mutation.CompleteMutation import CompleteMutation
 from src.mutation.LimitedMultigeneMutation import LimitedMultigeneMutation
@@ -42,6 +46,12 @@ MUTATION = {
 REPLACEMENT = {
     "traditional": Traditional,
     "young": YoungBias
+}
+CUTOFF = {
+    "content": Content,
+    "max-generation": MaxGeneration,
+    "optimum-environment": OptimumEnviroment,
+    "structure": Structure
 }
 
 
@@ -75,7 +85,7 @@ class Config:
 
             self.b_value = config['replacement']['b-value']
 
-            self.cutoff = config['cutoff']['type']
+            self.cutoff = CUTOFF[config['cutoff']['type']]
             self.cutoff_parameter = config['cutoff']['parameter']
             self.genotypes = []
             for genotype in config['seed']:
