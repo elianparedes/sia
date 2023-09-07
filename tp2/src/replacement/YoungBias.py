@@ -14,8 +14,15 @@ class YoungBias(ReplacementABC):
         k = len(children)
 
         if k > n:
-            return first_selection.select(children, ceil(n * B)) + second_selection.select(children, floor(n * (1 - B)))
+            first_selected_children = first_selection.select(children, ceil(n * B))
+            remaining_children = [child for child in children if child not in first_selected_children]
+            second_selected_children = second_selection.select(remaining_children, floor(n * (1 - B)))
 
+            return first_selected_children + second_selected_children
+        
         else:
-            return children + first_selection.select(population, ceil((n - k) * B)) + second_selection.select(
-                population, floor((n - k) * (1 - B)))
+            first_selected_individuals = first_selection.select(population, ceil((n - k) * B)) 
+            remaining_individuals = [individual for individual in population if individual not in first_selected_individuals]
+            second_selected_individuals = second_selection.select(remaining_individuals, floor((n - k) * (1 - B)))
+            
+            return children + first_selected_individuals + second_selected_individuals
