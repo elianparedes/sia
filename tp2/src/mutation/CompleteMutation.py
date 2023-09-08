@@ -9,7 +9,7 @@ class CompleteMutation(MutationABC):
     def mutate(cls, genes: Genotype, probability: float) -> Genotype | None:
         new_genes = genes.to_array()
         if random.uniform(0, 1) <= probability:
-            for i in range(len(new_genes) - 1):
+            for i in range(len(new_genes)):
                 # check if it is the height gene
                 if i == (len(new_genes) - 1):
                     # Search and replace with mutated gene
