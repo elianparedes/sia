@@ -5,8 +5,8 @@ from src.classes.Genotype import Genotype
 
 class CrossoverABC(ABC):
 
-    """ Crosses 2 genes
-    :return tuple[Gene, Gene] containing the genes of the 2 children
+    """ Crosses 2 genotypes
+    :return tuple[Genotype, Genotype] containing the genotypes of the 2 children
     """
     @classmethod
     @abstractmethod

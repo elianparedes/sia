@@ -1,8 +1,9 @@
-from src.selection.SelectionABC import SelectionABC
 import random
 
+from src.selection.ConfigurableSelectionABC import ConfigurableSelectionABC
 
-class DeterministicTournament(SelectionABC):
+
+class DeterministicTournament(ConfigurableSelectionABC):
 
     tournament_size = None
 

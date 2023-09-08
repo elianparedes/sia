@@ -1,18 +1,17 @@
-from abc import ABC
-
 from src.classes.characters.CharacterABC import CharacterABC
 from src.cutoff.CutoffABC import CutoffABC
 
 
-class Structure(CutoffABC, ABC):
-
+class Structure(CutoffABC):
     generations = 0
 
     @classmethod
     def set_generations(cls, generations):
         cls.generations = generations
+
     @classmethod
-    def cutoff(cls, new_population: list, old_population: list[list[CharacterABC]], generation: int, cutoffparameter) -> bool:
+    def cutoff(cls, new_population: list, old_population: list[list[CharacterABC]], generation: int,
+               cutoffparameter) -> bool:
         elementos_comunes = new_population
         if not old_population or cls.generations > len(old_population):
             return False
@@ -24,4 +23,3 @@ class Structure(CutoffABC, ABC):
             if (cantidad_elementos_comunes / population_len) < cutoffparameter:
                 return False
         return True
-

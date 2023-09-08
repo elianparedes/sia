@@ -1,5 +1,4 @@
 import math
-import random
 
 from src.classes.genes.GeneABC import GeneABC
 

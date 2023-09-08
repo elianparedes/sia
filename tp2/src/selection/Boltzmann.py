@@ -1,12 +1,12 @@
 import math
 import random
 
-from src.selection.SelectionABC import SelectionABC
+from src.selection.ConfigurableSelectionABC import ConfigurableSelectionABC
 
 
 # TODO implement generation
 # TODO get constants from config file
-class Boltzmann(SelectionABC):
+class Boltzmann(ConfigurableSelectionABC):
     T0 = 0
     TC = 0
     K = 0

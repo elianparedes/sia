@@ -5,8 +5,8 @@ from src.classes.Genotype import Genotype
 
 class MutationABC(ABC):
 
-    """ Mutates a list of genes
-    :return If None then no mutations. Else list of mutated genes
+    """ Mutates a genotype
+    :return If None then no mutations. Else mutated genotype
     """
     @classmethod
     @abstractmethod

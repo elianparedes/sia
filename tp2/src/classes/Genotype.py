@@ -9,7 +9,8 @@ from typing import List
 
 class Genotype:
 
-    def __init__(self, strength: float, agility: float, intelligence: float, endurance: float, health: float, height: float):
+    def __init__(self, strength: float, agility: float, intelligence: float, endurance: float, health: float,
+                 height: float):
         # Instantiation of the genotype normalizing genes
         total = strength + agility + intelligence + endurance + health
         percentage = 150 / total
@@ -61,7 +62,8 @@ class Genotype:
         return Genotype(*arr)
 
     def to_array(self) -> [float, float, float, float, float, float]:
-        return [self.strength.value, self.agility.value, self.intelligence.value, self.endurance.value, self.health.value, self.height.value]
+        return [self.strength.value, self.agility.value, self.intelligence.value, self.endurance.value,
+                self.health.value, self.height.value]
 
     def __str__(self):
         return f'Gene(strength={self.strength}, agility={self.agility}, intelligence={self.intelligence}, ' \
@@ -71,5 +73,5 @@ class Genotype:
         if not isinstance(other, Genotype):
             return NotImplemented
         return (self.strength == other.strength) and (self.height == other.height) \
-               and (self.health == other.health) and (self.endurance == other.endurance) \
-               and (self.agility == other.agility) and (self.intelligence == other.intelligence)
+            and (self.health == other.health) and (self.endurance == other.endurance) \
+            and (self.agility == other.agility) and (self.intelligence == other.intelligence)
