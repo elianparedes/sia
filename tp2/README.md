@@ -9,11 +9,13 @@
 ### cli.py
 The project can be run using a cli, run `python cli.py -h` to see instructions on how to it:
 ```
-Usage: python cli.py [-f <file_name>] [-h]
--f, --file
+Usage: python cli.py [-f <file_name>] [-s <qty>] [-h]
+-f, --file    <file_name>
         The name of the config file. It defaults to `config.json`.
+-s, --seed    <qty>
+        Generates a random seed with <qty> individuals.
 -h, --help
-        Print usage
+        Print usage.
 ```
 
 ### config.json
@@ -64,3 +66,4 @@ The structure of the `config.json` file can be found in the `options.json` file.
   ]
 }
 ```
+_Note_: Seed is an **optional parameter**, if you wish to generate a random seed run `cli.py` with the `-s` option.
