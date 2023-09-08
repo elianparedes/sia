@@ -57,7 +57,7 @@ CUTOFF = {
 
 class Config:
 
-    def __init__(self, config_file):
+    def __init__(self, config_file, seed=None):
         config_path = os.path.join(config_file)
 
         with open(config_path, "r") as f:
@@ -89,9 +89,13 @@ class Config:
             if config['cutoff']['type'] == "structure":
                 self.cutoff.set_generations(config['cutoff']['generations'])
             self.cutoff_parameter = config['cutoff']['parameter']
-            self.genotypes = []
-            for genotype in config['seed']:
-                self.genotypes.append(
-                    Genotype(genotype["strength"], genotype["agility"], genotype["skill"], genotype["endurance"],
-                             genotype["health"],
-                             genotype["height"]))
+
+            if seed is not None:
+                self.genotypes = seed
+            else:  # seed is none so we want to generate it from the cofig file
+                self.genotypes = []
+                for genotype in config['seed']:
+                    self.genotypes.append(
+                        Genotype(genotype["strength"], genotype["agility"], genotype["skill"], genotype["endurance"],
+                                 genotype["health"],
+                                 genotype["height"]))
