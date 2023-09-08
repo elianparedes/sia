@@ -70,7 +70,6 @@ class Genotype:
     def __eq__(self, other):
         if not isinstance(other, Genotype):
             return NotImplemented
-
         return (self.strength == other.strength) and (self.height == other.height) \
                and (self.health == other.health) and (self.endurance == other.endurance) \
                and (self.agility == other.agility) and (self.intelligence == other.intelligence)

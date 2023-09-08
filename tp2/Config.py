@@ -15,10 +15,10 @@ from src.cutoff.Content import Content
 from src.cutoff.MaxGeneration import MaxGeneration
 from src.cutoff.OptimumEnviroment import OptimumEnviroment
 from src.cutoff.Structure import Structure
-from src.mutation import UniformMultiGeneMutation
 from src.mutation.CompleteMutation import CompleteMutation
 from src.mutation.LimitedMultigeneMutation import LimitedMultigeneMutation
 from src.mutation.SingleGeneMutation import SingleGeneMutation
+from src.mutation.UniformMultiGeneMutation import UniformMultigeneMutation
 from src.replacement.Traditional import Traditional
 from src.replacement.YoungBias import YoungBias
 from src.selection.SelectionFactory import SelectionFactory
@@ -39,7 +39,7 @@ CROSSOVER = {
 MUTATION = {
     "single": SingleGeneMutation,
     "limited": LimitedMultigeneMutation,
-    "uniform": UniformMultiGeneMutation,
+    "uniform": UniformMultigeneMutation,
     "complete": CompleteMutation
 }
 
@@ -86,6 +86,8 @@ class Config:
             self.b_value = config['replacement']['b-value']
 
             self.cutoff = CUTOFF[config['cutoff']['type']]
+            if config['cutoff']['type'] == "structure":
+                self.cutoff.set_generations(config['cutoff']['generations'])
             self.cutoff_parameter = config['cutoff']['parameter']
             self.genotypes = []
             for genotype in config['seed']:

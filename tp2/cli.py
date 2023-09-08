@@ -65,8 +65,8 @@ def execute_replacement(population, children, replacement, first_selection, seco
     return replacement.replace(population, children, first_selection, second_selection, b_value)
 
 
-def cutoff(population, oldPopulation,cutoff_parameter,generation,cutoff_type):
-    return cutoff_type.cutoff(population,oldPopulation,generation, cutoff_parameter)
+def cutoff(population, oldPopulations,cutoff_parameter,generation,cutoff_type):
+    return cutoff_type.cutoff(population,oldPopulations,generation, cutoff_parameter)
 
 
 def main():
@@ -99,9 +99,10 @@ def main():
             exit(1)
 
         config = Config(config_file)
-
+        oldPopulations = []
         generation = get_population(config.genotypes, config.character)
-        for i in range(config.cutoff_parameter):
+        i = 0
+        while cutoff(generation,oldPopulations,config.cutoff_parameter,i,config.cutoff) is False:
             selection = execute_selection(generation, config.individuals, config.first_selection,
                                           config.second_selection, config.a_value)
             selection_genotypes = get_genotypes(selection)
@@ -111,7 +112,8 @@ def main():
             generation = execute_replacement(generation, children, config.replacement_type,
                                              config.replacement_first_selection,
                                              config.replacement_second_selection, config.b_value)
-
+            oldPopulations.append(generation)
+            i += 1
             print("-------------------------------------------------------------")
             print("Generation: " + i.__str__())
             for individual in generation:

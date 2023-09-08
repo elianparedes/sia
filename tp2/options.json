@@ -31,6 +31,7 @@
   },
   "cutoff": {
     "type": "max-generation | content | structure | optimum-environment",
+    "generations": "[>0]",
     "parameter": "[>0]"
   },
   "seed": [

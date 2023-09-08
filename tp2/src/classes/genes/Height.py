@@ -1,3 +1,6 @@
+import math
+
+
 class Height:
 
     def __init__(self, value):
@@ -16,7 +19,7 @@ class Height:
         if other is None:
             return False
         if isinstance(other, Height):
-            return self.value == other.value
+            return math.isclose(other.value, self.value, rel_tol=1e-03)
         else:
             return False
 

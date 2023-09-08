@@ -19,7 +19,7 @@ class Health(GeneABC):
         if other is None:
             return False
         if isinstance(other, Health):
-            return self.value == other.value
+            return math.isclose(other.value, self.value, rel_tol=1e-03)
         else:
             return False
 
