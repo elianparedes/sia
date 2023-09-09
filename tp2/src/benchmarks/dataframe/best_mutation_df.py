@@ -31,10 +31,9 @@ def best_mutation_df():
             generation = get_population(config.genotypes, ConfigUtils.CHARACTERS[character])
             for mutation in mutation_methods:
                 generation_count = 0
-
                 oldPopulations = []
-                i = 0
-                while cutoff(generation, oldPopulations, config.cutoff_parameter, i, config.cutoff) is False:
+
+                while cutoff(generation, oldPopulations, config.cutoff_parameter, generation_count, config.cutoff) is False:
                     selection = execute_selection(generation, config.individuals, config.first_selection,
                                                   config.second_selection, config.a_value)
                     selection_genotypes = get_genotypes(selection)
@@ -47,7 +46,6 @@ def best_mutation_df():
                                                      config.replacement_second_selection, config.b_value)
                     generation_count += 1
                     oldPopulations.append(generation)
-                    i += 1
 
                 best: CharacterABC = max(generation)
                 rows.append({"iteration": iteration, "character": character, "method": mutation,
