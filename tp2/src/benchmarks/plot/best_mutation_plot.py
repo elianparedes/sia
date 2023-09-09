@@ -4,8 +4,8 @@ import math
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def best_crossover_plot(df):
-    agg_data = df.groupby(['character', 'method'])['fitness'].agg(['mean', 'std']).reset_index()
+def best_mutation_plot(df):
+    agg_data = df.groupby(['character', 'method'])['generation'].agg(['mean', 'std']).reset_index()
 
     characters = agg_data['character'].unique()
     methods = agg_data['method'].unique()
@@ -24,14 +24,22 @@ def best_crossover_plot(df):
 
         for method, color in zip(methods, colors):
             data = subset[subset['method'] == method]
+
+            diff = data['mean'] - data['std']
+            is_positive = diff >= 0
+
+            array = data['std'] if is_positive.all() else data['std'] + (-diff)
+            arrayminus = data['std'] if is_positive.all() else data['std'] - (-diff)
+
             fig.add_trace(go.Bar(
                 x=[method],
                 y=data['mean'],
-                error_y=dict(type='data', array=data['std'], visible=True),
+                error_y=dict(type='data', array=array, arrayminus=arrayminus, visible=True, symmetric=False),
                 name=method,
                 marker=dict(color=color),
-                showlegend=(idx == 0)  # Show legend only in the first subplot
+                showlegend=(idx == 0), 
+                base=0,
             ), row=row, col=col)
 
-    fig.update_layout(title_text='Average Fitness by Method and Character', barmode='group')
+    fig.update_layout(title_text='Average Generations to Max Fitness by Method and Character', barmode='group')
     fig.show()

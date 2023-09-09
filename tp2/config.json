@@ -30,8 +30,9 @@
     "b-value": 0.6
   },
   "cutoff": {
-    "type": "max-generation",
-    "parameter": 2000
+    "type": "structure",
+    "parameter": 0.70,
+    "generations": 20
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
@@ -51,6 +52,11 @@
     "best_crossover": {
       "characters": ["archer","defender","spy","warrior"],
       "crossover": ["one-point", "two-point", "annular", "uniform"],
+      "iterations": 10
+    },
+    "best_mutation": {
+      "characters": ["archer","defender","spy","warrior"],
+      "mutations": ["single","limited","uniform","complete"],
       "iterations": 10
     }
   }
