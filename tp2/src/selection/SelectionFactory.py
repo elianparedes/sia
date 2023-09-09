@@ -1,3 +1,4 @@
+from src.selection.ConfigurableSelectionABC import ConfigurableSelectionABC
 from src.selection.ProbabilisticTournament import ProbabilisticTournament
 from src.selection.DeterministicTournament import DeterministicTournament
 from src.selection.Elite import Elite
@@ -23,5 +24,8 @@ class SelectionFactory:
         if method_name not in cls.SELECTION_CLASSES:
             raise ValueError(f"Unknown selection method: {method_name}")
         selection_class = cls.SELECTION_CLASSES[method_name]
-        selection_class.configure(**kwargs)
+
+        if issubclass(selection_class, ConfigurableSelectionABC):
+            selection_class.configure(**kwargs)
+
         return selection_class
