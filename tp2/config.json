@@ -2,8 +2,8 @@
   "character": "archer",
   "crossover": "two-point",
   "mutation": {
-    "type": "complete",
-    "probability": 0.6
+    "type": "single",
+    "probability": 0.3
   },
   "selection": {
     "first-selection": {
@@ -15,7 +15,7 @@
       "parameters": {}
     },
     "a-value": 0.6,
-    "individuals": 10
+    "individuals": 6
   },
   "replacement": {
     "type": "traditional",
