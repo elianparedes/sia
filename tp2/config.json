@@ -58,6 +58,11 @@
       "characters": ["archer","defender","spy","warrior"],
       "mutations": ["single","limited","uniform","complete"],
       "iterations": 10
+    },
+    "best_replacement": {
+      "characters": ["archer","defender","spy","warrior"],
+      "replacement": ["traditional","young"],
+      "iterations": 10
     }
   }
 }
