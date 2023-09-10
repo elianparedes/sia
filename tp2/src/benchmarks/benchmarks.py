@@ -8,6 +8,10 @@ from src.benchmarks.plot.best_crossover_plot import best_crossover_avg_generatio
 from src.benchmarks.dataframe.best_mutation_df import best_mutation_df
 from src.benchmarks.plot.best_mutation_plot import best_mutation_plot
 from src.benchmarks.dataframe.best_replacement import best_replacement_df
+from src.benchmarks.plot.best_replacement import best_replacement_by_generations_plot
+from src.benchmarks.plot.best_replacement import best_replacement_by_fitness_plot
+from src.benchmarks.plot.best_replacement import best_replacement_avg_fitness_plot
+from src.benchmarks.plot.best_replacement import best_replacement_avg_generations_plot
 
 from src.utils.FileUtils import FileUtils
 
@@ -32,3 +36,7 @@ def get_output_path(filename: str):
 
 df = best_replacement_df()
 df.to_csv(get_output_path("best_replacement"))
+best_replacement_by_generations_plot(df)
+best_replacement_by_fitness_plot(df)
+best_replacement_avg_fitness_plot(df)
+best_replacement_avg_generations_plot(df)
