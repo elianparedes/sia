@@ -41,7 +41,7 @@ def best_replacement_df():
                     crossover_genotypes = execute_crossover(selection_genotypes, config.crossover)
                     mutated_genotypes = execute_mutation(crossover_genotypes, config.mutation,
                                                          config.mutation_probability)
-                    children = get_population(mutated_genotypes, config.character)
+                    children = get_population(mutated_genotypes, ConfigUtils.CHARACTERS[character])
                     generation = execute_replacement(generation, children, ConfigUtils.REPLACEMENT[replacement],
                                                      config.replacement_first_selection,
                                                      config.replacement_second_selection, config.b_value)
