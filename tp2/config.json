@@ -14,13 +14,8 @@
       "type": "roulette",
       "parameters": {}
     },
-<<<<<<< Updated upstream
-    "a-value": 0.6,
-    "individuals": 6
-=======
     "a-value": 0.5,
     "individuals": 10
->>>>>>> Stashed changes
   },
   "replacement": {
     "type": "traditional",
