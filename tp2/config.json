@@ -14,8 +14,13 @@
       "type": "roulette",
       "parameters": {}
     },
+<<<<<<< Updated upstream
     "a-value": 0.6,
     "individuals": 6
+=======
+    "a-value": 0.5,
+    "individuals": 10
+>>>>>>> Stashed changes
   },
   "replacement": {
     "type": "traditional",
@@ -60,9 +65,24 @@
       "iterations": 10
     },
     "best_replacement": {
-      "characters": ["archer","defender","spy","warrior"],
-      "replacement": ["traditional","young"],
+      "characters": [
+        "archer",
+        "defender",
+        "spy",
+        "warrior"
+      ],
+      "replacement": [
+        "traditional",
+        "young"
+      ],
       "iterations": 10
+    },
+    "best_selection": {
+      "character": "warrior",
+      "selections": ["elite", "roulette", "universal", "deterministic", "probabilistic"],
+      "iterations": 10,
+      "deterministic-parameters": {"size":  2},
+      "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2}
     }
   }
 }
