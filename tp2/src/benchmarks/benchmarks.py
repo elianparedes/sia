@@ -1,23 +1,25 @@
-import os
 import json
+import os
+
 import pandas as pd
+
 from src.benchmarks.dataframe.best_crossover_df import best_crossover_df
+from src.benchmarks.dataframe.best_mutation_df import best_mutation_df
+from src.benchmarks.dataframe.best_replacement import best_replacement_df
 from src.benchmarks.dataframe.best_selection_df import best_selection_df
 from src.benchmarks.dataframe.global_analisis import global_analisis_df
-from src.benchmarks.plot.best_crossover_plot import best_crossover_by_fitness_plot, best_crossover_for_character
-from src.benchmarks.plot.best_crossover_plot import best_crossover_by_generation_plot
 from src.benchmarks.plot.best_crossover_plot import best_crossover_avg_fitness_plot
 from src.benchmarks.plot.best_crossover_plot import best_crossover_avg_generation_plot
-from src.benchmarks.dataframe.best_mutation_df import best_mutation_df
-from src.benchmarks.plot.best_mutation_plot import best_mutation_plot
-from src.benchmarks.dataframe.best_replacement import best_replacement_df
-from src.benchmarks.plot.best_replacement import best_replacement_by_generations_plot
-from src.benchmarks.plot.best_replacement import best_replacement_by_fitness_plot
+from src.benchmarks.plot.best_crossover_plot import best_crossover_by_fitness_plot
+from src.benchmarks.plot.best_crossover_plot import best_crossover_by_generation_plot
+from src.benchmarks.plot.best_mutation_plot import best_mutation_avg_generation_plot, \
+    best_mutation_by_generation_plot, best_mutation_by_fitness_plot, best_mutation_avg_fitness_plot
 from src.benchmarks.plot.best_replacement import best_replacement_avg_fitness_plot
 from src.benchmarks.plot.best_replacement import best_replacement_avg_generations_plot
+from src.benchmarks.plot.best_replacement import best_replacement_by_fitness_plot
+from src.benchmarks.plot.best_replacement import best_replacement_by_generations_plot
 from src.benchmarks.plot.best_selection_plot import best_selection_by_fitness_plot, best_selection_by_generation_plot
 from src.benchmarks.plot.global_analysis_plot import global_analysis_avg
-
 from src.utils.FileUtils import FileUtils
 
 OUTPUT_DIR_PATH = os.path.join(os.path.dirname(__file__), 'output')
@@ -34,7 +36,8 @@ benchmarks = \
         "best_mutation":
             {
                 "df": best_mutation_df,
-                "plot_functions": [best_mutation_plot],
+                "plot_functions": [best_mutation_by_generation_plot, best_mutation_by_fitness_plot,
+                                   best_mutation_avg_generation_plot, best_mutation_avg_fitness_plot],
             },
         "best_replacement":
             {
