@@ -45,7 +45,6 @@ def best_replacement_df():
                     generation = execute_replacement(generation, children, ConfigUtils.REPLACEMENT[replacement],
                                                      config.replacement_first_selection,
                                                      config.replacement_second_selection, config.b_value)
-
                     oldPopulations.append(generation)
                     generation_count += 1
 

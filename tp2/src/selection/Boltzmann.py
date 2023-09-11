@@ -34,9 +34,11 @@ class Boltzmann(ConfigurableSelectionABC):
 
     @classmethod
     def select(cls, population: [], individuals: int):
+        cls.generation += 1
         if individuals <= 0 or cls.T0 <= 0 or cls.TC <= 0 or cls.K <= 0 or cls.generation <= 0:
             raise ValueError("Individuals must be greater than 0")
         new_population = []
+        old_population = population.copy()
         fitness_values = []
         population_len = len(population)
 
@@ -52,9 +54,9 @@ class Boltzmann(ConfigurableSelectionABC):
             fitness_values[i] = fitness_values[i] / total
 
         for _ in range(individuals):
-            selected_individual = random.choices(population, weights=fitness_values, k=1)[0]
-            index = population.index(selected_individual)
-            population.pop(index)
+            selected_individual = random.choices(old_population, weights=fitness_values, k=1)[0]
+            index = old_population.index(selected_individual)
+            old_population.pop(index)
             fitness_values.pop(index)
             new_population.append(selected_individual)
         return new_population

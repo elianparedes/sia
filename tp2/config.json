@@ -1,14 +1,14 @@
 {
-  "character": "archer",
+  "character": "defender",
   "crossover": "two-point",
   "mutation": {
-    "type": "single",
-    "probability": 0.3
+    "type": "complete",
+    "probability": 0.6
   },
   "selection": {
     "first-selection": {
-      "type": "probabilistic",
-      "parameters": {}
+      "type": "boltzmann",
+      "parameters": {"t0": 10, "tc": 5, "k": 2}
     },
     "second-selection": {
       "type": "roulette",
@@ -30,9 +30,8 @@
     "b-value": 0.6
   },
   "cutoff": {
-    "type": "structure",
-    "parameter": 0.70,
-    "generations": 20
+    "type": "max-generation",
+    "parameter": 100
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
