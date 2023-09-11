@@ -27,8 +27,9 @@ benchmarks = \
     {
         "best_crossover":
             {
-            "df": best_crossover_df,
-            "plot_functions":[best_crossover_by_generation_plot,best_crossover_by_fitness_plot,best_crossover_avg_generation_plot,best_crossover_avg_fitness_plot],
+                "df": best_crossover_df,
+                "plot_functions": [best_crossover_by_generation_plot, best_crossover_by_fitness_plot,
+                                   best_crossover_avg_generation_plot, best_crossover_avg_fitness_plot],
             },
         "best_mutation":
             {
@@ -38,16 +39,17 @@ benchmarks = \
         "best_replacement":
             {
                 "df": best_replacement_df,
-                "plot_functions": [best_replacement_by_generations_plot,best_replacement_by_fitness_plot,best_replacement_avg_fitness_plot,best_replacement_avg_generations_plot],
+                "plot_functions": [best_replacement_by_generations_plot, best_replacement_by_fitness_plot,
+                                   best_replacement_avg_fitness_plot, best_replacement_avg_generations_plot],
             },
         "best_selection":
             {
                 "df": best_selection_df,
-                "plot_functions": [best_selection_by_fitness_plot,best_selection_by_generation_plot],
+                "plot_functions": [best_selection_by_fitness_plot, best_selection_by_generation_plot],
             },
         "best_global_analisis":
             {
-                "df":global_analisis_df,
+                "df": global_analisis_df,
                 "plot_functions": [global_analysis_avg],
             }
     }
@@ -62,12 +64,11 @@ with open(CONFIG_PATH, "r") as f:
         benchmarks[benchmark]["plot"] = file["benchmarks"][benchmark]["plot"]
         benchmarks[benchmark]["export_csv"] = file["benchmarks"][benchmark]["export_csv"]
 
+
 def get_output_path(filename: str):
     return os.path.join(OUTPUT_DIR_PATH, filename)
 
-df = global_analisis_df()
-df.to_csv(get_output_path("best_global_analisis"))
-global_analysis_avg(df,"Allels of all characters")
+
 for benchmark in run:
     df = None
     if benchmarks[benchmark]["export_csv"]:
