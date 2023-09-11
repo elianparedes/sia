@@ -1,5 +1,5 @@
 {
-  "character": "defender",
+  "character": "warrior",
   "crossover": "two-point",
   "mutation": {
     "type": "complete",
@@ -31,7 +31,7 @@
   },
   "cutoff": {
     "type": "max-generation",
-    "parameter": 100
+    "parameter": 10000
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
@@ -77,6 +77,10 @@
       "iterations": 10,
       "deterministic-parameters": {"size":  2},
       "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2}
+    },
+    "best_global_analisis": {
+      "character": "warrior",
+      "iterations": 10
     }
   }
 }
