@@ -8,7 +8,7 @@ import plotly.express as px
 from src.utils.ConfigUtils import ConfigUtils
 
 
-def global_analysis_avg(df, title):
+def global_analysis_avg(df):
     fig = make_subplots(rows=2, cols=2, subplot_titles=list(ConfigUtils.CHARACTERS.keys()))
 
     # Crear un diccionario para almacenar los colores asociados a cada tipo
