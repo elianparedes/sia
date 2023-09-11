@@ -17,8 +17,6 @@ CONFIG_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pa
 
 with open(CONFIG_PATH, "r") as f:
     file = json.load(f)
-    character = file["benchmarks"]["best_global_analisis"]["character"]
-    iterations = file["benchmarks"]["best_selection"]["iterations"]
 
 config = Config(CONFIG_PATH)
 

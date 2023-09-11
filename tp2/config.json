@@ -78,6 +78,5 @@
       "deterministic-parameters": {"size":  2},
       "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2}
     }
-
   }
 }
