@@ -1,6 +1,6 @@
 {
   "character": "warrior",
-  "crossover": "two-point",
+  "crossover": "annular",
   "mutation": {
     "type": "complete",
     "probability": 0.6
@@ -27,11 +27,12 @@
       "type": "elite",
       "parameters": {}
     },
-    "b-value": 0.6
+    "b-value": 0.5
   },
   "cutoff": {
-    "type": "max-generation",
-    "parameter": 10000
+    "type": "structure",
+    "generations": 100,
+    "parameter": 0.7
   },
   "seed": [
     {"strength":  20, "agility": 30, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 },
@@ -48,15 +49,20 @@
     {"strength":  20, "agility": 10, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 }
   ],
   "benchmarks": {
+    "run": ["best_mutation"],
     "best_crossover": {
       "characters": ["archer","defender","spy","warrior"],
       "crossover": ["one-point", "two-point", "annular", "uniform"],
-      "iterations": 10
+      "iterations": 50,
+      "plot": true,
+      "export_csv": true
     },
     "best_mutation": {
       "characters": ["archer","defender","spy","warrior"],
       "mutations": ["single","limited","uniform","complete"],
-      "iterations": 10
+      "iterations": 10,
+      "plot": true,
+      "export_csv": true
     },
     "best_replacement": {
       "characters": [
@@ -69,14 +75,18 @@
         "traditional",
         "young"
       ],
-      "iterations": 10
+      "iterations": 50,
+      "plot": true,
+      "export_csv": true
     },
     "best_selection": {
       "character": "warrior",
       "selections": ["elite", "roulette", "universal", "deterministic", "probabilistic"],
-      "iterations": 10,
+      "iterations": 50,
       "deterministic-parameters": {"size":  2},
-      "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2}
+      "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2},
+      "plot": true,
+      "export_csv": true
     }
   }
 }
