@@ -2,9 +2,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 
-def best_selection_plot(df):
-    agg_data = df.groupby(['character', 'selection1', 'selection2'])['generation'].agg(['mean', 'std']).reset_index()
-
+def best_selection_for_character(agg_data, title, yaxis):
     character = agg_data['character'].unique()
     methods = agg_data['selection1'].unique()
 
@@ -14,7 +12,7 @@ def best_selection_plot(df):
 
     row = 1
     col = 1
-    fig.update_yaxes(title_text="Number of generations", row=row, col=col)
+    fig.update_yaxes(title_text=yaxis, row=row, col=col)
     for idx, method_1 in enumerate(methods):
         for method_2 in methods:
             method = (method_1, method_2)
@@ -38,9 +36,25 @@ def best_selection_plot(df):
         if col == 3:
             row += 1
             col = 1
-            fig.update_yaxes(title_text="Number of generations", row=row, col=col)
+            fig.update_yaxes(title_text=yaxis, row=row, col=col)
         else:
             col += 1
 
-    fig.update_layout(title_text=f'Average Generations to Max Fitness by Selections ({character[0]})')
+    fig.update_layout(title_text=title)
     fig.show()
+
+
+def best_selection_by_fitness_plot(df):
+    agg_data = df.groupby(['character', 'selection1', 'selection2'])['fitness'].agg(['mean', 'std']).reset_index()
+    character = agg_data['character'].unique()
+    title = f'Average Fitness by Selections ({character[0]})'
+    yaxis = 'Average number of generations'
+    best_selection_for_character(agg_data, title, yaxis)
+
+
+def best_selection_by_generation_plot(df):
+    agg_data = df.groupby(['character', 'selection1', 'selection2'])['generation'].agg(['mean', 'std']).reset_index()
+    character = agg_data['character'].unique()
+    title = f'Average Generation Count by Selections ({character[0]})'
+    yaxis = 'Average fitness'
+    best_selection_for_character(agg_data, title, yaxis)
