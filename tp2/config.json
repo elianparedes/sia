@@ -77,10 +77,7 @@
       "iterations": 10,
       "deterministic-parameters": {"size":  2},
       "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2}
-    },
-    "best_global_analisis": {
-      "character": "warrior",
-      "iterations": 10
     }
+
   }
 }

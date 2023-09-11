@@ -58,4 +58,4 @@ def get_output_path(filename: str):
 
 df = global_analisis_df()
 df.to_csv(get_output_path("best_global_analisis"))
-global_analysis_avg(df,"HOLA")
+global_analysis_avg(df,"Allels of all characters")
