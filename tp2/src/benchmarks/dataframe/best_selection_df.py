@@ -40,12 +40,12 @@ def best_selection_df():
     rows = []
 
     for iteration in range(1, iterations + 1):
-        generation = get_population(config.genotypes, ConfigUtils.CHARACTERS[character])
         for selection1 in selection_methods:
             selection1_class = get_selection_class(selection1, file)
             for selection2 in selection_methods:
-                generation_count = 0
 
+                generation = get_population(config.genotypes, ConfigUtils.CHARACTERS[character])
+                generation_count = 0
                 old_populations = []
                 i = 0
 

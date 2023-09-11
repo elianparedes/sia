@@ -28,8 +28,9 @@ def best_crossover_df():
 
     for character in characters:
         for iteration in range(1, iterations + 1):
-            generation = get_population(config.genotypes, ConfigUtils.CHARACTERS[character])
             for crossover in crossover_methods:
+
+                generation = get_population(config.genotypes, ConfigUtils.CHARACTERS[character])
                 oldPopulations = []
                 generation_count = 0
 
