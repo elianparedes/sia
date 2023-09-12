@@ -87,6 +87,19 @@
       "boltzmann-parameters": {"t0": 10, "tc": 5, "k": 2},
       "plot": true,
       "export_csv": true
+    },
+    "seed_quantity": {
+      "characters": [
+        "archer",
+        "defender",
+        "spy",
+        "warrior"
+      ],
+      "iterations": 10,
+      "initial": 5,
+      "step": 5,
+      "plot": true,
+      "export_csv": true
     }
   }
 }

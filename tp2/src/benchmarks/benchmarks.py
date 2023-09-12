@@ -8,6 +8,7 @@ from src.benchmarks.dataframe.best_mutation_df import best_mutation_df
 from src.benchmarks.dataframe.best_replacement import best_replacement_df
 from src.benchmarks.dataframe.best_selection_df import best_selection_df
 from src.benchmarks.dataframe.global_analisis import global_analisis_df
+from src.benchmarks.dataframe.seed_quantity_df import seed_quantity_df
 from src.benchmarks.plot.best_crossover_plot import best_crossover_avg_fitness_plot
 from src.benchmarks.plot.best_crossover_plot import best_crossover_avg_generation_plot
 from src.benchmarks.plot.best_crossover_plot import best_crossover_by_fitness_plot
@@ -22,7 +23,7 @@ from src.benchmarks.plot.best_selection_plot import best_selection_by_fitness_pl
 from src.benchmarks.plot.global_analysis_plot import global_analysis_avg
 from src.benchmarks.dataframe.convergence_analysis_df import convergence_analysis_df
 from src.benchmarks.plot.convergence_analysis_plot import convergence_analysis_plot
-
+from src.benchmarks.plot.seed_quantity_plot import seed_quantity_by_fitness_plot, seed_quantity_by_generation_plot
 from src.utils.FileUtils import FileUtils
 
 OUTPUT_DIR_PATH = os.path.join(os.path.dirname(__file__), 'output')
@@ -62,6 +63,11 @@ benchmarks = \
             {
                 "df": convergence_analysis_df,
                 "plot_functions": [convergence_analysis_plot],
+            },
+        "seed_quantity":
+            {
+                "df": seed_quantity_df,
+                "plot_functions": [seed_quantity_by_fitness_plot, seed_quantity_by_generation_plot]
             }
     }
 
