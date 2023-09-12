@@ -15,7 +15,7 @@
       "parameters": {}
     },
     "a-value": 0.5,
-    "individuals": 10
+    "individuals": 5
   },
   "replacement": {
     "type": "traditional",
@@ -31,7 +31,7 @@
   },
   "cutoff": {
     "type": "structure",
-    "generations": 50,
+    "generations": 10,
     "parameter": 0.7
   },
   "seed": [
@@ -49,7 +49,7 @@
     {"strength":  20, "agility": 10, "skill": 30, "endurance": 20, "health": 50, "height": 1.7 }
   ],
   "benchmarks": {
-    "run": ["best_selection"],
+    "run": ["best_replacement"],
     "best_crossover": {
       "characters": ["archer","defender","spy","warrior"],
       "crossover": ["one-point", "two-point", "annular", "uniform"],
@@ -75,7 +75,7 @@
         "traditional",
         "young"
       ],
-      "iterations": 50,
+      "iterations": 20,
       "plot": true,
       "export_csv": true
     },
