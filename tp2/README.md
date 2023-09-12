@@ -65,7 +65,7 @@ The structure of the `config.json` file can be found in the `options.json` file.
     {"strength":  10, "agility": 30, "skill": 30, "endurance": 30, "health": 50, "height": 2 }
   ],
   "benchmarks": {
-    "run": "[best_crossover | best_mutation | best_replacement | best_selection | global_analisis]",
+    "run": "[best_crossover | best_mutation | best_replacement | best_selection | global_analisis | seed_quantity]",
     "best_crossover": {
       "characters": "[archer | defender | spy | warrior]",
       "crossover": "[one-point | two-point | annular | uniform]",
@@ -92,6 +92,14 @@ The structure of the `config.json` file can be found in the `options.json` file.
       "selections": "[elite | roulette | universal | deterministic | probabilistic | boltzmann]",
       "deterministic-parameters": {"size":  "[>0]"},
       "boltzmann-parameters": {"t0": "[>0]", "tc": "[>0]", "k": "[>0]"},
+      "iterations": "[>0]",
+      "plot": "true | false",
+      "export_csv": "true | false"
+    },
+    "seed_quantity": {
+      "character": "archer | warrior | defender | spy",
+      "initial": "[>0]",
+      "step": "[>0]",
       "iterations": "[>0]",
       "plot": "true | false",
       "export_csv": "true | false"
