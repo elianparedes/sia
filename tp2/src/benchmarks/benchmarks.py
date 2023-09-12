@@ -20,6 +20,9 @@ from src.benchmarks.plot.best_replacement import best_replacement_by_fitness_plo
 from src.benchmarks.plot.best_replacement import best_replacement_by_generations_plot
 from src.benchmarks.plot.best_selection_plot import best_selection_by_fitness_plot, best_selection_by_generation_plot
 from src.benchmarks.plot.global_analysis_plot import global_analysis_avg
+from src.benchmarks.dataframe.convergence_analysis_df import convergence_analysis_df
+from src.benchmarks.plot.convergence_analysis_plot import convergence_analysis_plot
+
 from src.utils.FileUtils import FileUtils
 
 OUTPUT_DIR_PATH = os.path.join(os.path.dirname(__file__), 'output')
@@ -54,6 +57,11 @@ benchmarks = \
             {
                 "df": global_analisis_df,
                 "plot_functions": [global_analysis_avg],
+            },
+        "convergence_analysis":
+            {
+                "df": convergence_analysis_df,
+                "plot_functions": [convergence_analysis_plot],
             }
     }
 
