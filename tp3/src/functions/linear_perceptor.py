@@ -3,28 +3,30 @@ import sys
 import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from src.classes.perceptron.Step import Step
 
 values = [[-1, 1], [1, -1], [-1, -1], [1, 1]]
 expected = [-1, -1, -1, 1]
 learning_rate = 0.1
 ws = []
 
-
+def normalized_input(input):
+    return [[1] + row for row in input]
 def linear_perceptor():
     i = 0
     limit = 1000000
     w = initialize_weights()
+    perceptron = Step(normalized_input(values), expected, w, learning_rate)
     ws.append(w)
     min_error = sys.maxsize
     w_min = None
     while min_error > 0 and i < limit:
         mu = random.randint(0, len(values) - 1)
-        excitement = compute_excitement(w, values[mu])
-        activation = compute_activation(excitement)
-        deltas = np.dot([1] + values[mu], learning_rate * (expected[mu] - activation))
-        w = np.add(w, deltas)
+        excitement = perceptron.excitement(mu)
+        activation = perceptron.activation(excitement)
+        w = perceptron.update_weights(activation, mu)
         ws.append(w)
-        error = compute_error(w)
+        error = perceptron.error()
         if error < min_error:
             min_error = error
             w_min = w
@@ -89,7 +91,7 @@ for i, trace in enumerate(traces):
 # Agregar los fotogramas de animación a la figura
 
 fig = go.Figure(
-    data=[traces[0],go.Scatter(x= [val[0] for val in values], y= [val[1] for val in values],mode = 'markers')],
+    data=[traces[0], go.Scatter(x=[val[0] for val in values], y=[val[1] for val in values], mode='markers')],
     layout=go.Layout(
         xaxis=dict(range=[-10, 10], autorange=False),
         yaxis=dict(range=[-10, 10], autorange=False),
@@ -105,3 +107,4 @@ fig = go.Figure(
 )
 
 fig.show()
+#[-0.21210556  0.40304128  0.27672337]
