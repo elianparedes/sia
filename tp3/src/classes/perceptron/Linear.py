@@ -10,7 +10,7 @@ class Linear(PerceptronABC):
 
     def error(self):
         error = 0
-        for mu in range(0,len(self.input)-1):
+        for mu in range(0, len(self.input)-1):
             error += (self.expected[mu] - self.activation(self.excitement(mu)))**2
         return error * 0.5
 
