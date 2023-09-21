@@ -26,11 +26,19 @@ def create_dataframe():
     df = pd.read_csv(CONFIG_PATH)
     inputs = df[['x1', 'x2', 'x3']].to_numpy()
     expected = df['y'].to_numpy()
-
     return inputs, expected
+def normalized_input(input):
+    numpy_array = np.array(input)
+    max = np.max(numpy_array)
+    min = np.min(numpy_array)
+    for i in range(0, len(input)):
+        input[i] = (input[i] - min) / (max - min)
+    return input
+
 
 def no_linear_perceptron():
     inputs, expected = create_dataframe()
+    expected = normalized_input(expected)
     i = 0
     limit = 100000
     w = initialize_weights()
@@ -46,6 +54,7 @@ def no_linear_perceptron():
         ws.append(w)
         error = perceptron.error()
         if error < min_error:
+            print(min_error)
             min_error = error
             w_min = w
         i += 1
