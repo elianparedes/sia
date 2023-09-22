@@ -13,5 +13,7 @@ class OutputLayer(LayerABC):
         self.deltas = np.array([])
         for i in range(0, self.neuron_qty):
             self.deltas = np.append(self.deltas,
-                                    np.subtract(expected, self.results[i]) * self.activation_fderivate(self.results[i]))
+                                    np.subtract(expected[i], self.results[i]) * self.activation_fderivate(self.results[i]))
+
         super().set_delta_w()
+        return np.sum(np.subtract(expected, self.results)** 2) / 2
