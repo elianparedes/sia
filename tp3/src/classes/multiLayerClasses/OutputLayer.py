@@ -16,4 +16,3 @@ class OutputLayer(LayerABC):
                                     np.subtract(expected[i], self.results[i]) * self.activation_fderivate(self.results[i]))
 
         super().set_delta_w()
-        return np.sum(np.subtract(expected, self.results)** 2) / 2
