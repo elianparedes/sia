@@ -4,18 +4,19 @@ from src.classes.multiLayerClasses.HiddenLayer import HiddenLayer
 from src.classes.multiLayerClasses.OutputLayer import OutputLayer
 
 LEARNING_RATE = 0.001
-
-
+BETA = 1
+LOGISTIC = (lambda x: 1 / (1 + np.exp(-2 * BETA * x)))
+LOGISTIC_DERIVATE = (lambda x: 2*BETA * LOGISTIC(x)*( 1 - LOGISTIC(x)))
 class NeuralNetwork:
 
     def __init__(self, num_layers, output_neurons, hidden_neurons, input_quantity):
         self.num_layers = num_layers
         self.hidden_layers = []
 
-        self.output_layer = OutputLayer(lambda x: x, lambda x: 1, hidden_neurons, output_neurons, LEARNING_RATE)
-        self.hidden_layers.append(HiddenLayer(lambda x: x, lambda x: 1, input_quantity, hidden_neurons, LEARNING_RATE))
+        self.output_layer = OutputLayer(LOGISTIC, LOGISTIC_DERIVATE, hidden_neurons, output_neurons, LEARNING_RATE)
+        self.hidden_layers.append(HiddenLayer(LOGISTIC,LOGISTIC_DERIVATE, input_quantity, hidden_neurons, LEARNING_RATE))
         for i in range(1, num_layers - 1):
-            self.hidden_layers.append(HiddenLayer(lambda x: x, lambda x: 1, hidden_neurons, hidden_neurons, LEARNING_RATE))
+            self.hidden_layers.append(HiddenLayer(LOGISTIC,LOGISTIC_DERIVATE, hidden_neurons, hidden_neurons, LEARNING_RATE))
         self.hidden_layers.append(self.output_layer)
 
     def forward_propagation(self, input):
