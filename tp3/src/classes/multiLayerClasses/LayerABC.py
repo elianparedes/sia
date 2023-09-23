@@ -11,34 +11,35 @@ class LayerABC(ABC):
         self.input_qty = input_qty
         self.weights = np.random.rand(input_qty, neuron_qty)
         # Activation function values
-        self.results = np.array([])
+        self.activation = np.array([])
         self.activation_fderivate = activation_fderivate
         self.deltas = np.array([])
         self.learning_rate = learning_rate
         self.input = None
+        self.h = None
 
     def activate(self, input):
         """Calculates the activation function ``theta``"""
         # Excitement values
-        z_values = np.dot(input, self.weights)
-
+        h = np.dot(input, self.weights)
+        self.h = h
         # V vector from the previous layer
         self.input = input
-        self.results = np.array([])
+        self.activation = np.array([])
         for i in range(0, self.neuron_qty):
-            self.results = np.append(self.results, self.activation_func(z_values[i]))
-        return self.results
+            self.activation = np.append(self.activation, self.activation_func(h[i]))
+        return self.activation
 
     def test_activation(self, test):
         input = test
 
         # Excitement values
-        z_values = np.dot(input, self.weights)
+        h = np.dot(input, self.weights)
 
         # V vector from the previous layer
         results = np.array([])
         for i in range(0, self.neuron_qty):
-            results = np.append(results, self.activation_func(z_values[i]))
+            results = np.append(results, self.activation_func(h[i]))
         return results
 
     def get_deltas(self):
