@@ -5,6 +5,7 @@ import time
 
 import numpy as np
 from src.classes.NeuralNetwork import NeuralNetwork
+from src.utils import Function
 
 DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, os.path.pardir,
                            "Data", "TP3-ej3-digitos.txt")
@@ -12,16 +13,11 @@ DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pa
 values = [[0, 1], [1, 0], [0, 0], [1, 1]]
 expected = [[1], [1], [0], [0]]
 
-BETA = 1
-LOGISTIC = (lambda x: 1 / (1 + np.exp(-2 * BETA * x)))
-LOGISTIC_DERIVATIVE = (lambda x: 2 * BETA * LOGISTIC(x) * (1 - LOGISTIC(x)))
-TAN_H = (lambda x: np.tanh(x))
-TAN_H_DERIVATIVE = (lambda x: 1 - np.tanh(x) ** 2)
-
 
 def neural_network_test():
     inputs = values
-    network = NeuralNetwork([2, 3, 1], TAN_H, TAN_H_DERIVATIVE, TAN_H, TAN_H_DERIVATIVE, 0.1, [-1, 1])
+    network = NeuralNetwork([2, 3, 1], Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
+                            Function.TAN_H_DERIVATIVE, 0.1, [-1, 1])
     i = 0
     min_error = sys.maxsize
     limit = 5000
