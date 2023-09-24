@@ -1,22 +1,12 @@
+import os as os
 import random
 import sys
 import time
 
-import numpy as np
-import os as os
-import pandas as pd
 from src.classes.NeuralNetwork import NeuralNetwork
 
 DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, os.path.pardir,
-                           "Data/TP3-ej3-digitos.txt")
-
-def get_digits_dataframe():
-    df = pd.read_csv(DIGITS_PATH, delimiter='\t')
-    numbers = [[]]
-    for i in range(0, 9):
-        start = i*7
-        numbers[i] = df[start: start + 7].to_numpy()
-
+                           "Data", "TP3-ej3-digitos.txt")
 
 values = [[-1, 1], [1, -1], [-1, -1], [1, 1]]
 expected = [[1], [1], [0], [0]]

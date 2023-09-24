@@ -1,11 +1,11 @@
+import os as os
 import random
 import sys
 
 import numpy as np
-import os as os
-import pandas as pd
-from src.classes.perceptron.Linear import Linear
+
 from src.classes.perceptron.NoLinear import NoLinear
+from src.utils.ExerciseUtils import ExerciseUtils
 
 learning_rate = 0.1
 ws = []
@@ -19,14 +19,9 @@ def initialize_weights():
 
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, os.path.pardir,
-                           "Data/TP3-ej2-conjunto.csv")
+                           "Data", "TP3-ej2-conjunto.csv")
 
 
-def create_dataframe():
-    df = pd.read_csv(CONFIG_PATH)
-    inputs = df[['x1', 'x2', 'x3']].to_numpy()
-    expected = df['y'].to_numpy()
-    return inputs, expected
 def normalized_input(input):
     numpy_array = np.array(input)
     max = np.max(numpy_array)
@@ -37,12 +32,13 @@ def normalized_input(input):
 
 
 def no_linear_perceptron():
-    inputs, expected = create_dataframe()
+    inputs, expected = ExerciseUtils.load_ex2_file(CONFIG_PATH)
     expected = normalized_input(expected)
     i = 0
     limit = 100000
     w = initialize_weights()
-    perceptron = NoLinear(inputs, expected, w, learning_rate, (lambda x, beta: 1 / (1 + np.exp(-2*beta * x))), (lambda x, beta: 0.5* beta * np.log(1+np.exp(-2*beta*x))), 0.000001)
+    perceptron = NoLinear(inputs, expected, w, learning_rate, (lambda x, beta: 1 / (1 + np.exp(-2 * beta * x))),
+                          (lambda x, beta: 0.5 * beta * np.log(1 + np.exp(-2 * beta * x))), 0.000001)
     ws.append(w)
     min_error = sys.maxsize
     w_min = None
@@ -59,5 +55,6 @@ def no_linear_perceptron():
             w_min = w
         i += 1
     return w_min
+
 
 print(no_linear_perceptron())
