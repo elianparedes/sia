@@ -1,65 +1,70 @@
 import numpy as np
 
-from src.classes.multiLayerClasses.HiddenLayer import HiddenLayer
-from src.classes.multiLayerClasses.OutputLayer import OutputLayer
+from src.classes.layer.Hidden import Hidden
+from src.classes.layer.Output import Output
 
-LEARNING_RATE = 0.01
-BETA = 1
-LOGISTIC = (lambda x: 1 / (1 + np.exp(-2 * BETA * x)))
-LOGISTIC_DERIVATE = (lambda x: 2*BETA * LOGISTIC(x)*(1 - LOGISTIC(x)))
+
 class NeuralNetwork:
 
-    def __init__(self, num_layers, output_neurons, hidden_neurons, input_quantity):
-        self.num_layers = num_layers
-        self.hidden_layers = []
+    def __init__(self, architecture, hidden_function, hidden_derivative, output_function, output_derivative,
+                 learning_rate=0.1, weight_distribution=(-1, 1)):
+        # hidden layers + output layer
+        self.num_layers = len(architecture) - 1
+        self.layers = []
 
-        self.output_layer = OutputLayer(LOGISTIC, LOGISTIC_DERIVATE, hidden_neurons, output_neurons, LEARNING_RATE)
-        self.hidden_layers.append(HiddenLayer(LOGISTIC, LOGISTIC_DERIVATE, input_quantity, hidden_neurons, LEARNING_RATE))
-        for i in range(0, num_layers - 1):
-            self.hidden_layers.append(HiddenLayer(LOGISTIC, LOGISTIC_DERIVATE, hidden_neurons, hidden_neurons, LEARNING_RATE))
-        self.hidden_layers.append(self.output_layer)
+        for i in range(0, len(architecture) - 2):
+            rows = architecture[i]
+            cols = architecture[i + 1]
+            self.layers.append(
+                Hidden(rows, cols, hidden_function, hidden_derivative, learning_rate,
+                       np.random.uniform(weight_distribution[0], weight_distribution[1], size=(rows, cols))))
 
-    def forward_propagation(self, input):
-        new_input = input
-        for i in range(0, len(self.hidden_layers)):
-            new_input = self.hidden_layers[i].activate(new_input)
+        output_rows = architecture[len(architecture) - 2]
+        output_cols = architecture[len(architecture) - 1]
+        self.output_layer = Output(output_rows,
+                                   output_cols, output_function, output_derivative, learning_rate,
+                                   np.random.uniform(weight_distribution[0], weight_distribution[1], size=(output_rows, output_cols)))
+        self.layers.append(self.output_layer)
+
+    def forward_propagation(self, dataset):
+        new_input = dataset
+        for i in range(0, self.num_layers):
+            new_input = self.layers[i].activate(new_input)
 
         # Returning the results of the output layer
         return new_input
 
-    def test(self, input):
-        new_input = input
-        for i in range(0, len(self.hidden_layers)):
-            new_input = self.hidden_layers[i].test_activation(new_input)
+    def test_forward_propagation(self, dataset):
+        new_input = dataset
+        for i in range(0, self.num_layers):
+            new_input = self.layers[i].test_activation(new_input)
         return new_input
 
-    def testino(self, input, w):
-        for i in range(len(self.hidden_layers)):
-            self.hidden_layers[i].set_weights(w[i])
-        new_input = input
-        for i in range(0, len(self.hidden_layers)):
-            new_input = self.hidden_layers[i].test_activation(new_input)
+    def test_forward_propagation_custom(self, dataset, w):
+        for i in range(len(self.layers)):
+            self.layers[i].set_weights(w[i])
+        new_input = dataset
+        for i in range(0, len(self.layers)):
+            new_input = self.layers[i].test_activation(new_input)
         return new_input
 
     def back_propagation(self, expected):
         self.output_layer.set_deltas(expected)
-        for i in range(len(self.hidden_layers) - 2, -1, -1):
-            self.hidden_layers[i].set_deltas(self.hidden_layers[i + 1].get_deltas(), self.hidden_layers[i + 1].get_weights())
+        for i in range(self.num_layers - 2, -1, -1):
+            self.layers[i].set_deltas(self.layers[i + 1].get_deltas(),
+                                      self.layers[i + 1].get_weights())
 
-
-    def compute_error(self, expected, input):
+    def compute_error(self, dataset, expected):
         error = 0
-        for i in range(len(input)):
-            output = self.test(input[i])
+        for i in range(len(dataset)):
+            output = self.test_forward_propagation(dataset[i])
             for j in range(len(output)):
                 error += ((expected[i][j] - output[j]) ** 2) / 2
         return error
 
-
     def set_delta_w(self):
         w = []
-        for i in range(len(self.hidden_layers)):
-            self.hidden_layers[i].set_delta_w()
-            w.append(self.hidden_layers[i].get_weights())
+        for i in range(self.num_layers):
+            self.layers[i].set_delta_w()
+            w.append(self.layers[i].get_weights())
         return w
-

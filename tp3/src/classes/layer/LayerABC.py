@@ -1,40 +1,46 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 import numpy as np
 
 
 class LayerABC(ABC):
 
-    def __init__(self, activation_func, activation_fderivate, input_qty, neuron_qty, learning_rate):
-        self.activation_func = activation_func
+    def __init__(self, input_qty, neuron_qty, activation_func, activation_derivative, learning_rate, weights=None):
         self.neuron_qty = neuron_qty
         self.input_qty = input_qty
-        self.weights = np.random.rand(input_qty, neuron_qty)
+        if weights is None:
+            self.weights = np.random.uniform(-1, 1, size=(input_qty, neuron_qty))
+        else:
+            rows, cols = weights.shape
+            if rows != input_qty or cols != neuron_qty:
+                print("Weights matrix should have input_qty x neuron_qty size")
+                return
+            self.weights = weights
+
         # Activation function values
-        self.activation = np.array([])
-        self.activation_fderivate = activation_fderivate
+        self.activation_values = np.array([])
+        self.activation_func = activation_func
+        self.activation_derivative = activation_derivative
         self.deltas = np.array([])
         self.learning_rate = learning_rate
         self.input = None
         self.h = None
 
-    def activate(self, input):
+    def activate(self, layer_input):
         """Calculates the activation function ``theta``"""
         # Excitement values
-        h = np.dot(input, self.weights)
+        h = np.dot(layer_input, self.weights)
         self.h = h
         # V vector from the previous layer
-        self.input = input
-        self.activation = np.array([])
+        self.input = layer_input
+        self.activation_values = np.array([])
         for i in range(0, self.neuron_qty):
-            self.activation = np.append(self.activation, self.activation_func(h[i]))
-        return self.activation
+            self.activation_values = np.append(self.activation_values, self.activation_func(h[i]))
+        return self.activation_values
 
-    def test_activation(self, test):
-        input = test
-
+    def test_activation(self, layer_input):
         # Excitement values
-        h = np.dot(input, self.weights)
+        h = np.dot(layer_input, self.weights)
 
         # V vector from the previous layer
         results = np.array([])
