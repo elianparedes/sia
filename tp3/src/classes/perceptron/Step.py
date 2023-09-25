@@ -20,3 +20,6 @@ class Step(PerceptronABC):
         diff = (self.learning_rate * (self.expected[mu] - activation)) * self.input[mu]
         self.weights = self.weights + diff
         return self.weights
+
+    def train(self, limit, epsilon):
+        super().train(limit, 0)

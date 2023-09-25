@@ -1,5 +1,7 @@
+import sys
 from abc import ABC, abstractmethod
 import numpy as np
+import random
 
 
 class PerceptronABC(ABC):
@@ -24,3 +26,21 @@ class PerceptronABC(ABC):
     @abstractmethod
     def update_weights(self, activation, mu):
         pass
+
+    def train(self, limit, epsilon):
+        i = 0
+        ws = [self.weights]
+        min_error = sys.maxsize
+        w_min = None
+        while min_error > epsilon and i < limit:
+            mu = random.randint(0, len(self.input) - 1)
+            excitement = self.excitement(mu)
+            activation = self.activation(excitement)
+            w = self.update_weights(activation, mu)
+            ws.append(w)
+            error = self.error()
+            if error < min_error:
+                min_error = error
+                w_min = w
+            i += 1
+        return w_min
