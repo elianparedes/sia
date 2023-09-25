@@ -73,9 +73,10 @@ def test_digits():
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
     architecture = [35, 10]
-    # Does not generalize correctly. TODO: expand the dataset and add noise
-    # training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.9)
-    neural_network_test(dataset, expected, dataset, expected, architecture)
+    dataset, expected = DatasetUtils.expand_dataset(dataset, expected, 2)
+    dataset = DatasetUtils.add_noise(dataset, 0.2)
+    training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.8)
+    neural_network_test(training_set, training_expected, test_set, test_expected, architecture)
 
 
 test_digits()

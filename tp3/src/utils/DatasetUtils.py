@@ -24,3 +24,26 @@ class DatasetUtils:
         test_set.extend(dataset)
         test_expected.extend(expected)
         return training_set, training_expected, test_set, test_expected
+
+    @staticmethod
+    def add_noise(dataset, ratio):
+        """Adds noise given by ratio to a dataset (must be binary)"""
+        amount = ceil(len(dataset[0]) * ratio)
+        for i in range(0, len(dataset)):
+            for j in range(0, amount):
+                k = random.randint(0, len(dataset[j]) - 1)
+                dataset[i][k] ^= 1
+
+        return dataset
+
+    @staticmethod
+    def expand_dataset(dataset, expected, amount):
+        """Expands a dataset amount times """
+        dataset_copy = dataset.copy()
+        expected_copy = expected.copy()
+        for i in range(0, amount):
+            dataset.extend(dataset_copy)
+        for k in range(0, amount):
+            expected.extend(expected_copy)
+
+        return dataset, expected
