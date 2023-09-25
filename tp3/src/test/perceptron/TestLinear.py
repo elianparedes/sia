@@ -1,50 +1,35 @@
 import random
-import sys
-import numpy as np
 
 from src.classes.perceptron.Linear import Linear
 
-inputs = [
-    [1.0],
-    [2.0],
-    [3.0],
-    [4.0],
-    [5.0]
-]
-learning_rate = 0.1
-ws = []
 
-expected = [2.0, 3.8, 5.9, 8.1, 10.2]
+def linear_perceptor_test():
+    """ Learns Y= 2X + 0"""
+    training_set = [
+        [1, 1.0],
+        [1, 2.0],
+        [1, 3.0],
+        [1, 4.0],
+        [1, 5.0]
+    ]
+    learning_rate = 0.1
+    training_expected = [2.0, 3.0, 6.0, 8.0, 10.0]
+    test_set = [
+        [1, 1.5],
+        [1, 3.0],
+        [1, 6.0]
+    ]
+    test_expected = [
+        3,
+        6,
+        12
+    ]
+    perceptron = Linear(2, learning_rate)
+    w_min = perceptron.train(training_set, training_expected, 1000000, 0.36)
+    results = perceptron.test(test_set, w_min)
 
-def normalized_input(input):
-    return [[1] + row for row in input]
+    print('expected', test_expected)
+    print('results', results)
 
-def initialize_weights():
-    w = []
-    for i in range(0, 2):
-        w.append(random.uniform(-1, 1))
-    return w
 
-def linear_perceptor():
-    i = 0
-    limit = 1000000
-    w = initialize_weights()
-    perceptron = Linear(normalized_input(inputs), expected, w, learning_rate)
-    ws.append(w)
-    min_error = sys.maxsize
-    w_min = None
-    while min_error > 0 and i < limit:
-        mu = random.randint(0, len(inputs) - 1)
-        excitement = perceptron.excitement(mu)
-        activation = perceptron.activation(excitement)
-        w = perceptron.update_weights(activation, mu)
-        ws.append(w)
-        error = perceptron.error()
-        if error < min_error:
-            min_error = error
-            w_min = w
-        i += 1
-    return w_min
-
-#Learns Y = 2X + 0
-print(linear_perceptor())
+linear_perceptor_test()
