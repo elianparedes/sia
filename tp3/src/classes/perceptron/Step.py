@@ -21,5 +21,5 @@ class Step(PerceptronABC):
         self.weights = self.weights + diff
         return self.weights
 
-    def train(self, training_set, expected_set, limit, epsilon):
-        return super().train(training_set, expected_set, limit, 0)
+    def train(self, training_set, expected_set, epoch, epsilon):
+        return super().train(training_set, expected_set, epoch, 0)

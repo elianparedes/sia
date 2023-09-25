@@ -1,7 +1,7 @@
 from src.classes.perceptron.PerceptronABC import PerceptronABC
 
 
-class NoLinear(PerceptronABC):
+class NonLinear(PerceptronABC):
 
     def __init__(self, weights_qty, learning_rate, activation_f, activation_derivative, weights=None) -> None:
         super().__init__(weights_qty, learning_rate, weights)

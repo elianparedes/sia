@@ -28,13 +28,14 @@ class PerceptronABC(ABC):
     def update_weights(self, activation_value, training_value, expected_value):
         pass
 
-    def train(self, training_set, expected_set, limit, epsilon):
+    def train(self, training_set, expected_set, epoch, epsilon):
+        """ Trains the perceptron until error < epsilon or epoch amount is reached"""
         training_set = np.array(training_set)
         i = 0
         ws = [self.weights]
         min_error = sys.maxsize
         w_min = None
-        while min_error > epsilon and i < limit:
+        while min_error > epsilon and i < epoch:
             mu = random.randint(0, len(training_set) - 1)
             training_value = training_set[mu]
             excitement = self.excitement(training_value)
@@ -49,6 +50,7 @@ class PerceptronABC(ABC):
         return w_min
 
     def test(self, test_set, weights):
+        """ Calculates outputs from a test_set using custom weights parameter"""
         original_weights = self.weights.copy
         self.weights = weights
         activation_values = []

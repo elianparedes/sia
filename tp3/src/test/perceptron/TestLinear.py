@@ -3,7 +3,7 @@ import random
 from src.classes.perceptron.Linear import Linear
 
 
-def linear_perceptor_test():
+def linear_perceptron_test():
     """ Learns Y= 2X + 0"""
     training_set = [
         [1, 1.0],
@@ -32,4 +32,4 @@ def linear_perceptor_test():
     print('results', results)
 
 
-linear_perceptor_test()
+linear_perceptron_test()
