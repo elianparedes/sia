@@ -55,11 +55,11 @@ class PerceptronABC(ABC):
         """ Calculates outputs from a test_set using custom weights parameter"""
         original_weights = self.weights.copy
         self.weights = weights
-        activation_values = []
+        activation_values = np.array([])
 
         for i in range(0, len(test_set)):
             excitement = self.excitement(test_set[i])
-            activation_values.append(self.activation(excitement))
+            activation_values = np.append(activation_values, self.activation(excitement))
 
         self.weights = original_weights
         return activation_values
