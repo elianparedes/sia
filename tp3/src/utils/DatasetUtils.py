@@ -1,6 +1,8 @@
 from math import ceil
 import random
 
+import numpy as np
+
 
 class DatasetUtils:
     """Loads exercise files"""
@@ -47,3 +49,11 @@ class DatasetUtils:
             expected.extend(expected_copy)
 
         return dataset, expected
+
+    @staticmethod
+    def normalize_to_range(data, new_min, new_max):
+        """Normalizes array to a new range given by [new_min - new_max]"""
+        min_val = min(data)
+        max_val = max(data)
+        normalized_data = np.interp(data, (min_val, max_val), (new_min, new_max))
+        return normalized_data
