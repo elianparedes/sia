@@ -31,7 +31,7 @@ class PerceptronABC(ABC):
     def train(self, training_set, expected_set, epoch, epsilon):
         """ Trains the perceptron until error < epsilon or epoch amount is reached"""
         training_set = np.array(training_set)
-        previous_weights = [self.weights]
+        previous_weights = np.array(self.weights)
         previous_errors = []
         min_error = sys.maxsize
         w_min = None
@@ -47,7 +47,7 @@ class PerceptronABC(ABC):
                 min_error = error
                 w_min = w
             i += 1
-            previous_weights.append(w)
+            previous_weights = np.append(previous_weights, w, axis=0)
             previous_errors.append(error)
         return w_min, i, previous_weights, previous_errors
 
