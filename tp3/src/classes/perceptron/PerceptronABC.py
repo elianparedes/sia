@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 
+from src.utils.DatasetUtils import DatasetUtils
+
 
 class PerceptronABC(ABC):
     """
@@ -39,20 +41,6 @@ class PerceptronABC(ABC):
     def compute_deltaw(self, activation_value, training_value, expected_value):
         pass
 
-    def _k_split(self, training_set, expected_set, k, i):
-        fold_size = len(training_set) // k
-
-        index_start = i * fold_size
-        index_end = (i + 1) * fold_size
-
-        test_set = training_set[index_start:index_end]
-        test_expected = expected_set[index_start:index_end]
-
-        training_set = np.concatenate((training_set[:index_start], training_set[index_end:]), axis=0)
-        training_expected = np.concatenate((expected_set[:index_start], expected_set[index_end:]), axis=0)
-
-        return training_set, training_expected, test_set, test_expected
-
     def k_cross_validation(self, training_set, expected_set, k, epoch, epsilon):
         if k <= 1 or k >= len(training_set):
             raise ValueError('k must be greater than 1 and lower than the length of the training set')
@@ -71,7 +59,7 @@ class PerceptronABC(ABC):
             expected_copy = expected_set.copy()
 
             training_copy, expected_copy, test_set_copy, test_expected_copy = \
-                self._k_split(np.array(training_copy), expected_copy, k, j)
+                DatasetUtils.k_split_dataset(np.array(training_copy), expected_copy, k, j)
             expected_copy = expected_copy.tolist()
             delta_w = [0.0 for i in range(len(self.weights[0]))]
             for _ in range(0, k):
