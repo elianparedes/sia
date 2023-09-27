@@ -61,7 +61,7 @@ class LayerABC(ABC):
     def set_delta_w(self):
         for i in range(self.input_qty):
             for j in range(self.neuron_qty):
-                self.delta_w[i][j] = self.delta_w[i][j] + self.learning_rate * self.deltas[j] * self.input[i]
+                self.delta_w[i][j] += self.delta_w[i][j] + self.learning_rate * self.deltas[j] * self.input[i]
 
     def update_weights(self):
         self.weights = np.add(self.weights, self.delta_w)

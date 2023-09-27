@@ -1,5 +1,12 @@
+import os
+
 import pandas as pd
 import numpy as np
+
+EX2_FILE = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir,
+                        "Data", "TP3-ej2-conjunto.csv")
+EX3_FILE = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir,
+                        "Data", "TP3-ej3-digitos.txt")
 
 
 class ExerciseUtils:
@@ -9,7 +16,7 @@ class ExerciseUtils:
         raise NotImplementedError("Cannot instantiate class")
 
     @staticmethod
-    def load_ex3_file(path) -> list[list[int]]:
+    def load_ex3_file(path=EX3_FILE) -> list[list[int]]:
         """Loads exercise 3 file ``TP3-ej3-digitos.txt``
         :returns list of arrays containing the numbers in the file
         """
@@ -24,7 +31,7 @@ class ExerciseUtils:
         return flattened_matrices
 
     @staticmethod
-    def load_ex2_file(path) -> tuple[np.ndarray, np.ndarray]:
+    def load_ex2_file(path=EX2_FILE) -> tuple[np.ndarray, np.ndarray]:
         """Loads exercise 2 file ``TP3-ej2-conjunto.csv``
         :returns tuple[inputs, expected values]
         """
