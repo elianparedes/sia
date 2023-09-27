@@ -73,7 +73,7 @@ class PerceptronABC(ABC):
 
     def test(self, test_set, weights):
         """ Calculates outputs from a test_set using custom weights parameter"""
-        original_weights = self.weights.copy
+        original_weights = self.weights.copy()
         self.weights = weights
         activation_values = np.array([])
 
