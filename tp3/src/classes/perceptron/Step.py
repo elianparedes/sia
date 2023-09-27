@@ -17,10 +17,12 @@ class Step(PerceptronABC):
                 wrong += 1
         return wrong / len(training_set)
 
-    def update_weights(self, activation_value, training_value, expected_value):
-        diff = self.optimization_method.calculate(expected_value, activation_value, training_value)
+    def update_weights(self, diff):
         self.weights = self.weights + diff
         return self.weights
 
-    def train(self, training_set, expected_set, epoch, epsilon):
-        return super().train(training_set, expected_set, epoch, 0)
+    def compute_deltaw(self, activation_value, training_value, expected_value):
+        return self.optimization_method.calculate(expected_value, activation_value, training_value)
+
+    def train(self, training_set, expected_set, test_set, test_expected, batch_amount, epoch, epsilon):
+        return super().train(training_set, expected_set, test_set, test_expected, batch_amount, epoch, 0)

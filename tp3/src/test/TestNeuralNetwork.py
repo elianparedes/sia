@@ -13,12 +13,12 @@ DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pa
 
 
 def neural_network_test(training_set, training_expected, test_set, test_expected, architecture):
-    network = NeuralNetwork(architecture, Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
-                            Function.TAN_H_DERIVATIVE, 0.1, [-1, 1])
+    network = NeuralNetwork(architecture, Function.SIGMOID, Function.SIGMOID_DERIVATIVE, Function.SIGMOID,
+                            Function.SIGMOID_DERIVATIVE, 0.1, [-1, 1])
     i = 0
     min_error = sys.maxsize
-    limit = 5000
-    epsilon = 0.001
+    limit = 200
+    epsilon = 0.5
     w_min = None
     start = time.process_time()
 
@@ -42,13 +42,14 @@ def neural_network_test(training_set, training_expected, test_set, test_expected
     print('min_error: ', min_error)
     print('time: ', end - start)
     print('iterations: ', i)
+    print('w_min', w_min)
     return w_min
 
 
 def test_xor():
     dataset = [[0, 1], [1, 0], [0, 0], [1, 1]]
     expected = [[1], [1], [0], [0]]
-    architecture = [2, 3, 1]
+    architecture = [2, 1]
     neural_network_test(dataset, expected, dataset, expected, architecture)
 
 

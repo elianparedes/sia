@@ -12,6 +12,7 @@ class PerceptronABC(ABC):
     """
 
     def __init__(self, weight_qty: int, learning_rate: float, optimization_method, weights=None, **kwargs):
+        self.learning_rate = learning_rate
         if weights is None:
             self.weights = np.array(np.random.uniform(-1, 1, size=(1, weight_qty)))
         else:
@@ -30,11 +31,15 @@ class PerceptronABC(ABC):
     def error(self, training_set, expected_set):
         pass
 
+    def update_weights(self, diff):
+        self.weights = self.weights + diff
+        return self.weights
+
     @abstractmethod
-    def update_weights(self, activation_value, training_value, expected_value):
+    def compute_deltaw(self, activation_value, training_value, expected_value):
         pass
 
-    def train(self, training_set, expected_set, epoch, epsilon):
+    def train(self, training_set, expected_set, test_set, test_expected, batch_amount, epoch, epsilon):
         """ Trains the perceptron until error < epsilon or epoch amount is reached"""
         training_set = np.array(training_set)
         previous_weights = np.array(self.weights)
@@ -43,11 +48,18 @@ class PerceptronABC(ABC):
         w_min = None
         i = 0
         while min_error > epsilon and i < epoch:
-            mu = random.randint(0, len(training_set) - 1)
-            training_value = training_set[mu]
-            excitement = self.excitement(training_value)
-            activation = self.activation(excitement)
-            w = self.update_weights(activation, training_value, expected_set[mu])
+            training_copy = np.array(training_set.copy())
+            expected_copy = expected_set.copy()
+            delta_w = [0.0 for i in range(len(self.weights[0]))]
+            for _ in range(0, batch_amount):
+                mu = random.randint(0, len(training_copy)-1)
+                training_value = training_copy[mu]
+                training_copy = np.delete(training_copy, mu, 0)
+                expected_value = expected_copy.pop(mu)
+                excitement_value = self.excitement(training_value)
+                activation_value = self.activation(excitement_value)
+                delta_w += self.compute_deltaw(activation_value, np.array(training_value), expected_value)
+            w = self.update_weights(delta_w)
             error = self.error(training_set, expected_set)
             if error < min_error:
                 min_error = error

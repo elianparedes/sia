@@ -15,7 +15,9 @@ class Linear(PerceptronABC):
             error += (expected_set[mu] - self.activation(self.excitement(training_set[mu])))**2
         return error * 0.5
 
-    def update_weights(self, activation_value, training_value, expected_value):
-        diff = self.optimization_method.calculate(expected_value, activation_value, training_value)
+    def update_weights(self, diff):
         self.weights = self.weights + diff
         return self.weights
+
+    def compute_deltaw(self, activation_value, training_value, expected_value):
+        return self.optimization_method.calculate(expected_value, activation_value, training_value)
