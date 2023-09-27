@@ -27,6 +27,7 @@ def neural_network_test(training_set, training_expected, test_set, test_expected
         network.forward_propagation(training_set[mu])
         network.back_propagation(training_expected[mu])
         w = network.set_delta_w()
+        network.update_weights()
         error = network.compute_error(training_set, training_expected)
         if error < min_error:
             min_error = error

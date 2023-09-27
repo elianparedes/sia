@@ -13,8 +13,6 @@ class Hidden(LayerABC):
 
     def set_deltas(self, upper_deltas, upper_weights):
         """Set ``delta`` for each neuron in a layer"""
-
         self.deltas = np.array([])
         for i in range(0, self.neuron_qty):
-            #TODO check if this is correct
             self.deltas = np.append(self.deltas, self.activation_derivative(self.h[i]) * np.dot(upper_deltas, upper_weights[i]))

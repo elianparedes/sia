@@ -53,7 +53,9 @@ class NeuralNetwork:
         for i in range(self.num_layers - 2, -1, -1):
             self.layers[i].set_deltas(self.layers[i + 1].get_deltas(),
                                       self.layers[i + 1].get_weights())
-
+    def update_weights(self):
+        for i in range(self.num_layers):
+            self.layers[i].update_weights()
     def compute_error(self, dataset, expected):
         error = 0
         for i in range(len(dataset)):

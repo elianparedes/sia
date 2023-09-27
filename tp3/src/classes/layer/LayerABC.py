@@ -22,6 +22,7 @@ class LayerABC(ABC):
         self.activation_func = activation_func
         self.activation_derivative = activation_derivative
         self.deltas = np.array([])
+        self.delta_w = np.zeros((input_qty, neuron_qty))
         self.learning_rate = learning_rate
         self.input = None
         self.h = None
@@ -60,5 +61,8 @@ class LayerABC(ABC):
     def set_delta_w(self):
         for i in range(self.input_qty):
             for j in range(self.neuron_qty):
-                self.weights[i][j] = self.weights[i][j] + self.learning_rate * self.deltas[j] * self.input[i]
+                self.delta_w[i][j] = self.delta_w[i][j] + self.learning_rate * self.deltas[j] * self.input[i]
 
+    def update_weights(self):
+        self.weights = np.add(self.weights, self.delta_w)
+        self.delta_w = np.zeros((self.input_qty, self.neuron_qty))
