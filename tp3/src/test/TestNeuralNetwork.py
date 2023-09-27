@@ -2,6 +2,9 @@ import os as os
 import random
 import sys
 import time
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.offline as pyo
 
 from src.classes.NeuralNetwork import NeuralNetwork
 from src.utils import Function
@@ -17,8 +20,9 @@ def neural_network_test(training_set, training_expected, test_set, test_expected
                             Function.SIGMOID_DERIVATIVE, 0.1, [-1, 1])
     i = 0
     min_error = sys.maxsize
-    limit = 200
-    epsilon = 0.5
+
+    limit = 500000
+    epsilon = 0.01
     w_min = None
     start = time.process_time()
 
@@ -78,7 +82,33 @@ def test_digits():
     dataset, expected = DatasetUtils.expand_dataset(dataset, expected, 2)
     dataset = DatasetUtils.add_noise(dataset, 0.2)
     training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.8)
-    neural_network_test(training_set, training_expected, test_set, test_expected, architecture)
+    return neural_network_test(training_set, training_expected, test_set, test_expected, architecture)
 
 
-test_digits()
+weights = test_digits()
+df = pd.DataFrame(weights[0])
+# df[0]
+
+num_matrices = 10
+rows = 7
+cols = 5
+
+matrix = [[[0 for _ in range(cols)] for _ in range(rows)] for _ in range(num_matrices)]
+
+for k in range(num_matrices):
+    for i in range(rows - 1, -1, -1):
+        for j in range(cols):
+            matrix[k][i][j] = df[k][i * cols + j]
+
+print(matrix[3])
+
+heatmap = go.Heatmap(z=matrix[3], colorscale='Viridis')
+
+# Create a layout for the heatmap
+layout = go.Layout(title='Heatmap Example')
+
+# Create a figure and plot it
+fig = go.Figure(data=[heatmap], layout=layout)
+
+# Display the heatmap (you can also save it as an HTML file)
+pyo.plot(fig, filename='heatmap.html')
