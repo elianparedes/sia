@@ -13,7 +13,7 @@ def non_linear_perceptron_test():
     training_set, expected_set = ExerciseUtils.load_ex2_file(CONFIG_PATH)
     expected = DatasetUtils.normalize_to_range(expected_set, -1, 1).tolist()
     perceptron = NonLinear(3, 0.1, Function.TAN_H, Function.TAN_H_DERIVATIVE)
-    w_min, iterations, previous_weights, previous_errors = \
+    w_min, iterations, previous_weights, training_errors, test_errors = \
         perceptron.train(training_set, expected, [], [], 1, 30000, 2.0)
     results = perceptron.test(training_set, w_min)
 

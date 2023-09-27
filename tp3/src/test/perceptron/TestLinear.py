@@ -26,11 +26,11 @@ def linear_perceptron_test():
     ]
     np.seterr(all='raise')
     perceptron = Linear(2, learning_rate)
-    w_min, iterations, previous_weights, previous_errors = perceptron\
+    w_min, iterations, previous_weights, training_errors, test_errors = perceptron\
         .train(training_set, training_expected, [], [], 4, 30000, 0.01)
     results = perceptron.test(test_set, w_min)
 
-    print('expected: ', training_expected)
+    print('expected: ', test_expected)
     print('results: ', results)
 
 

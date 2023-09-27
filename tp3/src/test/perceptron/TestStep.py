@@ -16,9 +16,10 @@ def and_step_test():
         [1, -1, -1],
         [1, 1, 1],
     ]
+    test_expected = [-1, -1, -1, 1]
     perceptron = Step(3, learning_rate)
-    w_min, iterations, previous_weights, previous_errors = \
-        perceptron.train(training_set, training_expected, [], [], 1, 30000, 0)
+    w_min, iterations, previous_weights, training_errors, test_errors = \
+        perceptron.train(training_set, training_expected, test_set, test_expected, 1, 30000, 0)
     results = perceptron.test(test_set, w_min)
 
     print('expected: ', training_expected)
