@@ -168,3 +168,17 @@ class NeuralNetwork:
                 j += 1
 
         return w_min, curr_epoch, prev_weights, prev_errors
+
+    def compute_metric(self, w, test_set, test_expected, metric, classifier, classes):
+        test_results = self.test_forward_propagation_custom(test_set, w)
+        classification = classifier(test_results, test_expected, classes)
+        true_positive, true_negative, false_positive, false_negative = 0, 0, 0, 0
+        for i in range(len(classification)):
+            for j in range(len(classification[i])):
+                if i == j:
+                    true_positive += classification[i][j]
+                if i != j:
+                    true_negative += classification[j][j]
+                    false_positive += classification[j][i]
+                    false_negative += classification[i][j]
+        return metric(true_positive, true_negative, false_positive, false_negative)
