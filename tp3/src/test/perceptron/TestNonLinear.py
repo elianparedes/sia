@@ -1,6 +1,6 @@
 import os as os
 
-
+from src.classes.optimization.MomentumO import MomentumO
 from src.classes.perceptron.NonLinear import NonLinear
 from src.utils import Function
 from src.utils.DatasetUtils import DatasetUtils

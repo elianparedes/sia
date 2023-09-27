@@ -1,10 +1,12 @@
+from src.classes.optimization.GradientDescentO import GradientDescentO
 from src.classes.perceptron.PerceptronABC import PerceptronABC
 
 
 class NonLinear(PerceptronABC):
 
-    def __init__(self, weights_qty, learning_rate, activation_f, activation_derivative, weights=None) -> None:
-        super().__init__(weights_qty, learning_rate, weights)
+    def __init__(self, weights_qty, learning_rate, activation_f, activation_derivative,
+                 optimization_method=GradientDescentO, weights=None):
+        super().__init__(weights_qty, learning_rate, optimization_method, weights)
         self.activation_f = activation_f
         self.activation_derivative = activation_derivative
 
@@ -18,8 +20,8 @@ class NonLinear(PerceptronABC):
         return error * 0.5
 
     def update_weights(self, activation_value, training_value, expected_value):
-        diff = ((self.learning_rate * (expected_value - activation_value))
-                * self.activation_derivative(self.excitement(training_value))) * training_value
+        diff = self.optimization_method.calculate(expected_value, activation_value, training_value,
+                                                  self.activation_derivative, self.excitement(training_value))
 
         self.weights = self.weights + diff
         return self.weights

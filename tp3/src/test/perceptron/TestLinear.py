@@ -1,3 +1,4 @@
+from src.classes.optimization.LinearO import LinearO
 from src.classes.perceptron.Linear import Linear
 
 

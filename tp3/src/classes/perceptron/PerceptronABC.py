@@ -1,17 +1,23 @@
+import random
 import sys
 from abc import ABC, abstractmethod
+
 import numpy as np
-import random
 
 
 class PerceptronABC(ABC):
+    """
+    **IMPORTANT!** In case of using an ``optimization method`` which takes more than one constant coefficient, it MUST
+    be configured from the outside. Eg: MomentumO
+    """
 
-    def __init__(self, weight_qty, learning_rate, weights=None) -> None:
+    def __init__(self, weight_qty: int, learning_rate: float, optimization_method, weights=None, **kwargs):
         if weights is None:
             self.weights = np.array(np.random.uniform(-1, 1, size=(1, weight_qty)))
         else:
             self.weights = np.array(weights)
-        self.learning_rate = learning_rate
+        self.optimization_method = optimization_method
+        self.optimization_method.configure(learning_rate)
 
     def excitement(self, training_value):
         return np.dot(self.weights, training_value)
