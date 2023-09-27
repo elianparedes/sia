@@ -80,7 +80,14 @@ class NeuralNetwork:
             self.layers[i].set_delta_w()
             w.append(self.layers[i].get_weights())
         return w
-
+    def classifier(self,prediction,expected,classes):
+        matrix = np.zeros(classes,classes)
+        for i in range(len(prediction)):
+            prediction_indexes = [i for i, valor in enumerate(prediction) if valor > 0.8]
+            expected_indexes = [i for i, valor in enumerate(expected) if valor == 1]
+            for j in prediction_indexes:
+                matrix[expected_indexes[0]][j] += 1
+        return matrix
     def get_weights(self):
         w = []
         for i in range(self.num_layers):
