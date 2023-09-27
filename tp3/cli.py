@@ -4,6 +4,7 @@ from Config import Config
 from src.utils.ExerciseUtils import ExerciseUtils 
 from src.benchmarks.plot.TestAndTrainingErrors import test_and_training_errors_plot
 from src.benchmarks.plot.StepPlot import and_step_plot, xor_step_plot
+from src.ui.Whiteboard import Whiteboard
 
 DEFAULT_CONFIG_FILE = 'config.json'
 DATA_PATH = os.path.join(os.path.dirname(__file__),
@@ -71,6 +72,8 @@ def main():
             config.plot['test_and_training_errors']['max_epoch']
         )
         
+        # Whiteboard(on_recognize= lambda x: print(x)).show()
+
 
 
 if __name__ == "__main__":
