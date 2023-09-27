@@ -5,8 +5,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 from src.classes.perceptron.Step import Step
+from src.utils.Function import *
+from Config import Config
 
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, os.path.pardir,
+DATA_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, os.path.pardir,
                            "Data", "TP3-ej2-conjunto.csv")
 
 LEARNING_RATE = 0.1
@@ -133,31 +135,12 @@ def step_error_plot(training_set, training_expected, error_title, animation_titl
     fig.show()
 
 
-def and_step_plot():
-    # AND function
-    training_set = [
-        [1, -1, 1],
-        [1, 1, -1],
-        [1, -1, -1],
-        [1, 1, 1],
-    ]
-    training_expected = [-1, -1, -1, 1]
+def and_step_plot(training_set, training_expected, speed, frame_duration):
     step_error_plot(training_set, training_expected, 'Error value by Epochs (AND function)',
-                    'Linear separation (AND function)', 500, 300)
+                    'Linear separation (AND function)', speed, frame_duration)
 
 
-def xor_step_plot():
+def xor_step_plot(training_set, training_expected, speed, frame_duration):
     # XOR function (cannot be solved with a simple perceptron)
-    training_set = [
-        [1, -1, 1],
-        [1, 1, -1],
-        [1, -1, -1],
-        [1, 1, 1],
-    ]
-    training_expected = [1, 1, -1, -1]
     step_error_plot(training_set, training_expected, 'Error value by Epochs (XOR function)',
-                    'Linear separation (XOR function)', 10, 10)
-
-
-and_step_plot()
-xor_step_plot()
+                    'Linear separation (XOR function)', speed, frame_duration)
