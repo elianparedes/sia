@@ -1,0 +1,59 @@
+{
+  "run": [],
+  "perceptron": {
+    "type": "simple | non_linear"
+  },
+  "multilayer_network": {
+    "architecture": "list containing neurons per layer",
+    "activation_functions": {
+      "hidden_layers": "relu | sigmoid | tan_h",
+      "output_layer": "relu | sigmoid | tan_h"
+    },
+    "learning_rate": "0-1",
+    "training": {
+      "iterations": ">0",
+      "training_set_path": "<path>",
+      "test_set_path": "<path>",
+      "noise": "0-1"
+    }
+  },
+  "plot": {
+    "and_steps": {
+      "training_set": "list with training set",
+      "training_expected": [-1, -1, -1, 1],
+      "speed": ">0 [animation speed]",
+      "frame_duration": ">0 [time between each frame]"
+    },
+    "xor_steps": {
+      "training_set": "list with training set",
+      "training_expected":  [1, 1, -1, -1],
+      "speed": ">0 [animation speed]",
+      "frame_duration": ">0 [time between each frame]"
+    },
+    "test_and_training_errors": {
+      "epsilon": "0-1",
+      "learning_rate": "0-1",
+      "bias": ">=0",
+      "max_epoch": ">0",
+      "batch_amount": ">0",
+      "activation_function": "sigmoid | tan_h | relu",
+      "normalize_range": "[a,b]"
+    },
+    "split_ratio_errors": {
+      "epsilon": "0-1",
+      "learning_rate": "0-1",
+      "bias": ">=0",
+      "max_epoch": ">0",
+      "batch_amount": ">0",
+      "activation_function": "sigmoid | tan_h | relu",
+      "normalize_range": "[a,b]"
+    },
+    "number_metrics": {
+      "epsilon": "0-1",
+      "learning_rate": "0-1",
+      "max_epoch": ">0",
+      "batch_amount": ">0",
+      "noise": ">0"
+    }
+  }
+}

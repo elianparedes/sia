@@ -1,5 +1,5 @@
 {
-    "run": [],
+    "run": ["and_steps"],
     "perceptron": {
         "type": ""
     },
@@ -57,6 +57,13 @@
             "batch_amount": 1,
             "activation_function": "sigmoid",
             "normalize_range": [0, 1]
+        },
+        "number_metrics": {
+            "epsilon": "0.2",
+            "learning_rate": "0.2",
+            "max_epoch": "500",
+            "batch_amount": "2",
+            "noise": "0.2"
         }
     }
 }

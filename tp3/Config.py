@@ -20,6 +20,7 @@ class Config:
         with open(config_path, "r") as f:
             config = json.load(f)
 
+            self.run = config['run']
             multilayer_network_config = config['multilayer_network']
             self.architecture = multilayer_network_config['architecture']
             self.activation_functions = {
@@ -37,6 +38,7 @@ class Config:
             xor_steps_config = plot_config['xor_steps']
             test_and_training_errors_config = plot_config['test_and_training_errors']
             split_ratio_errors_config = plot_config['split_ratio_errors']
+            number_metrics_config = plot_config['number_metrics']
 
             self.plot = {
                 'and_steps': {
@@ -68,5 +70,12 @@ class Config:
                     'batch_amount': split_ratio_errors_config['batch_amount'],
                     'activation_function': ConfigUtils.ACTIVATION_FUNCTIONS[split_ratio_errors_config['activation_function']],
                     'normalize_range': split_ratio_errors_config['normalize_range'],
-                } 
+                },
+                'number_metrics': {
+                    'epsilon': number_metrics_config['epsilon'],
+                    'learning_rate': number_metrics_config['learning_rate'],
+                    'max_epoch': number_metrics_config['max_epoch'],
+                    'batch_amount': number_metrics_config['batch_amount'],
+                    'noise': number_metrics_config['noise']
+                }
             }

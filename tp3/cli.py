@@ -5,6 +5,7 @@ from src.utils.ExerciseUtils import ExerciseUtils
 from src.benchmarks.plot.TestAndTrainingErrors import test_and_training_errors_plot
 from src.benchmarks.plot.SplitErrors import split_ratio_errors_plot
 from src.benchmarks.plot.StepPlot import and_step_plot, xor_step_plot
+from src.benchmarks.numbers_metrics import number_metrics
 from src.ui.Whiteboard import Whiteboard
 
 DEFAULT_CONFIG_FILE = 'config.json'
@@ -49,47 +50,60 @@ def main():
     else:  
         config = Config(config_file)
 
-        and_step_plot(
-            config.plot['and_steps']['training_set'],
-            config.plot['and_steps']['training_expected'],
-            config.plot['and_steps']['speed'],
-            config.plot['and_steps']['frame_duration']
-        )
-        
-        xor_step_plot(
-            config.plot['xor_steps']['training_set'],
-            config.plot['xor_steps']['training_expected'],
-            config.plot['xor_steps']['speed'],
-            config.plot['xor_steps']['frame_duration']
-        )
+        if 'and_steps' in config.run:
+            and_step_plot(
+                config.plot['and_steps']['training_set'],
+                config.plot['and_steps']['training_expected'],
+                config.plot['and_steps']['speed'],
+                config.plot['and_steps']['frame_duration']
+            )
 
-        inputs, expected = ExerciseUtils.load_ex2_file(DATA_PATH)
-        test_and_training_errors_plot(
-            inputs,
-            expected,
-            config.plot['test_and_training_errors']['bias'],
-            config.plot['test_and_training_errors']['learning_rate'],
-            config.plot['test_and_training_errors']['batch_amount'],
-            config.plot['test_and_training_errors']['epsilon'],
-            config.plot['test_and_training_errors']['max_epoch'],
-            config.plot['test_and_training_errors']['activation_function'][0],
-            config.plot['test_and_training_errors']['activation_function'][1],
-            config.plot['test_and_training_errors']['normalize_range']
-        )
+        if 'xor_steps' in config.run:
+            xor_step_plot(
+                config.plot['xor_steps']['training_set'],
+                config.plot['xor_steps']['training_expected'],
+                config.plot['xor_steps']['speed'],
+                config.plot['xor_steps']['frame_duration']
+            )
 
-        inputs, expected = ExerciseUtils.load_ex2_file(DATA_PATH)
-        split_ratio_errors_plot(
-            inputs,
-            expected,
-            config.plot['split_ratio_errors']['bias'],
-            config.plot['split_ratio_errors']['learning_rate'],
-            config.plot['split_ratio_errors']['batch_amount'],
-            config.plot['split_ratio_errors']['epsilon'],
-            config.plot['split_ratio_errors']['max_epoch'],
-            config.plot['split_ratio_errors']['activation_function'][0],
-            config.plot['split_ratio_errors']['activation_function'][1],
-            config.plot['split_ratio_errors']['normalize_range']
-        )
+        if 'test_and_training_error' in config.run:
+            inputs, expected = ExerciseUtils.load_ex2_file(DATA_PATH)
+            test_and_training_errors_plot(
+                inputs,
+                expected,
+                config.plot['test_and_training_errors']['bias'],
+                config.plot['test_and_training_errors']['learning_rate'],
+                config.plot['test_and_training_errors']['batch_amount'],
+                config.plot['test_and_training_errors']['epsilon'],
+                config.plot['test_and_training_errors']['max_epoch'],
+                config.plot['test_and_training_errors']['activation_function'][0],
+                config.plot['test_and_training_errors']['activation_function'][1],
+                config.plot['test_and_training_errors']['normalize_range']
+            )
+
+        if 'split_ratio_errors' in config.run:
+            inputs, expected = ExerciseUtils.load_ex2_file(DATA_PATH)
+            split_ratio_errors_plot(
+                inputs,
+                expected,
+                config.plot['split_ratio_errors']['bias'],
+                config.plot['split_ratio_errors']['learning_rate'],
+                config.plot['split_ratio_errors']['batch_amount'],
+                config.plot['split_ratio_errors']['epsilon'],
+                config.plot['split_ratio_errors']['max_epoch'],
+                config.plot['split_ratio_errors']['activation_function'][0],
+                config.plot['split_ratio_errors']['activation_function'][1],
+                config.plot['split_ratio_errors']['normalize_range']
+            )
+
+        if 'number_metrics' in config.run:
+            number_metrics(
+                float(config.plot['number_metrics']['epsilon']),
+                float(config.plot['number_metrics']['learning_rate']),
+                int(config.plot['number_metrics']['max_epoch']),
+                int(config.plot['number_metrics']['batch_amount']),
+                float(config.plot['number_metrics']['noise']),
+            )
 
         # Whiteboard(on_recognize= lambda x: print(x)).show()
 

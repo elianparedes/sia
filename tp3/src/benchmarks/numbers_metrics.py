@@ -16,48 +16,43 @@ from src.benchmarks.plot.metrics.precision_metrics import precision_metrics_plot
 DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir,
                            "Data", "TP3-ej3-digitos.txt")
 
-LEARNING_RATE = 0.2
-NOISE_RATIO = 0.2
-
-BATCH_AMOUNT = 2
-MAX_EPOCH = 600
-EPSILON = 0.1
 STEP = 10
 CLASSES = 10
 
-dataset = ExerciseUtils.load_ex3_file(DIGITS_PATH)
-expected = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
 
-architecture = [35,10, 10]
-dataset, expected = DatasetUtils.expand_dataset(dataset, expected, 2)
-dataset = DatasetUtils.add_noise(dataset, 0.2)
-training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.8)
+def number_metrics(epsilon, learning_rate, max_epoch, batch_amount, noise):
+    dataset = ExerciseUtils.load_ex3_file(DIGITS_PATH)
+    expected = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
 
-network = NeuralNetwork(architecture, Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
-                        Function.TAN_H_DERIVATIVE, LEARNING_RATE, [-1, 1])
+    architecture = [35, 10, 10]
+    dataset, expected = DatasetUtils.expand_dataset(dataset, expected, 2)
+    dataset = DatasetUtils.add_noise(dataset, noise)
+    training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.8)
 
-#df = accuracy_metrics(MAX_EPOCH, network, 10, training_set, training_expected, test_set, test_expected, BATCH_AMOUNT,
-#                      EPSILON, network.classifier, CLASSES)
-#acurracy_metrics_plot(df)
+    network = NeuralNetwork(architecture, Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
+                            Function.TAN_H_DERIVATIVE, learning_rate, [-1, 1])
 
-#df = f1_metrics(MAX_EPOCH, network, 10, training_set, training_expected, test_set, test_expected, BATCH_AMOUNT,
-#                      EPSILON, network.classifier, CLASSES)
-#f1_metrics_plot(df)
+    df = accuracy_metrics(max_epoch, network, 10, training_set, training_expected, test_set, test_expected,
+                          batch_amount, epsilon, network.classifier, CLASSES)
+    acurracy_metrics_plot(df)
 
-#df = precision_metrics(MAX_EPOCH, network, 10, training_set, training_expected, test_set, test_expected, BATCH_AMOUNT,
-#                     EPSILON, network.classifier, CLASSES)
-#precision_metrics_plot(df)
+    df = f1_metrics(max_epoch, network, 10, training_set, training_expected, test_set, test_expected,
+                    batch_amount, epsilon, network.classifier, CLASSES)
+    f1_metrics_plot(df)
 
-df = recall_metrics(MAX_EPOCH, network, 10, training_set, training_expected, test_set, test_expected, BATCH_AMOUNT,
-                      EPSILON, network.classifier, CLASSES)
-recall_metrics_plot(df)
+    df = precision_metrics(max_epoch, network, 10, training_set, training_expected, test_set, test_expected,
+                           batch_amount, epsilon, network.classifier, CLASSES)
+    precision_metrics_plot(df)
 
+    df = recall_metrics(max_epoch, network, 10, training_set, training_expected, test_set, test_expected,
+                        batch_amount, epsilon, network.classifier, CLASSES)
+    recall_metrics_plot(df)
