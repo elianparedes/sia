@@ -93,6 +93,20 @@ class NeuralNetwork:
             for j in prediction_indexes:
                 matrix[expected_indexes[0]][j] += 1
         return matrix
+    def binary_classifier(self,prediction,expected):
+        matrix = np.zeros((2,2))
+        for w in range(len(prediction)):
+            if prediction[w] > 0.5:
+                if expected[w] == 1:
+                    matrix[0][0] += 1
+                else:
+                    matrix[1][0] += 1
+            else:
+                if expected[w] == 1:
+                    matrix[0][1] += 1
+                else:
+                    matrix[1][1] += 1
+        return matrix
 
     def get_weights(self):
         w = []
