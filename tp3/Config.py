@@ -21,17 +21,6 @@ class Config:
             config = json.load(f)
 
             self.run = config['run']
-            multilayer_network_config = config['multilayer_network']
-            self.architecture = multilayer_network_config['architecture']
-            self.activation_functions = {
-                "hidden_layers": "",
-                "output_layer": ""
-            }
-            self.learning_rate = multilayer_network_config['learning_rate']
-            
-            training_config = multilayer_network_config['training']
-            self.iterations = training_config['iterations']
-            self.noise = training_config['noise']
 
             plot_config = config['plot']
             and_steps_config = plot_config['and_steps']

@@ -1,22 +1,5 @@
 {
     "run": ["and_steps"],
-    "perceptron": {
-        "type": ""
-    },
-    "multilayer_network": {
-        "architecture": [35, 10],
-        "activation_functions": {
-            "hidden_layers": "relu",
-            "output_layer": "relu"
-        },
-        "learning_rate": 0.1,
-        "training": {
-            "iterations": 0,
-            "training_set_path": "",
-            "test_set_path": "",
-            "noise": ""
-        }
-    },
     "plot": {
         "and_steps": {
             "training_set": [
@@ -36,7 +19,7 @@
                 [1, -1, -1],
                 [1, 1, 1]
             ],
-            "training_expected":  [1, 1, -1, -1],
+            "training_expected": [1, 1, -1, -1],
             "speed": 10,
             "frame_duration": 10
         },
