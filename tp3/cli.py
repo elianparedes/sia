@@ -44,13 +44,10 @@ def main():
         arg = sys.argv[i]
 
         if arg in ("-f", f"--{ARG_FILE}"):
-            i += 1
             args[ARG_FILE] = sys.argv[i] if i < len(sys.argv) else None
         elif arg in ("-h", f"--{ARG_HELP}"):
-            i += 1
             args[ARG_HELP] = True
         elif arg in ("-w", f"--{ARG_WHITEBOARD}"):
-            i += 1
             args[ARG_WHITEBOARD] = True
 
         i += 1
@@ -119,7 +116,7 @@ def main():
                 float(config.plot['number_metrics']['noise']),
             )
 
-        if ARG_WHITEBOARD is True:
+        if args[ARG_WHITEBOARD] is True:
             print("Training the neural network...")
             w, network = test_digits()
 
