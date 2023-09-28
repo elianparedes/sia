@@ -1,9 +1,9 @@
 import tkinter as tk
 
-CANVAS_WIDTH = 300
-CANVAS_HEIGHT = 480
+CANVAS_WIDTH = 500
+CANVAS_HEIGHT = 700
 GRID_WIDTH = 5 
-GRID_HEIGHT = 8 
+GRID_HEIGHT = 7
 GRID_SPACING_X = CANVAS_WIDTH // GRID_WIDTH 
 GRID_SPACING_Y = CANVAS_HEIGHT // GRID_HEIGHT
 PIXEL_SIZE_X = CANVAS_WIDTH // GRID_WIDTH 
@@ -102,7 +102,8 @@ class Whiteboard:
         if self.on_recognize is None:
             return
         
-        self.on_recognize('\n'.join([' '.join([str(cell) for cell in row]) for row in self.matrix]))
+        matrix = [[cell for cell in row] for row in self.matrix]
+        self.on_recognize(matrix)
         pass
 
     def draw_grid(self):
