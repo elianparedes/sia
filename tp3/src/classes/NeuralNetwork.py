@@ -5,6 +5,7 @@ import numpy as np
 
 from src.classes.layer.Hidden import Hidden
 from src.classes.layer.Output import Output
+from src.utils.DatasetUtils import DatasetUtils
 
 
 class NeuralNetwork:
@@ -83,7 +84,14 @@ class NeuralNetwork:
             self.layers[i].set_delta_w()
             w.append(self.layers[i].get_weights())
         return w
-
+    def classifier(self,prediction,expected,classes):
+        matrix = np.zeros(classes,classes)
+        for i in range(len(prediction)):
+            prediction_indexes = [i for i, valor in enumerate(prediction) if valor > 0.8]
+            expected_indexes = [i for i, valor in enumerate(expected) if valor == 1]
+            for j in prediction_indexes:
+                matrix[expected_indexes[0]][j] += 1
+        return matrix
     def get_weights(self):
         w = []
         for i in range(self.num_layers):
@@ -95,7 +103,7 @@ class NeuralNetwork:
         np_training_set = np.array(training_set)
         np_training_expected = np.array(expected_set)
         min_error = sys.maxsize
-        prev_weights = np.array(self.get_weights())
+        prev_weights = [self.output_layer.get_weights()]
         prev_errors = []
         w_min = None
         curr_epoch = 0
@@ -103,7 +111,7 @@ class NeuralNetwork:
             np_training_copy = np.array(training_set.copy())
 
             for _ in range(0, batch_amount):
-                mu = random.randint(0, len(np_training_copy)-1)
+                mu = random.randint(0, len(np_training_copy) - 1)
 
                 np_training_copy = np.delete(np_training_copy, mu, 0)
 
@@ -118,13 +126,63 @@ class NeuralNetwork:
                 w_min = w
 
             curr_epoch += 1
+            prev_weights.append(prev_weights)
+            prev_errors.append(error)
+
+        return w_min, curr_epoch, prev_weights, prev_errors
+
+    def k_cross_validation(self, training_set, expected_set, k, max_epoch, epsilon):
+        if k <= 1 or k >= len(training_set):
+            raise ValueError('k must be greater than 1 and lower than the length of the training set')
+
+        np_training_set = np.array(training_set)
+        np_training_expected = np.array(expected_set)
+        min_error = sys.maxsize
+        prev_weights = np.array(self.get_weights())
+        prev_errors = []
+        w_min = None
+        curr_epoch = 0
+        j = 0
+
+        while min_error > epsilon and curr_epoch < max_epoch:
+            np_training_copy = np.array(training_set.copy())
+            np_expected_copy = np.array(expected_set.copy())
+
+            np_training_copy, np_expected_copy, np_test_set_copy, np_test_expected_copy = \
+                DatasetUtils.k_split_dataset(np_training_copy, np_expected_copy, k, j)
+
+            for s in range(0, k):
+                self.forward_propagation(np_training_copy[s])
+                self.back_propagation(np_expected_copy[s])
+                self.set_delta_w()
+
+            w = self.update_weights()
+            error = self.compute_error(training_set, expected_set)
+            if error < min_error:
+                min_error = error
+                w_min = w
+
+            curr_epoch += 1
             prev_weights = np.append(prev_weights, w, axis=0)
             prev_errors.append(error)
 
-        # FIXME: delete, only for testing
-        for k in range(0, len(test_set)):
-            print('expected: ', test_expected[k], '-> result: ',
-                  self.test_forward_propagation_custom(test_set[k], w_min)
-                  .round(3))
+            if j == k-1:
+                j = 0
+            else:
+                j += 1
 
         return w_min, curr_epoch, prev_weights, prev_errors
+
+    def compute_metric(self, w, test_set, test_expected, metric, classifier, classes):
+        test_results = self.test_forward_propagation_custom(test_set, w)
+        classification = classifier(test_results, test_expected, classes)
+        true_positive, true_negative, false_positive, false_negative = 0, 0, 0, 0
+        for i in range(len(classification)):
+            for j in range(len(classification[i])):
+                if i == j:
+                    true_positive += classification[i][j]
+                if i != j:
+                    true_negative += classification[j][j]
+                    false_positive += classification[j][i]
+                    false_negative += classification[i][j]
+        return metric(true_positive, true_negative, false_positive, false_negative)

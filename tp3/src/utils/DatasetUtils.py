@@ -57,3 +57,18 @@ class DatasetUtils:
         max_val = max(data)
         normalized_data = np.interp(data, (min_val, max_val), (new_min, new_max))
         return normalized_data
+
+    @staticmethod
+    def k_split_dataset(training_set, expected_set, k, i):
+        fold_size = len(training_set) // k
+
+        index_start = i * fold_size
+        index_end = (i + 1) * fold_size
+
+        test_set = training_set[index_start:index_end]
+        test_expected = expected_set[index_start:index_end]
+
+        training_set = np.concatenate((training_set[:index_start], training_set[index_end:]), axis=0)
+        training_expected = np.concatenate((expected_set[:index_start], expected_set[index_end:]), axis=0)
+
+        return training_set, training_expected, test_set, test_expected
