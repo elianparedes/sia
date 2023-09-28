@@ -14,10 +14,13 @@ from src.utils.ExerciseUtils import ExerciseUtils
 DIGITS_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir,
                            "Data", "TP3-ej3-digitos.txt")
 
+DIGITS_TEST_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir,
+                           "Data", "TP3-ej3-digitos-prueba.txt")
+
 
 def neural_network_test(training_set, training_expected, test_set, test_expected, architecture):
-    network = NeuralNetwork(architecture, Function.SIGMOID, Function.SIGMOID_DERIVATIVE, Function.SIGMOID,
-                            Function.SIGMOID_DERIVATIVE, 0.1, [-1, 1])
+    network = NeuralNetwork(architecture, Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
+                            Function.TAN_H_DERIVATIVE, 0.1, [-1, 1])
     i = 0
     min_error = sys.maxsize
 
@@ -87,12 +90,12 @@ def test_digits():
 
 weights = test_digits()
 df = pd.DataFrame(weights[0])
-# df[0]
+df.to_csv('weights.csv', index=False, header=False)
+
 
 num_matrices = 10
 rows = 7
 cols = 5
-
 matrix = [[[0 for _ in range(cols)] for _ in range(rows)] for _ in range(num_matrices)]
 
 for k in range(num_matrices):
@@ -100,15 +103,11 @@ for k in range(num_matrices):
         for j in range(cols):
             matrix[k][i][j] = df[k][i * cols + j]
 
-print(matrix[3])
 
 heatmap = go.Heatmap(z=matrix[3], colorscale='Viridis')
-
 # Create a layout for the heatmap
 layout = go.Layout(title='Heatmap Example')
-
 # Create a figure and plot it
 fig = go.Figure(data=[heatmap], layout=layout)
-
 # Display the heatmap (you can also save it as an HTML file)
 pyo.plot(fig, filename='heatmap.html')

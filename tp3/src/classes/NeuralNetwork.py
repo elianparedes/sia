@@ -10,7 +10,7 @@ from src.classes.layer.Output import Output
 class NeuralNetwork:
 
     def __init__(self, architecture, hidden_function, hidden_derivative, output_function, output_derivative,
-                 learning_rate=0.1, weight_distribution=(-1, 1)):
+                 learning_rate=0.1, weight_distribution=(-1, 1), weights=None):
         # hidden layers + output layer
         self.num_layers = len(architecture) - 1
         self.layers = []
@@ -24,10 +24,14 @@ class NeuralNetwork:
 
         output_rows = architecture[len(architecture) - 2]
         output_cols = architecture[len(architecture) - 1]
-        self.output_layer = Output(output_rows,
-                                   output_cols, output_function, output_derivative, learning_rate,
-                                   np.random.uniform(weight_distribution[0], weight_distribution[1],
-                                                     size=(output_rows, output_cols)))
+        if weights is not None:
+            self.output_layer = Output(output_rows,
+                                       output_cols, output_function, output_derivative, learning_rate, weights)
+        else:
+            self.output_layer = Output(output_rows,
+                                       output_cols, output_function, output_derivative, learning_rate,
+                                       np.random.uniform(weight_distribution[0], weight_distribution[1],
+                                                         size=(output_rows, output_cols)))
         self.layers.append(self.output_layer)
 
     def forward_propagation(self, dataset):
