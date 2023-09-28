@@ -1,5 +1,6 @@
 import sys
 import os
+import numpy as np
 from Config import Config
 from src.utils.ExerciseUtils import ExerciseUtils 
 from src.benchmarks.plot.TestAndTrainingErrors import test_and_training_errors_plot
@@ -7,14 +8,21 @@ from src.benchmarks.plot.SplitErrors import split_ratio_errors_plot
 from src.benchmarks.plot.StepPlot import and_step_plot, xor_step_plot
 from src.benchmarks.numbers_metrics import number_metrics
 from src.ui.Whiteboard import Whiteboard
+from src.test.TestNeuralNetwork import neural_network_test, test_digits
+from src.utils.DatasetUtils import DatasetUtils
 
 DEFAULT_CONFIG_FILE = 'config.json'
 DATA_PATH = os.path.join(os.path.dirname(__file__),
                            "Data", "TP3-ej2-conjunto.csv")
 
+DIGITS_PATH = os.path.join(os.path.dirname(__file__),
+                           "Data", "TP3-ej3-digitos.txt")
+
+
 # Argument constants
 ARG_HELP = "help"
 ARG_FILE = "file"
+ARG_WHITEBOARD = "whiteboard"
 
 def show_help():
     print("Usage: python cli.py [-f <file_name>] [-s <qty>] [-h]")
@@ -22,11 +30,13 @@ def show_help():
     print("\tThe name of the config file. It defaults to `config.json`.")
     print(f"-h, --{ARG_HELP}")
     print("\tPrint usage.")
+    print(f"-w, --{ARG_WHITEBOARD}")
+    print("\tOpen number recognition whiteboard.")
     return
 
 
 def main():
-    args = {ARG_HELP: False, ARG_FILE: None}
+    args = {ARG_HELP: False, ARG_FILE: None, ARG_WHITEBOARD: False}
 
     # Parse command-line arguments
     i = 1
@@ -37,7 +47,11 @@ def main():
             i += 1
             args[ARG_FILE] = sys.argv[i] if i < len(sys.argv) else None
         elif arg in ("-h", f"--{ARG_HELP}"):
+            i += 1
             args[ARG_HELP] = True
+        elif arg in ("-w", f"--{ARG_WHITEBOARD}"):
+            i += 1
+            args[ARG_WHITEBOARD] = True
 
         i += 1
 
@@ -105,9 +119,12 @@ def main():
                 float(config.plot['number_metrics']['noise']),
             )
 
-        # Whiteboard(on_recognize= lambda x: print(x)).show()
+        if ARG_WHITEBOARD is True:
+            print("Training the neural network...")
+            w, network = test_digits()
 
-
+            print("Opening number recognition whiteboard...")
+            Whiteboard(on_recognize= lambda x: network.test_forward_propagation_custom(np.array(x).reshape(35), w)).show()
 
 if __name__ == "__main__":
     main()
