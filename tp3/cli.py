@@ -3,6 +3,7 @@ import os
 from Config import Config
 from src.utils.ExerciseUtils import ExerciseUtils 
 from src.benchmarks.plot.TestAndTrainingErrors import test_and_training_errors_plot
+from src.benchmarks.plot.SplitErrors import split_ratio_errors_plot
 from src.benchmarks.plot.StepPlot import and_step_plot, xor_step_plot
 from src.ui.Whiteboard import Whiteboard
 
@@ -68,10 +69,28 @@ def main():
             expected,
             config.plot['test_and_training_errors']['bias'],
             config.plot['test_and_training_errors']['learning_rate'],
+            config.plot['test_and_training_errors']['batch_amount'],
             config.plot['test_and_training_errors']['epsilon'],
-            config.plot['test_and_training_errors']['max_epoch']
+            config.plot['test_and_training_errors']['max_epoch'],
+            config.plot['test_and_training_errors']['activation_function'][0],
+            config.plot['test_and_training_errors']['activation_function'][1],
+            config.plot['test_and_training_errors']['normalize_range']
         )
-        
+
+        inputs, expected = ExerciseUtils.load_ex2_file(DATA_PATH)
+        split_ratio_errors_plot(
+            inputs,
+            expected,
+            config.plot['split_ratio_errors']['bias'],
+            config.plot['split_ratio_errors']['learning_rate'],
+            config.plot['split_ratio_errors']['batch_amount'],
+            config.plot['split_ratio_errors']['epsilon'],
+            config.plot['split_ratio_errors']['max_epoch'],
+            config.plot['split_ratio_errors']['activation_function'][0],
+            config.plot['split_ratio_errors']['activation_function'][1],
+            config.plot['split_ratio_errors']['normalize_range']
+        )
+
         # Whiteboard(on_recognize= lambda x: print(x)).show()
 
 

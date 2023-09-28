@@ -7,15 +7,9 @@ class ConfigUtils:
         raise NotImplementedError("Class instantiation not supported")
 
     ACTIVATION_FUNCTIONS = {
-        "sigmoid": SIGMOID,
-        "tan_h": TAN_H,
-        "relu": RELU,
-    }
-
-    ACTIVATION_FUNCTIONS_DERIVATIVES = {
-        "sigmoid": SIGMOID_DERIVATIVE,
-        "tan_h": TAN_H_DERIVATIVE,
-        "relu": RELU_DERIVATIVE,
+        "sigmoid": [SIGMOID, SIGMOID_DERIVATIVE],
+        "tan_h": [TAN_H, TAN_H_DERIVATIVE],
+        "relu": [RELU, RELU_DERIVATIVE],
     }
 
 class Config:
@@ -29,8 +23,8 @@ class Config:
             multilayer_network_config = config['multilayer_network']
             self.architecture = multilayer_network_config['architecture']
             self.activation_functions = {
-                "hidden_layers": ConfigUtils.ACTIVATION_FUNCTIONS[multilayer_network_config['activation_functions']['hidden_layers']],
-                "output_layer": ConfigUtils.ACTIVATION_FUNCTIONS[multilayer_network_config['activation_functions']['output_layer']]
+                "hidden_layers": "",
+                "output_layer": ""
             }
             self.learning_rate = multilayer_network_config['learning_rate']
             
@@ -42,6 +36,7 @@ class Config:
             and_steps_config = plot_config['and_steps']
             xor_steps_config = plot_config['xor_steps']
             test_and_training_errors_config = plot_config['test_and_training_errors']
+            split_ratio_errors_config = plot_config['split_ratio_errors']
 
             self.plot = {
                 'and_steps': {
@@ -60,7 +55,18 @@ class Config:
                     'epsilon': test_and_training_errors_config['epsilon'],
                     'learning_rate': test_and_training_errors_config['learning_rate'],
                     'bias': test_and_training_errors_config['bias'],
-                    'max_epoch': test_and_training_errors_config['max_epoch']
+                    'max_epoch': test_and_training_errors_config['max_epoch'],
+                    'batch_amount': test_and_training_errors_config['batch_amount'],
+                    'activation_function': ConfigUtils.ACTIVATION_FUNCTIONS[test_and_training_errors_config['activation_function']],
+                    'normalize_range': test_and_training_errors_config['normalize_range'],
+                },
+                'split_ratio_errors': {
+                    'epsilon': split_ratio_errors_config['epsilon'],
+                    'learning_rate': split_ratio_errors_config['learning_rate'],
+                    'bias': split_ratio_errors_config['bias'],
+                    'max_epoch': split_ratio_errors_config['max_epoch'],
+                    'batch_amount': split_ratio_errors_config['batch_amount'],
+                    'activation_function': ConfigUtils.ACTIVATION_FUNCTIONS[split_ratio_errors_config['activation_function']],
+                    'normalize_range': split_ratio_errors_config['normalize_range'],
                 } 
-               
             }

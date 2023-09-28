@@ -26,8 +26,8 @@
                 [1, 1, 1]
             ],
             "training_expected": [-1, -1, -1, 1],
-            "speed": 500,
-            "frame_duration": 300
+            "speed": 300,
+            "frame_duration": 100
         },
         "xor_steps": {
             "training_set": [
@@ -44,7 +44,19 @@
             "epsilon": 0.000001,
             "learning_rate": 0.1,
             "bias": 1,
-            "max_epoch": 500
+            "max_epoch": 500,
+            "batch_amount": 1,
+            "activation_function": "sigmoid",
+            "normalize_range": [0, 1]
+        },
+        "split_ratio_errors": {
+            "epsilon": 0.000001,
+            "learning_rate": 0.1,
+            "bias": 1,
+            "max_epoch": 500,
+            "batch_amount": 1,
+            "activation_function": "sigmoid",
+            "normalize_range": [0, 1]
         }
     }
 }

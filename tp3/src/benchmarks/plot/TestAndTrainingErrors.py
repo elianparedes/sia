@@ -6,23 +6,22 @@ from src.utils.DatasetUtils import DatasetUtils
 from src.classes.perceptron.NonLinear import NonLinear
 from src.utils.Function import *
 
-def test_and_training_errors_plot(inputs, expected, bias, learning_rate, epsilon, max_epoch):
+def test_and_training_errors_plot(inputs, expected, bias, learning_rate, batch_amount, epsilon, max_epoch, activation_function, activation_function_derivative, normalize_range):
     test_errors = []
     training_errors = []
 
-    bias = 1
     inputs = inputs.tolist()
 
     for i in range(len(inputs)):
         inputs[i].insert(0, bias)
 
-    normalized_data = DatasetUtils.normalize_to_range(expected, 0, 1)
+    normalized_data = DatasetUtils.normalize_to_range(expected, normalize_range[0], normalize_range[1])
     training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(inputs, normalized_data.tolist(), 0.5)
 
     previous_train_weights = None
     for _ in range(1, max_epoch):
-        perceptron = NonLinear(4, learning_rate, SIGMOID, SIGMOID_DERIVATIVE, weights=previous_train_weights)
-        w_min, i, _, _ = perceptron.train(training_set, training_expected, 1 , epsilon)
+        perceptron = NonLinear(4, learning_rate, activation_function, activation_function_derivative, weights=previous_train_weights)
+        w_min, i, _, _, _ = perceptron.train(training_set, training_expected, test_expected=test_expected, test_set=test_set, batch_amount=batch_amount , epoch=1, epsilon=epsilon)
 
         # test benchmark
         activation_values = perceptron.test(test_set, w_min)

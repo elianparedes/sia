@@ -18,7 +18,7 @@ EPOCHS = 500
 def step_error_plot(training_set, training_expected, error_title, animation_title, speed, frame_duration):
     # Error plot
     perceptron = Step(3, LEARNING_RATE)
-    w_min, iterations, previous_weights, previous_errors = perceptron.train(training_set, training_expected, EPOCHS, 0)
+    w_min, iterations, previous_weights, previous_errors, _ = perceptron.train(training_set, training_expected, training_set, training_expected, batch_amount=1, epoch=EPOCHS, epsilon=0)
     x = [i for i in range(iterations)]
     data = {'Epochs': x, 'Error': previous_errors}
     df = pd.DataFrame(data)
