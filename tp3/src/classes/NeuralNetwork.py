@@ -36,12 +36,11 @@ class NeuralNetwork:
         self.layers.append(self.output_layer)
 
     def forward_propagation(self, dataset):
-        new_input = dataset
+        new_input = dataset.copy()
         for i in range(0, self.num_layers):
-            new_input = self.layers[i].activate(new_input)
-
+            new_input = self.layers[i].activate(new_input.copy())
         # Returning the results of the output layer
-        return new_input
+        return new_input.copy()
 
     def test_forward_propagation(self, dataset):
         new_input = dataset
@@ -84,14 +83,17 @@ class NeuralNetwork:
             self.layers[i].set_delta_w()
             w.append(self.layers[i].get_weights())
         return w
+
     def classifier(self,prediction,expected,classes):
-        matrix = np.zeros(classes,classes)
-        for i in range(len(prediction)):
-            prediction_indexes = [i for i, valor in enumerate(prediction) if valor > 0.8]
-            expected_indexes = [i for i, valor in enumerate(expected) if valor == 1]
+        matrix = np.zeros((classes,classes))
+
+        for w in range(len(prediction)):
+            prediction_indexes = [i for i, valor in enumerate(prediction[w]) if valor > 0.8]
+            expected_indexes = [i for i, valor in enumerate(expected[w]) if valor == 1]
             for j in prediction_indexes:
                 matrix[expected_indexes[0]][j] += 1
         return matrix
+
     def get_weights(self):
         w = []
         for i in range(self.num_layers):
@@ -138,7 +140,7 @@ class NeuralNetwork:
         np_training_set = np.array(training_set)
         np_training_expected = np.array(expected_set)
         min_error = sys.maxsize
-        prev_weights = np.array(self.get_weights())
+        prev_weights = [self.output_layer.get_weights()]
         prev_errors = []
         w_min = None
         curr_epoch = 0
@@ -163,7 +165,7 @@ class NeuralNetwork:
                 w_min = w
 
             curr_epoch += 1
-            prev_weights = np.append(prev_weights, w, axis=0)
+            prev_weights.append(prev_weights)
             prev_errors.append(error)
 
             if j == k-1:
@@ -174,7 +176,9 @@ class NeuralNetwork:
         return w_min, curr_epoch, prev_weights, prev_errors
 
     def compute_metric(self, w, test_set, test_expected, metric, classifier, classes):
-        test_results = self.test_forward_propagation_custom(test_set, w)
+        test_results = []
+        for i in range(len(test_set)):
+            test_results.append(self.test_forward_propagation_custom(test_set[i], w))
         classification = classifier(test_results, test_expected, classes)
         true_positive, true_negative, false_positive, false_negative = 0, 0, 0, 0
         for i in range(len(classification)):

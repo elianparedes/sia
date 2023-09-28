@@ -81,7 +81,7 @@ def test_digits():
                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]
-    architecture = [35, 10]
+    architecture = [35, 10, 10, 10]
     dataset, expected = DatasetUtils.expand_dataset(dataset, expected, 2)
     dataset = DatasetUtils.add_noise(dataset, 0.2)
     training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.8)

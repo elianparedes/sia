@@ -50,7 +50,7 @@ def test_digits_k(neural_network: NeuralNetwork):
     return neural_network.k_cross_validation(training_set, training_expected, 3, MAX_EPOCH, EPSILON)
 
 
-architecture = [35, 10]
+architecture = [35, 10, 10, 10]
 network = NeuralNetwork(architecture, Function.TAN_H, Function.TAN_H_DERIVATIVE, Function.TAN_H,
                         Function.TAN_H_DERIVATIVE, LEARNING_RATE, [-1, 1])
 
