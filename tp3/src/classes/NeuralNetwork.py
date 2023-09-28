@@ -99,7 +99,7 @@ class NeuralNetwork:
         np_training_set = np.array(training_set)
         np_training_expected = np.array(expected_set)
         min_error = sys.maxsize
-        prev_weights = np.array(self.get_weights())
+        prev_weights = [self.output_layer.get_weights()]
         prev_errors = []
         w_min = None
         curr_epoch = 0
@@ -122,7 +122,7 @@ class NeuralNetwork:
                 w_min = w
 
             curr_epoch += 1
-            prev_weights = np.append(prev_weights, w, axis=0)
+            prev_weights.append(prev_weights)
             prev_errors.append(error)
 
         return w_min, curr_epoch, prev_weights, prev_errors
