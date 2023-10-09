@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 
 class NeuronABC(ABC):
-	pass
+	@abstractmethod
+	def get_weights(self):
+		pass
 
 

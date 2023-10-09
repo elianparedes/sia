@@ -2,17 +2,20 @@ import numpy as np
 
 from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
+from src.classes.neurons.KohonenNeuron import KohonenNeuron
+from src.classes.similarity.SimilarityABC import SimilarityABC
 
 
 class Kohonen(NetworkABC):
-    def __init__(self, weights_qty, neuron_qty, initial_environment, learning_rate, similarity_function,
+    def __init__(self, weights_qty, neuron_qty, initial_environment, learning_rate, similarity_type: SimilarityABC,
                  weight_calculator):
         self.weights_qty = weights_qty
         self.neuron_qty = neuron_qty
         self.initial_environment = initial_environment
         self.learning_rate = learning_rate
-        self.similarity_function = similarity_function
-        self.output_layer = [[SimpleNeuron(weights_qty, weight_calculator) for _ in range(neuron_qty)] for _ in
+        self.similarity_type = similarity_type
+        self.output_layer = [[KohonenNeuron(SimpleNeuron(weights_qty, weight_calculator)) for _ in range(neuron_qty)]
+                             for _ in
                              range(neuron_qty)]
 
     def get_neighbours(self, x, y, r):
@@ -32,3 +35,18 @@ class Kohonen(NetworkABC):
                     result.append(self.output_layer[i][j])
 
         return result
+
+    def get_winner_neuron(self, expected):
+
+        min_neuron = self.output_layer[0][0]
+        min_value = self.similarity_type.calculate(expected, min_neuron.get_weights())
+
+        for i in range(self.neuron_qty):
+            for j in range(self.neuron_qty):
+                candidate = self.output_layer[i][j]
+                candidate_value = self.similarity_type.calculate(expected, candidate.get_weights())
+                if candidate_value < min_value:
+                    min_neuron = candidate
+                    min_value = candidate_value
+
+        return min_neuron, min_value
