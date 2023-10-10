@@ -8,15 +8,15 @@ from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
 
 
 class Kohonen(NetworkABC):
-    def __init__(self, weights_qty: int, neuron_qty: int, initial_environment, learning_rate,
+    def __init__(self, weights_qty: int, neuron_qty: int, initial_environment,
                  similarity_type: SimilarityABC, weight_calculator: WeightCalculatorABC):
         self.weights_qty = weights_qty
         self.neuron_qty = neuron_qty
         self.initial_environment = initial_environment
-        self.learning_rate = learning_rate
         self.similarity_type = similarity_type
-        self.output_layer = [[KohonenNeuron(SimpleNeuron(weights_qty, weight_calculator)) for _ in range(neuron_qty)]
-                             for _ in range(neuron_qty)]
+        self.output_layer = [
+            [KohonenNeuron(SimpleNeuron(weights_qty, weight_calculator), i, j) for i in range(neuron_qty)]
+            for j in range(neuron_qty)]
 
     def get_neighbours(self, x: int, y: int, r: float) -> list[KohonenNeuron]:
         """
@@ -52,3 +52,15 @@ class Kohonen(NetworkABC):
                     min_value = candidate_value
 
         return min_neuron, min_value
+
+    def kohonen_rule(self, neighbour: KohonenNeuron, expected: list[float], learning_rate: float) -> list[float]:
+        """
+        :return :neighbour's updated weights
+        """
+        np_expected = np.array(expected)
+        np_weights = np.array(neighbour.get_weights())
+        np_difference = np_expected - np_weights
+
+        np_result = np_weights + learning_rate * np_difference
+
+        return np_result.tolist()
