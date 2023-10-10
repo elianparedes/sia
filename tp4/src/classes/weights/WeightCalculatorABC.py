@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class WeightABC(ABC):
+class WeightCalculatorABC(ABC):
     """
     Calculates initial weights
     """

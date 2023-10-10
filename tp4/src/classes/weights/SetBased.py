@@ -1,8 +1,8 @@
-from src.classes.weights.WeightABC import WeightABC
+from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
 import numpy as np
 
 
-class SetBased(WeightABC):
+class SetBased(WeightCalculatorABC):
     """
     Calculates initial weights with random examples from a given set
     """

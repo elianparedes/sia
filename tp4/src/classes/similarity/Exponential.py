@@ -6,7 +6,7 @@ from src.classes.similarity.Euclidean import Euclidean
 
 class Exponential(SimilarityABC):
     """
-    Calculates similirity using the follwoing formula: e^(-||Xp - Wj||)^2
+    Calculates similarity using the following formula: e^(-||Xp - Wj||)^2
     """
 
     @classmethod

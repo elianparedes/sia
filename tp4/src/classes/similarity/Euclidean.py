@@ -5,7 +5,7 @@ from src.classes.similarity.SimilarityABC import SimilarityABC
 
 class Euclidean(SimilarityABC):
     """
-    Calculates similirity using the follwoing formula: ||Xp - Wj||
+    Calculates similarity using the following formula: ||Xp - Wj||
     """
 
     @classmethod

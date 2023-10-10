@@ -1,11 +1,11 @@
 import numpy as np
 
 from src.classes.neurons.NeuronABC import NeuronABC
-from src.classes.weights.WeightABC import WeightABC
+from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
 
 
 class SimpleNeuron(NeuronABC):
-    def __init__(self, weight_qty: int, weights_calculator: WeightABC):
+    def __init__(self, weight_qty: int, weights_calculator: WeightCalculatorABC):
         self.weights = weights_calculator.calculate(weight_qty)
 
     def get_weights(self) -> list[float]:

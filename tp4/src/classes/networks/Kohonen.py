@@ -4,12 +4,12 @@ from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
 from src.classes.neurons.KohonenNeuron import KohonenNeuron
 from src.classes.similarity.SimilarityABC import SimilarityABC
-from src.classes.weights.WeightABC import WeightABC
+from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
 
 
 class Kohonen(NetworkABC):
     def __init__(self, weights_qty: int, neuron_qty: int, initial_environment, learning_rate,
-                 similarity_type: SimilarityABC, weight_calculator: WeightABC):
+                 similarity_type: SimilarityABC, weight_calculator: WeightCalculatorABC):
         self.weights_qty = weights_qty
         self.neuron_qty = neuron_qty
         self.initial_environment = initial_environment
