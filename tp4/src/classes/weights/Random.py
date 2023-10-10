@@ -4,6 +4,9 @@ from src.classes.weights.WeightABC import WeightABC
 
 
 class Random(WeightABC):
+    """
+    Calculates weights with random values
+    """
 
-    def calculate(self, weights_qty):
-        np.random.uniform(-1, 1, size=weights_qty)
+    def calculate(self, weights_qty: int) -> list[float]:
+        return np.random.uniform(-1, 1, size=weights_qty).tolist()
