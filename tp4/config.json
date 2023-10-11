@@ -1,0 +1,12 @@
+{
+  "algorithms": {
+    "kohonen": {
+      "neuron_qty": 5,
+      "similarity": "euclidean",
+      "weights_initializer": "set_based",
+      "radius": 5,
+      "learning_rate": 0.9,
+      "input_path": "/data/test.csv"
+    }
+  }
+}

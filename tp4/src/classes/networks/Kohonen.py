@@ -4,15 +4,14 @@ from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
 from src.classes.neurons.KohonenNeuron import KohonenNeuron
 from src.classes.similarity.SimilarityABC import SimilarityABC
-from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
+from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
 
 
 class Kohonen(NetworkABC):
-    def __init__(self, weights_qty: int, neuron_qty: int, initial_environment,
-                 similarity_type: SimilarityABC, weight_calculator: WeightCalculatorABC):
+    def __init__(self, weights_qty: int, neuron_qty: int,
+                 similarity_type: SimilarityABC, weight_calculator: WeightInitializerABC):
         self.weights_qty = weights_qty
         self.neuron_qty = neuron_qty
-        self.initial_environment = initial_environment
         self.similarity_type = similarity_type
         self.output_layer = [
             [KohonenNeuron(SimpleNeuron(weights_qty, weight_calculator), i, j) for i in range(neuron_qty)]
