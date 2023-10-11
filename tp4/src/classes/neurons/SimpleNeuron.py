@@ -10,3 +10,6 @@ class SimpleNeuron(NeuronABC):
 
     def get_weights(self) -> list[float]:
         return self.weights
+
+    def set_weights(self, weights: list[float]):
+        self.weights = weights

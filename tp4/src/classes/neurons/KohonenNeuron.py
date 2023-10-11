@@ -11,6 +11,9 @@ class KohonenNeuron:
     def get_weights(self) -> list[float]:
         return self.neuron.get_weights()
 
+    def set_weights(self, weights: list[float]):
+        self.neuron.set_weights(weights)
+
     @property
     def x(self):
         return self._x

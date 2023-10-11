@@ -6,4 +6,6 @@ class NeuronABC(ABC):
 	def get_weights(self) -> list[float]:
 		pass
 
-
+	@abstractmethod
+	def set_weights(self, weights: list[float]):
+		pass
