@@ -7,6 +7,7 @@ class KohonenNeuron:
         self.neuron = neuron
         self._x = x
         self._y = y
+        self.associated_entries = []
 
     def get_weights(self) -> list[float]:
         return self.neuron.get_weights()
