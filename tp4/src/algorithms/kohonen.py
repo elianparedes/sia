@@ -2,11 +2,15 @@ import csv
 import json
 import os
 
+from src.classes.algorithms.KohonenAlgorithm import KohonenAlgorithm
 from src.classes.networks.Kohonen import Kohonen
 from src.classes.similarity.Euclidean import Euclidean
 from src.classes.similarity.Exponential import Exponential
 from src.classes.weights.Random import Random
 from src.classes.weights.SetBased import SetBased
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
 
 CONFIG_MAP = {
     "similarity": {
@@ -28,6 +32,7 @@ input_path_parts = INPUT_PATH.strip("/").split("/")
 
 INPUT_PATH = os.path.join(project_path, *input_path_parts)
 INPUT = []
+COUNTRIES = []
 
 with open(INPUT_PATH, 'r') as file:
     reader = csv.reader(file)
@@ -36,7 +41,14 @@ with open(INPUT_PATH, 'r') as file:
     next(reader)
 
     for row in reader:
-        INPUT.append(row)
+        #append all row except first position
+        INPUT.append(row[1:])
+        COUNTRIES.append(row[0])
+
+
+INPUT = pd.DataFrame(INPUT).astype(float)
+INPUT = INPUT.apply(stats.zscore)
+INPUT = INPUT.values.tolist()
 
 WEIGHTS_QTY = len(INPUT[0])
 NEURON_QTY = config["neuron_qty"]
@@ -50,4 +62,5 @@ if config["weights_initializer"] == "set_based":
 else:
     WEIGHT_INITIALIZER = WEIGHT_INITIALIZER()
 
-kohonen_network = Kohonen(WEIGHTS_QTY, NEURON_QTY, SIMILARITY_TYPE, WEIGHT_INITIALIZER)
+# kohonen_network = Kohonen(WEIGHTS_QTY, NEURON_QTY, SIMILARITY_TYPE, WEIGHT_INITIALIZER)
+# KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)

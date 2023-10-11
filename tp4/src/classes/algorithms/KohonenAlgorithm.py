@@ -1,5 +1,6 @@
 class KohonenAlgorithm:
-    def train(self, network, training_set, learning_rate, radius):
+    @staticmethod
+    def train(network, training_set, learning_rate, radius):
         for register in training_set:
             winner_neuron, _ = network.get_winner_neuron(register)
             neighbours = network.get_neighbours(winner_neuron.x, winner_neuron.y, radius)
