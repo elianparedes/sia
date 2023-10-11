@@ -1,8 +1,9 @@
-from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
+import random
+from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
 import numpy as np
 
 
-class SetBased(WeightCalculatorABC):
+class SetBased(WeightInitializerABC):
     """
     Calculates initial weights with random examples from a given set
     """
@@ -12,4 +13,4 @@ class SetBased(WeightCalculatorABC):
         self.set = my_set
 
     def calculate(self, weight_qty: int) -> list[float]:
-        return np.random.choice(self.set, size=weight_qty, replace=True).tolist()
+        return [random.choice([row[i] for row in self.set]) for i in range(len(self.set[0]))]

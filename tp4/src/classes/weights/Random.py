@@ -1,9 +1,9 @@
 import numpy as np
 
-from src.classes.weights.WeightCalculatorABC import WeightCalculatorABC
+from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
 
 
-class Random(WeightCalculatorABC):
+class Random(WeightInitializerABC):
     """
     Calculates weights with random values
     """
