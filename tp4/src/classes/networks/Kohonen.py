@@ -63,3 +63,7 @@ class Kohonen(NetworkABC):
         np_result = np_weights + learning_rate * np_difference
 
         return np_result.tolist()
+
+    def get_output_layer(self):
+        return self.output_layer
+

@@ -1,11 +1,11 @@
 {
   "algorithms": {
     "kohonen": {
-      "neuron_qty": 10,
+      "neuron_qty": 6,
       "similarity": "euclidean",
       "weights_initializer": "set_based",
-      "radius": 2,
-      "learning_rate": 0.1,
+      "radius": 3,
+      "learning_rate": 0.01,
       "input_path": "/data/europe.csv"
     }
   }

@@ -2,6 +2,7 @@ import csv
 import json
 import os
 
+from src.benchmarks.plot.KohonenGraphs import KohonenGraphs
 from src.classes.algorithms.KohonenAlgorithm import KohonenAlgorithm
 from src.classes.networks.Kohonen import Kohonen
 from src.classes.similarity.Euclidean import Euclidean
@@ -62,5 +63,16 @@ if config["weights_initializer"] == "set_based":
 else:
     WEIGHT_INITIALIZER = WEIGHT_INITIALIZER()
 
-# kohonen_network = Kohonen(WEIGHTS_QTY, NEURON_QTY, SIMILARITY_TYPE, WEIGHT_INITIALIZER)
-# KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)
+kohonen_network = Kohonen(WEIGHTS_QTY, NEURON_QTY, SIMILARITY_TYPE, WEIGHT_INITIALIZER)
+KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 0)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 1)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 2)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 3)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 4)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 5)
+KohonenGraphs.SingleVariableHeatMap(kohonen_network, 6)
+KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES)
+
+
+
