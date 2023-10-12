@@ -38,7 +38,7 @@ class Kohonen(NetworkABC):
 
         return result
 
-    def get_winner_neuron(self, expected: float) -> tuple[KohonenNeuron, float]:
+    def get_winner_neuron(self, expected: list[float]) -> tuple[KohonenNeuron, float]:
         min_neuron = self.output_layer[0][0]
         min_value = self.similarity_type.calculate(expected, min_neuron.get_weights())
 

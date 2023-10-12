@@ -9,5 +9,5 @@ class Euclidean(SimilarityABC):
     """
 
     @classmethod
-    def calculate(cls, expected: float, weights: list[float]) -> float:
+    def calculate(cls, expected: list[float], weights: list[float]) -> float:
         return np.linalg.norm(np.array(expected)-np.array(weights), 2)
