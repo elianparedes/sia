@@ -23,12 +23,12 @@ CONFIG_MAP = {
         "set_based": SetBased
     }
 }
-CONFIG_PATH = os.path.join(os.pardir, os.pardir, "config.json")
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "config.json")
 with open(CONFIG_PATH, 'r') as f:
     config = json.load(f)["algorithms"]["kohonen"]
 
 INPUT_PATH = config["input_path"]
-project_path = os.path.join(os.pardir, os.pardir)
+project_path = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
 input_path_parts = INPUT_PATH.strip("/").split("/")
 
 INPUT_PATH = os.path.join(project_path, *input_path_parts)
