@@ -7,6 +7,9 @@
       "radius": 3,
       "learning_rate": 0.01,
       "input_path": "/data/europe.csv"
+    },
+    "pca": {
+      "input_path": "/data/europe.csv"
     }
   }
 }
