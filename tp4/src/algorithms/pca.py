@@ -25,6 +25,16 @@ INPUT_PATH = os.path.join(project_path, *input_path_parts)
 INPUT = []
 COUNTRIES = []
 
+file_path = INPUT_PATH
+df = pd.read_csv(file_path)
+
+# # Sort the DataFrame by the column of your choice (e.g., "GDP")
+# sorted_df = df.sort_values(by="GDP")
+#
+# # Save the sorted DataFrame back to a CSV file
+# output_file_path = INPUT_PATH
+# sorted_df.to_csv(output_file_path, index=False)
+
 with open(INPUT_PATH, 'r') as file:
     reader = csv.reader(file)
 
@@ -44,14 +54,25 @@ scaled_data = scaler.fit_transform(INPUT)
 pc1, pc2 = PCAAlgorithm.train(scaled_data)
 
 pca_df = pd.DataFrame({"PC1": pc1, "PC2": pc2, "Country": COUNTRIES})
+top_half = pca_df.iloc[:14]
+bottom_half = pca_df.iloc[14:]
+
+# Create a scatterplot with red for the top half and blue for the bottom half
 plt.figure(figsize=(10, 8))
-plt.scatter(pca_df["PC1"], pca_df["PC2"])
+plt.scatter(top_half["PC1"], top_half["PC2"], c="red", label="Top Half")
+plt.scatter(bottom_half["PC1"], bottom_half["PC2"], c="blue", label="Bottom Half")
 plt.xlabel("Principal Component 1 (PC1)")
 plt.ylabel("Principal Component 2 (PC2)")
 plt.title("PCA Analysis")
 plt.grid()
+
+# Annotate points with country names
 for i, country in enumerate(pca_df["Country"]):
     plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
+
+# Add a legend
+plt.legend(loc="upper right")
+
 plt.show()
 
 
@@ -70,12 +91,4 @@ plt.grid()
 for i, country in enumerate(pca_df["Country"]):
     plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
 plt.show()
-
-
-
-
-
-
-
-
 
