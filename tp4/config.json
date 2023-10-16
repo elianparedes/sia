@@ -3,7 +3,7 @@
     "kohonen": {
       "neuron_qty": 4,
       "similarity": "euclidean",
-      "weights_initializer": "set_based",
+      "weights_initializer": "random",
       "radius": 3,
       "learning_rate": 0.01,
       "input_path": "/data/europe.csv"

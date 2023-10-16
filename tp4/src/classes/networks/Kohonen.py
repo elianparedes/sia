@@ -59,7 +59,6 @@ class Kohonen(NetworkABC):
         np_expected = np.array(expected)
         np_weights = np.array(neighbour.get_weights())
         np_difference = np_expected - np_weights
-
         np_result = np_weights + learning_rate * np_difference
 
         return np_result.tolist()

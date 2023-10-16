@@ -2,14 +2,13 @@ import csv
 import json
 import os
 
-
+from src.benchmarks.plot.PCAScatterGraph import  PCAGraphs
 from src.classes.algorithms.PCAAlgorithm import PCAAlgorithm
 
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
 import matplotlib.pyplot as plt
-import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
@@ -24,6 +23,7 @@ input_path_parts = INPUT_PATH.strip("/").split("/")
 INPUT_PATH = os.path.join(project_path, *input_path_parts)
 INPUT = []
 COUNTRIES = []
+ITEMS = []
 
 file_path = INPUT_PATH
 df = pd.read_csv(file_path)
@@ -37,58 +37,31 @@ df = pd.read_csv(file_path)
 
 with open(INPUT_PATH, 'r') as file:
     reader = csv.reader(file)
-
+    first = False
     # Skip the header row
-    next(reader)
-
     for row in reader:
+        if first == False:
+            first = True
+            header = row[1:]
+            continue
         #append all row except first position
         INPUT.append(row[1:])
         COUNTRIES.append(row[0])
-
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(INPUT)
 
-
 # Implementacion casera
 pc1, pc2 = PCAAlgorithm.train(scaled_data)
+PCAGraphs.scatter_plot_with_PBI(pc1, pc2, COUNTRIES)
 
-pca_df = pd.DataFrame({"PC1": pc1, "PC2": pc2, "Country": COUNTRIES})
-top_half = pca_df.iloc[:14]
-bottom_half = pca_df.iloc[14:]
-
-# Create a scatterplot with red for the top half and blue for the bottom half
-plt.figure(figsize=(10, 8))
-plt.scatter(top_half["PC1"], top_half["PC2"], c="red", label="Top Half")
-plt.scatter(bottom_half["PC1"], bottom_half["PC2"], c="blue", label="Bottom Half")
-plt.xlabel("Principal Component 1 (PC1)")
-plt.ylabel("Principal Component 2 (PC2)")
-plt.title("PCA Analysis")
-plt.grid()
-
-# Annotate points with country names
-for i, country in enumerate(pca_df["Country"]):
-    plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
-
-# Add a legend
-plt.legend(loc="upper right")
-
-plt.show()
 
 
 # Implementacion de scikit
 pca = PCA(n_components=2)
 pca_result = pca.fit_transform(scaled_data)
+PCAGraphs.scatter_plot(pca_result, COUNTRIES)
+df = pd.DataFrame(INPUT).astype(float)
+df = df.apply(stats.zscore)
+PCAGraphs.blox_plot(df.values.tolist(),header)
 
-pca_df = pd.DataFrame(data=pca_result, columns=["PC1", "PC2"])
-pca_df["Country"] = COUNTRIES
-plt.figure(figsize=(10, 8))
-plt.scatter(pca_df["PC1"], pca_df["PC2"])
-plt.xlabel("Principal Component 1 (PC1)")
-plt.ylabel("Principal Component 2 (PC2)")
-plt.title("PCA Analysis")
-plt.grid()
-for i, country in enumerate(pca_df["Country"]):
-    plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
-plt.show()
 

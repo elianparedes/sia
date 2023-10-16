@@ -14,7 +14,6 @@ class PCAAlgorithm:
         input = np.array(input)
 
         eigenvalues, eigenvectors = np.linalg.eig(correlation_matrix)
-
         pc1 = []
         pc2 = []
         for row in input:
