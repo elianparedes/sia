@@ -1,5 +1,5 @@
 import random
-from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
+from src.classes.weights.WeightInitializerABC import WeightInitializerABC
 import numpy as np
 
 

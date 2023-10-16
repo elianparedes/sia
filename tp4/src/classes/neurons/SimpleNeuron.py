@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.classes.neurons.NeuronABC import NeuronABC
-from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
+from src.classes.weights.WeightInitializerABC import WeightInitializerABC
 
 
 class SimpleNeuron(NeuronABC):

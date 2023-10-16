@@ -4,7 +4,7 @@ from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
 from src.classes.neurons.KohonenNeuron import KohonenNeuron
 from src.classes.similarity.SimilarityABC import SimilarityABC
-from src.classes.weights.WeightsInitializerABC import WeightInitializerABC
+from src.classes.weights.WeightInitializerABC import WeightInitializerABC
 
 
 class Kohonen(NetworkABC):
