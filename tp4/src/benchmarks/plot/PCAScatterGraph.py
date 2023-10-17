@@ -45,14 +45,28 @@ class PCAGraphs:
         for i, country in enumerate(pca_df["Country"]):
             plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
 
+        scale = 4
+        for i, item in enumerate(variables):
+            plt.arrow(0, 0, loadings[0][i] * scale, loadings[1][i] * scale, color='blue', width=0.006)
+            plt.text(loadings[0][i] * scale, loadings[1][i] * scale, item, fontsize=12, color='blue')
+
+
         # Add a legend
         plt.legend(loc="upper right")
 
         plt.show()
+
     @staticmethod
     def blox_plot(scaled_data,header):
         pca_df = pd.DataFrame(data=scaled_data, columns=header)
-        # Create a box plot using Plotly
         fig = px.box(pca_df, title='Box plot of the variables')
-        # Show the plot
         fig.show()
+
+    @staticmethod
+    def scree_plot(pca: PCA):
+        pca_values = np.arange(pca.n_components_) + 1
+        plt.plot(pca_values, pca.explained_variance_ratio_, 'ro-', linewidth=2)
+        plt.title('Scree Plot')
+        plt.xlabel('Principal Component')
+        plt.ylabel('Proportion of Variance Explained')
+        plt.show()
