@@ -42,7 +42,7 @@ with open(INPUT_PATH, 'r') as file:
     for row in reader:
         if first == False:
             first = True
-            header = row[1:]
+            ITEMS = row[1:]
             continue
         #append all row except first position
         INPUT.append(row[1:])
@@ -51,17 +51,22 @@ scaler = StandardScaler()
 scaled_data = scaler.fit_transform(INPUT)
 
 # Implementacion casera
-pc1, pc2 = PCAAlgorithm.train(scaled_data)
-PCAGraphs.scatter_plot_with_PBI(pc1, pc2, COUNTRIES)
-
-
+pc1, pc2, loadings = PCAAlgorithm.train(scaled_data)
+PCAGraphs.scatter_plot_with_PBI(pc1, pc2, COUNTRIES, loadings, ITEMS)
 
 # Implementacion de scikit
-pca = PCA(n_components=2)
+pca = PCA(n_components=4)
 pca_result = pca.fit_transform(scaled_data)
-PCAGraphs.scatter_plot(pca_result, COUNTRIES)
+loadings = pca.components_
+loadings = loadings / np.linalg.norm(loadings, axis=1)[:, np.newaxis]
+PCAGraphs.scatter_plot(pca_result, COUNTRIES, loadings, ITEMS)
+
+# Boxplot
 df = pd.DataFrame(INPUT).astype(float)
 df = df.apply(stats.zscore)
-PCAGraphs.blox_plot(df.values.tolist(),header)
+PCAGraphs.blox_plot(df.values.tolist(), ITEMS)
 
-
+# Scree plot
+pca = PCA(n_components=7)
+pca = pca.fit(scaled_data)
+PCAGraphs.scree_plot(pca)
