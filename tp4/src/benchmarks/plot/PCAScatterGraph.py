@@ -1,10 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.express as px
+import numpy as np
+from sklearn.decomposition import PCA
 
 class PCAGraphs:
     @staticmethod
-    def scatter_plot(pca_result,countries):
+    def scatter_plot(pca_result, countries, loadings, variables):
         pca_df = pd.DataFrame(data=pca_result, columns=["PC1", "PC2"])
         pca_df["Country"] = countries
         plt.figure(figsize=(10, 8))
@@ -13,11 +15,19 @@ class PCAGraphs:
         plt.ylabel("Principal Component 2 (PC2)")
         plt.title("PCA Analysis")
         plt.grid()
+
         for i, country in enumerate(pca_df["Country"]):
             plt.annotate(country, (pca_df["PC1"][i], pca_df["PC2"][i]))
+
+        scale = 4
+        for i, item in enumerate(variables):
+            plt.arrow(0, 0, loadings[0][i] * scale, loadings[1][i] * scale, color='blue', width=0.006)
+            plt.text(loadings[0][i] * scale, loadings[1][i] * scale, item, fontsize=12, color='blue')
+
         plt.show()
+
     @staticmethod
-    def scatter_plot_with_PBI(pc1,pc2, countries):
+    def scatter_plot_with_PBI(pc1,pc2, countries, loadings, variables):
         pca_df = pd.DataFrame({"PC1": pc1, "PC2": pc2, "Country": countries})
         top_half = pca_df.iloc[:14]
         bottom_half = pca_df.iloc[14:]
