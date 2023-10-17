@@ -8,6 +8,9 @@ plotly = "*"
 pandas = "*"
 zscore = "*"
 scipy = "*"
+matplotlib = "*"
+seaborn = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
