@@ -5,7 +5,7 @@
       "similarity": "euclidean",
       "weights_initializer": "random",
       "radius": 3,
-      "learning_rate": 0.01,
+      "learning_rate": 0.1,
       "input_path": "/data/europe.csv"
     },
     "pca": {
