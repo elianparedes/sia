@@ -35,7 +35,6 @@ class Kohonen(NetworkABC):
 
                 if distance <= r:
                     result.append(self.output_layer[i][j])
-
         return result
 
     def get_winner_neuron(self, expected: list[float]) -> tuple[KohonenNeuron, float]:

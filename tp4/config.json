@@ -1,7 +1,7 @@
 {
   "algorithms": {
     "kohonen": {
-      "neuron_qty": 4,
+      "neuron_qty": 3,
       "similarity": "euclidean",
       "weights_initializer": "random",
       "radius": 3,
