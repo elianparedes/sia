@@ -42,7 +42,7 @@ class Hopfield(NetworkABC):
             for j in range(len(self.neurons)):
                 if i != j:
                     state += neuron_weights[j] * self.neurons[j].state
-            state = (state > 0) - (state < 0)
+            state = (state >= 0) - (state < 0)
             if state == 0:
                 raise Exception("State value is 0")
             neuron.set_state(state)
