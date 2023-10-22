@@ -1,10 +1,11 @@
 import numpy as np
 
+from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
 from src.classes.weights.Random import Random
 
 
-class Oja:
+class Oja(NetworkABC):
 
     def __init__(self, neuron_quantity):
         self.neuron_quantity = neuron_quantity
