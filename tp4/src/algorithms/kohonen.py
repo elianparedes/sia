@@ -39,13 +39,14 @@ with open(INPUT_PATH, 'r') as file:
     reader = csv.reader(file)
 
     # Skip the header row
-    next(reader)
+    VAR_NAMES = next(reader)
+    VAR_NAMES.pop(0)  # Eliminate 'Countries'
 
     for row in reader:
-        #append all row except first position
+        # append all row except first position
+        INPUT_NAMES = row
         INPUT.append(row[1:])
         COUNTRIES.append(row[0])
-
 
 INPUT = pd.DataFrame(INPUT).astype(float)
 INPUT = INPUT.apply(stats.zscore)
@@ -73,6 +74,5 @@ KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 5)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 6)
 KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES)
-
-
-
+KohonenGraphs.PlotUMatrix(kohonen_network)
+KohonenGraphs.PlotUMatrixByVariable(kohonen_network, VAR_NAMES)
