@@ -17,7 +17,7 @@ ARG_FILE = "file"
 
 
 def show_help():
-    print("Usage: python cli.py [-f <file_name>] [-s <qty>] [-h]")
+    print("Usage: python cli.py [-f <file_name>] [-h]")
     print(f"-f, --{ARG_FILE}    <file_name>")
     print("\tThe name of the config file. It defaults to `config.json`.")
     print(f"-h, --{ARG_HELP}")
@@ -48,14 +48,9 @@ def main():
         exit(0)
     else:
         config = Config(config_file)
-        print(config.run)
-        print(PlotNames.COUNTRY_ASSOCIATION)
-        print(PlotNames.UMATRIX_BYVAR)
-        print(PlotNames.UMATRIX)
 
         # If it is a kohonen network
         if any(s in config.run for s in (PlotNames.COUNTRY_ASSOCIATION, PlotNames.UMATRIX, PlotNames.UMATRIX_BYVAR)):
-            print("aaa")
             # Train it once
             entries, countries, var_names = FileUtils.load_europe_csv()
             kohonen_config = config.algorithms['kohonen']
