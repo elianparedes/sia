@@ -9,19 +9,17 @@ import plotly.graph_objs as go
 FILE_PATH = os.path.join(os.pardir, os.pardir, os.pardir, "data", "letters.csv")
 
 
-def letter_progression_plot(epochs):
+def letter_progression_plot(letters, input_letter, epochs, grid_size):
     letters = LettersUtils.load_letters_map_from_file(FILE_PATH)
-    fig = make_subplots(rows=1, cols=epochs)
+    fig = make_subplots(rows=1, cols=epochs, subplot_titles = [i for i in range(0, epochs)])
     fig.update_xaxes(scaleanchor="y", scaleratio=1)
     fig.update_yaxes(scaleanchor="x", scaleratio=1)
     patterns = []
 
-    patterns.append(np.array(letters['a']).flatten().tolist())
-    patterns.append(np.array(letters['l']).flatten().tolist())
-    patterns.append(np.array(letters['o']).flatten().tolist())
-    patterns.append(np.array(letters['v']).flatten().tolist())
+    for letter in letters:
+        patterns.append(np.array(letters[letter]).flatten().tolist())
 
-    letters_arrays = letters_progression_df(epochs, patterns, np.array(letters['o']).flatten().tolist())
+    letters_arrays = letters_progression_df(epochs, patterns, np.array(letters[input_letter]).flatten().tolist(), grid_size)
     custom_colorscale = [
         [0, 'white'],
         [0.5, 'grey'],
@@ -35,7 +33,8 @@ def letter_progression_plot(epochs):
         fig.update_xaxes(scaleanchor="y", scaleratio=1)
         fig.update_yaxes(scaleanchor="x", scaleratio=1)
 
+    fig.update_layout(title="Neuron states by epochs")
     fig.show()
 
 
-letter_progression_plot(10)
+letter_progression_plot(['a', 'b', 'c', 'd'], 'f', 10, 5)
