@@ -12,4 +12,4 @@ class SimpleNeuron(NeuronABC):
         return self.weights
 
     def set_weights(self, weights: list[float]):
-        self.weights = weights
+        self.weights = weights.copy()
