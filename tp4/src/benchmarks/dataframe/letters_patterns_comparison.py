@@ -33,3 +33,7 @@ def letters_patterns_comparison_df():
     df2 = pd.DataFrame(sorted(max_dot_product), columns=["|<,>| max", "grupo"])
 
     return df, df2
+
+df, df2 = letters_patterns_comparison_df()
+print(df)
+print(df2)
