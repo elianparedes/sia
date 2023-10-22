@@ -2,7 +2,7 @@ from src.classes.networks.NetworkABC import NetworkABC
 from src.classes.neurons.HopfieldNeuron import HopfieldNeuron
 from src.classes.neurons.SimpleNeuron import SimpleNeuron
 import math
-
+import numpy as np
 
 class Hopfield(NetworkABC):
 
@@ -28,6 +28,11 @@ class Hopfield(NetworkABC):
             weights[j] = (1 / n) * weights[j]
 
         return weights
+    
+    def calculate_energy(self, state) -> float:
+         weights = [neuron.get_weights() for neuron in self.neurons]
+         return -0.5 * np.einsum("i,ij,j", state, weights, state)
+        
 
     def __initialize_neurons(self, input_state):
         neurons = []
