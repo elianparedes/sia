@@ -49,8 +49,6 @@ class PCAGraphs:
         for i, item in enumerate(variables):
             plt.arrow(0, 0, loadings[0][i] * scale, loadings[1][i] * scale, color='blue', width=0.006)
             plt.text(loadings[0][i] * scale, loadings[1][i] * scale, item, fontsize=12, color='blue')
-
-
         # Add a legend
         plt.legend(loc="upper right")
 

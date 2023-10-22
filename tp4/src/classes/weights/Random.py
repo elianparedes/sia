@@ -9,4 +9,4 @@ class Random(WeightInitializerABC):
     """
 
     def calculate(self, weights_qty: int) -> list[float]:
-        return np.random.uniform(-1, 1, size=weights_qty).tolist()
+        return np.random.uniform(0, 1, size=weights_qty).tolist()
