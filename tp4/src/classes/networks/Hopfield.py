@@ -16,7 +16,7 @@ class Hopfield(NetworkABC):
     def __calculate_weights(self, index: int) -> list[float]:
         n = len(self.patterns[0])
         p = len(self.patterns)
-        weights = []
+        weights = [0] * n
 
         for j in range(n):
             if j == index:
