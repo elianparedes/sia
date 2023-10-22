@@ -4,7 +4,6 @@ class KohonenAlgorithm:
         num_iterations = 1000 * network.neuron_qty
         learning_rate_schedule = [initial_learning_rate / (i + 1) for i in range(num_iterations)]
         radius_schedule = [(num_iterations - i) * initial_radius / num_iterations for i in range(num_iterations)]
-
         for i in range(num_iterations):
             learning_rate = learning_rate_schedule[i]
             radius = radius_schedule[i]

@@ -15,7 +15,6 @@ class PCAAlgorithm:
 
         eigenvalues, eigenvectors = np.linalg.eig(correlation_matrix)
         loadings = eigenvectors.T * np.sqrt(eigenvalues)
-
         pc1 = []
         pc2 = []
         for row in input:
