@@ -6,8 +6,8 @@ import os
 from plotly.subplots import make_subplots
 import plotly.graph_objs as go
 
-LETTERS_PATH = os.path.join(os.pardir, os.pardir, os.pardir, "data", "letters.csv")
-BIG_LETTERS_PATH = os.path.join(os.pardir, os.pardir, os.pardir, "data", "letter_big.csv")
+LETTERS_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir, "data", "letters.csv")
+BIG_LETTERS_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir, "data", "letter_big.csv")
 
 
 def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size, ratio):
@@ -42,10 +42,11 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size, ratio)
     ]
 
     for i in range(0, len(patterns)):
-        __create_subplot(fig,custom_colorscale, heatmaps_pattern[i], 1, i+1)
+        __create_subplot(fig, custom_colorscale, heatmaps_pattern[i], 1, i + 1)
 
     fig.update_layout(title="Stored patterns in Hopfield network")
     fig.show()
+    return
 
 
 def __create_subplot(fig, custom_colorscale, heatmap, row, col):
@@ -60,6 +61,7 @@ def __create_subplot(fig, custom_colorscale, heatmap, row, col):
                      zeroline=False,
                      showticklabels=False,
                      ticks='')
+    return
 
 
 def letter_progression_plot(selected_letters, input_letter, epochs, ratio):
@@ -71,6 +73,7 @@ def letter_progression_plot(selected_letters, input_letter, epochs, ratio):
     input_pattern = np.array(letters[input_letter]).flatten().tolist()
 
     hopfield_progression_plot(patterns, input_pattern, epochs, 5, ratio)
+    return
 
 
 def big_letter_progression_plot(selected_letters, input_letter, epochs, ratio):
@@ -82,7 +85,7 @@ def big_letter_progression_plot(selected_letters, input_letter, epochs, ratio):
     input_pattern = np.array(letters[input_letter]).flatten().tolist()
 
     hopfield_progression_plot(patterns, input_pattern, epochs, 13, ratio)
+    return
 
-
-letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5, 0.1)
-big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10, 0.05)
+# letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5, 0)
+# big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10, 0.05)

@@ -1,5 +1,5 @@
 {
-  "run": ["country_association", "umatrix", "umatrix_byvar"],
+  "run": [ "letters", "big_letters" ],
   "algorithms": {
     "kohonen": {
       "neuron_qty": 3,
@@ -7,9 +7,23 @@
       "weight_initializer": "random",
       "radius": 3,
       "learning_rate": 0.1
-    },
-    "pca": {
-      "input_path": "/data/europe.csv"
     }
+  },
+  "plots": {
+    "letters": {
+      "training_letters": [ "r", "b", "c", "d" ],
+      "input": "z",
+      "max_epochs": 5,
+      "noise": 0.2
+    },
+    "big_letters": {
+      "training_letters": [ "a", "b", "c", "d" ],
+      "input": "z",
+      "max_epochs": 5,
+      "noise": 0.1
+    }
+  },
+  "pca": {
+    "input_path": "/data/europe.csv"
   }
 }
