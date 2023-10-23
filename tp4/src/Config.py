@@ -30,6 +30,7 @@ class Config:
 
             algorithm_config = config['algorithms']
             kohonen_config = algorithm_config['kohonen']
+            plot_config = config['plots']
 
             self.algorithms = {
                 'kohonen': {
@@ -38,5 +39,20 @@ class Config:
                     'weight_initializer': CONFIG_MAP['weight_initializer'][kohonen_config['weight_initializer']],
                     'radius': kohonen_config['radius'],
                     'learning_rate': kohonen_config['learning_rate'],
+                }
+            }
+
+            self.plots = {
+                'letters': {
+                    'training_letters': plot_config['letters']['training_letters'],
+                    'input': plot_config['letters']['input'],
+                    'max_epochs': plot_config['letters']['max_epochs'],
+                    'noise': plot_config['letters']['noise'],
+                },
+                'big_letters': {
+                    'training_letters': plot_config['big_letters']['training_letters'],
+                    'input': plot_config['big_letters']['input'],
+                    'max_epochs': plot_config['big_letters']['max_epochs'],
+                    'noise': plot_config['big_letters']['noise'],
                 }
             }

@@ -3,6 +3,7 @@ import sys
 
 from src.Config import Config
 from src.benchmarks.plot.KohonenGraphs import KohonenGraphs
+from src.benchmarks.plot.hopfield_progression_plot import letter_progression_plot, big_letter_progression_plot
 from src.classes.algorithms.KohonenAlgorithm import KohonenAlgorithm
 from src.classes.networks.Kohonen import Kohonen
 from src.classes.weights.SetBased import SetBased
@@ -74,6 +75,20 @@ def main():
                 KohonenGraphs.PlotUMatrix(kohonen_network)
             if PlotNames.UMATRIX_BYVAR in config.run:
                 KohonenGraphs.PlotUMatrixByVariable(kohonen_network, var_names)
+
+        if PlotNames.LETTERS in config.run:
+            letters_config = config.plots['letters']
+            letter_progression_plot(letters_config['training_letters'],
+                                    letters_config['input'],
+                                    letters_config['max_epochs'],
+                                    letters_config['noise'])
+
+        if PlotNames.BIG_LETTERS in config.run:
+            big_letters_config = config.plots['big_letters']
+            big_letter_progression_plot(big_letters_config['training_letters'],
+                                        big_letters_config['input'],
+                                        big_letters_config['max_epochs'],
+                                        big_letters_config['noise'])
 
 
 if __name__ == "__main__":

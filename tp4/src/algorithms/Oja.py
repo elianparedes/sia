@@ -2,6 +2,8 @@ import csv
 import json
 import os
 
+from src.benchmarks.plot import OjaByEpochs
+from src.benchmarks.plot.OjaByEpochs import OjaEpochsGraph
 from src.benchmarks.plot.PCAScatterGraph import  PCAGraphs
 from src.classes.algorithms.OjaAlgorithm import OjaAlgorithm
 from src.classes.algorithms.PCAAlgorithm import PCAAlgorithm
@@ -54,14 +56,8 @@ scaler = StandardScaler()
 scaled_data = scaler.fit_transform(INPUT)
 
 oja_network = Oja(len(INPUT[0]))
-OjaAlgorithm.train(oja_network, scaled_data, 0.0001)
 # Implementacion casera
 # Implementacion de scikit
 pca = PCA(n_components=7)
 pca = pca.fit_transform(scaled_data)
-pc1 = []
-for row in scaled_data:
-    y_value1 = np.dot(-1 * oja_network.neurons.get_weights(), row)
-    pc1.append(y_value1)
-print(pc1)
-print(pca[:,0])
+OjaEpochsGraph.plot(oja_network,scaled_data, 0.0001,10000,pca[:,0])
