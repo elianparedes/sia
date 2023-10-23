@@ -24,11 +24,7 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size):
     ]
 
     for i in range(0, epochs):
-        data = heatmaps_by_epoch[i][::-1]
-        heatmap = go.Heatmap(z=data, colorscale=custom_colorscale)
-        fig.add_trace(heatmap, row=1, col=i + 1)
-        fig.update_xaxes(scaleanchor="y", scaleratio=1)
-        fig.update_yaxes(scaleanchor="x", scaleratio=1)
+        __create_subplot(fig, custom_colorscale, heatmaps_by_epoch[i], 1, i + 1)
 
     fig.update_layout(title="Neuron states by epochs")
     fig.show()
@@ -44,14 +40,23 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size):
     ]
 
     for i in range(0, len(patterns)):
-        data = heatmaps_pattern[i][::-1]
-        heatmap = go.Heatmap(z=data, colorscale=custom_colorscale)
-        fig.add_trace(heatmap, row=1, col=i + 1)
-        fig.update_xaxes(scaleanchor="y", scaleratio=1)
-        fig.update_yaxes(scaleanchor="x", scaleratio=1)
+        __create_subplot(fig,custom_colorscale, heatmaps_pattern[i], 1, i+1)
 
     fig.update_layout(title="Stored patterns in Hopfield network")
     fig.show()
+
+
+def __create_subplot(fig, custom_colorscale, heatmap, row, col):
+    data = heatmap[::-1]
+    heatmap = go.Heatmap(z=data, colorscale=custom_colorscale)
+    fig.add_trace(heatmap, row=row, col=col)
+    fig.update_xaxes(scaleanchor="y", scaleratio=1, showgrid=False,
+                     zeroline=False,
+                     showticklabels=False,
+                     ticks='')
+    fig.update_yaxes(scaleanchor="x", scaleratio=1, zeroline=False,
+                     showticklabels=False,
+                     ticks='')
 
 
 def letter_progression_plot(selected_letters, input_letter, epochs):
@@ -76,5 +81,5 @@ def big_letter_progression_plot(selected_letters, input_letter, epochs):
     hopfield_progression_plot(patterns, input_pattern, epochs, 13)
 
 
-letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5)
-big_letter_progression_plot(['a', 'b', 'c', 'd'], 'a', 5)
+#letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5)
+big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10)
