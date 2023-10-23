@@ -14,12 +14,12 @@ class KohonenGraphs:
         for i, register in enumerate(training_set):
             winner_neuron, _ = network.get_winner_neuron(register)
             winners[winner_neuron.x][winner_neuron.y] += 1
-            country_matrix[winner_neuron.x][winner_neuron.y] += (' ' + countries[i] + '\n')
+            country_matrix[winner_neuron.x][winner_neuron.y] += (countries[i] + '<br>')
 
         bold_country_matrix = [[f'<b>{text.strip()}</b>' for text in row] for row in country_matrix]
 
-        heatmap = go.Heatmap(z=winners, colorscale='Greys', text=bold_country_matrix, texttemplate="%{text}",
-                             textfont={"size": 16, "color": 'rgb(0,255,0)'},
+        heatmap = go.Heatmap(z=winners, colorscale='Viridis', text=bold_country_matrix, texttemplate="%{text}",
+                             textfont={"size": 16, "color": 'rgb(255,255,255)'},
                              )
         # Create a layout for the heatmap
         layout = go.Layout(title='Complete Heatmap')

@@ -30,7 +30,8 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size, ratio)
     for i in range(0, epochs):
         __create_subplot(fig, custom_colorscale, heatmaps_by_epoch[i], 1, i + 1)
 
-    fig.update_layout(title="Neuron states by epochs")
+    title = "Neuron states by epochs (noise ratio = " + ratio.__str__() + ")"
+    fig.update_layout(title=title)
     fig.show()
 
     # Patterns plot
