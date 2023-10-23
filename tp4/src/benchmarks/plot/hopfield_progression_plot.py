@@ -15,7 +15,7 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size):
     fig.update_xaxes(scaleanchor="y", scaleratio=1)
     fig.update_yaxes(scaleanchor="x", scaleratio=1)
 
-    hopfield_arrays = hopfield_progression_df(epochs, patterns, input_pattern, grid_size)
+    heatmaps_by_epoch, heatmaps_pattern = hopfield_progression_df(epochs, patterns, input_pattern, grid_size)
 
     custom_colorscale = [
         [0, 'white'],
@@ -24,13 +24,33 @@ def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size):
     ]
 
     for i in range(0, epochs):
-        data = hopfield_arrays[i][::-1]
+        data = heatmaps_by_epoch[i][::-1]
         heatmap = go.Heatmap(z=data, colorscale=custom_colorscale)
         fig.add_trace(heatmap, row=1, col=i + 1)
         fig.update_xaxes(scaleanchor="y", scaleratio=1)
         fig.update_yaxes(scaleanchor="x", scaleratio=1)
 
     fig.update_layout(title="Neuron states by epochs")
+    fig.show()
+
+    # Patterns plot
+
+    fig = make_subplots(rows=1, cols=len(patterns))
+
+    custom_colorscale = [
+        [0, 'white'],
+        [0.5, 'blue'],
+        [1, 'darkblue']
+    ]
+
+    for i in range(0, len(patterns)):
+        data = heatmaps_pattern[i][::-1]
+        heatmap = go.Heatmap(z=data, colorscale=custom_colorscale)
+        fig.add_trace(heatmap, row=1, col=i + 1)
+        fig.update_xaxes(scaleanchor="y", scaleratio=1)
+        fig.update_yaxes(scaleanchor="x", scaleratio=1)
+
+    fig.update_layout(title="Stored patterns in Hopfield network")
     fig.show()
 
 
@@ -56,5 +76,5 @@ def big_letter_progression_plot(selected_letters, input_letter, epochs):
     hopfield_progression_plot(patterns, input_pattern, epochs, 13)
 
 
-letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 10)
-big_letter_progression_plot(['a', 'b', 'c', 'd'], 'a', 10)
+letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5)
+big_letter_progression_plot(['a', 'b', 'c', 'd'], 'a', 5)
