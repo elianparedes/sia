@@ -1,6 +1,7 @@
 import numpy as np
 
 from src.benchmarks.dataframe.hopfield_progression_df import hopfield_progression_df
+from src.utils.IconsUtils import IconsUtils
 from src.utils.LettersUtils import LettersUtils
 import os
 from plotly.subplots import make_subplots
@@ -8,6 +9,7 @@ import plotly.graph_objs as go
 
 LETTERS_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir, "data", "letters.csv")
 BIG_LETTERS_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir, "data", "letter_big.csv")
+ICONS_PATH = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir, "data", "icons.csv")
 
 
 def hopfield_progression_plot(patterns, input_pattern, epochs, grid_size, ratio):
@@ -87,5 +89,19 @@ def big_letter_progression_plot(selected_letters, input_letter, epochs, ratio):
     hopfield_progression_plot(patterns, input_pattern, epochs, 13, ratio)
     return
 
+
+def icons_progression_plot(selected_icons, input_icon, epochs, ratio):
+    icons = IconsUtils.load_icons_map_from_file(ICONS_PATH)
+    patterns = []
+    for icon in selected_icons:
+        patterns.append(np.array(icons[icon]).flatten().tolist())
+
+    input_pattern = np.array(icons[input_icon]).flatten().tolist()
+
+    hopfield_progression_plot(patterns, input_pattern, epochs, 24, ratio)
+    return
+
+
 # letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5, 0)
 # big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10, 0.05)
+icons_progression_plot(["close", "share", "arrow", "arrow_back", "arrow_right"], "close", 5, 0.0000001)
