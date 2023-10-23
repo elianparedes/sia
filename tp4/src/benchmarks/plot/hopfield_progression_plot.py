@@ -54,7 +54,8 @@ def __create_subplot(fig, custom_colorscale, heatmap, row, col):
                      zeroline=False,
                      showticklabels=False,
                      ticks='')
-    fig.update_yaxes(scaleanchor="x", scaleratio=1, zeroline=False,
+    fig.update_yaxes(scaleanchor="x", scaleratio=1, showgrid=False,
+                     zeroline=False,
                      showticklabels=False,
                      ticks='')
 
@@ -81,5 +82,5 @@ def big_letter_progression_plot(selected_letters, input_letter, epochs):
     hopfield_progression_plot(patterns, input_pattern, epochs, 13)
 
 
-#letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5)
-big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10)
+letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5)
+#big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10)
