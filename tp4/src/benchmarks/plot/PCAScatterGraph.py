@@ -59,7 +59,14 @@ class PCAGraphs:
         pca_df = pd.DataFrame(data=scaled_data, columns=header)
         fig = px.box(pca_df, title='Box plot of the variables')
         fig.show()
-
+    @staticmethod
+    def bar_plot(pc1, countries):
+        pc1uax = []
+        for i in pc1:
+            pc1uax.append(i[0])
+        pca_df = pd.DataFrame({"PC1": pc1uax, "Country": countries})
+        fig = px.bar(pca_df, x='Country', y='PC1', title='PC1 by country')
+        fig.show()
     @staticmethod
     def scree_plot(pca: PCA):
         pca_values = np.arange(pca.n_components_) + 1
