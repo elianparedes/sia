@@ -1,5 +1,5 @@
 {
-  "run": ["energy", "letters"],
+  "run": ["single_var"],
   "algorithms": {
     "kohonen": {
       "neuron_qty": 4,

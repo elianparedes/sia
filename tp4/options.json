@@ -1,5 +1,5 @@
 {
-  "run": "[ country_association | umatrix | umatrix_byvar | letters | big_letters | energy | oja_epochs ]",
+  "run": "[ country_association | umatrix | umatrix_byvar | letters | big_letters | energy | oja_epochs | single_var]",
   "algorithms": {
     "kohonen": {
       "neuron_qty": ">0",

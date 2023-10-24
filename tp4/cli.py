@@ -54,7 +54,8 @@ def main():
         config = Config(config_file)
 
         # If it is a kohonen network
-        if any(s in config.run for s in (PlotNames.COUNTRY_ASSOCIATION, PlotNames.UMATRIX, PlotNames.UMATRIX_BYVAR)):
+        if any(s in config.run for s in (PlotNames.COUNTRY_ASSOCIATION, PlotNames.UMATRIX, PlotNames.UMATRIX_BYVAR,
+                                         PlotNames.SINGLE_VAR)):
             # Train it once
             entries, countries, var_names = FileUtils.load_europe_csv()
             kohonen_config = config.algorithms['kohonen']
@@ -79,6 +80,9 @@ def main():
                 KohonenGraphs.PlotUMatrix(kohonen_network)
             if PlotNames.UMATRIX_BYVAR in config.run:
                 KohonenGraphs.PlotUMatrixByVariable(kohonen_network, var_names)
+            if PlotNames.SINGLE_VAR in config.run:
+                for i, var in enumerate(var_names):
+                    KohonenGraphs.SingleVariableHeatMap(kohonen_network, i)
 
         # Hopfield
         if any(s in config.run for s in (PlotNames.LETTERS, PlotNames.BIG_LETTERS, PlotNames.ENERGY)):

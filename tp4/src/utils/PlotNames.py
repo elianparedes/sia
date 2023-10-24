@@ -1,6 +1,7 @@
 # Plot field names
 # Kohonen
 COUNTRY_ASSOCIATION = 'country_association'
+SINGLE_VAR = 'single_var'
 UMATRIX = 'umatrix'
 UMATRIX_BYVAR = 'umatrix_byvar'
 

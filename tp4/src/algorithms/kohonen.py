@@ -18,7 +18,7 @@ CONFIG_MAP = {
         "euclidean": Euclidean,
         "exponential": Exponential
     },
-    "weights_initializer": {
+    "weight_initializer": {
         "random": Random,
         "set_based": SetBased
     }
@@ -58,8 +58,8 @@ SIMILARITY_TYPE = CONFIG_MAP["similarity"][config["similarity"]]
 INIT_RADIUS = config["radius"]
 INIT_LEARNING_RATE = config["learning_rate"]
 
-WEIGHT_INITIALIZER = CONFIG_MAP["weights_initializer"][config["weights_initializer"]]
-if config["weights_initializer"] == "set_based":
+WEIGHT_INITIALIZER = CONFIG_MAP["weight_initializer"][config["weight_initializer"]]
+if config["weight_initializer"] == "set_based":
     WEIGHT_INITIALIZER = WEIGHT_INITIALIZER(INPUT)
 else:
     WEIGHT_INITIALIZER = WEIGHT_INITIALIZER()
@@ -73,6 +73,6 @@ KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 4)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 5)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 6)
-KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES)
-KohonenGraphs.PlotUMatrix(kohonen_network)
-KohonenGraphs.PlotUMatrixByVariable(kohonen_network, VAR_NAMES)
+# KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES)
+# KohonenGraphs.PlotUMatrix(kohonen_network)
+# KohonenGraphs.PlotUMatrixByVariable(kohonen_network, VAR_NAMES)
