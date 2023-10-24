@@ -40,7 +40,7 @@ class IconsUtils:
         img = Image.alpha_composite(background, img).convert('L')
 
         binary_matrix = np.array(img)
-        binary_matrix = np.where(binary_matrix > 245, 1, -1)
+        binary_matrix = np.where(binary_matrix > 245, -1, 1)
 
         return binary_matrix
 

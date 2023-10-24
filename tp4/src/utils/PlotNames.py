@@ -7,3 +7,7 @@ UMATRIX_BYVAR = 'umatrix_byvar'
 # Hopfield
 LETTERS = 'letters'
 BIG_LETTERS = 'big_letters'
+ENERGY = 'energy'
+
+# Oja
+OJA_EPOCHS = 'oja_epochs'

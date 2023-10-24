@@ -5,6 +5,7 @@ from src.classes.similarity.Euclidean import Euclidean
 from src.classes.similarity.Exponential import Exponential
 from src.classes.weights.Random import Random
 from src.classes.weights.SetBased import SetBased
+from src.utils import PlotNames
 
 # Plot field names
 CONFIG_MAP = {
@@ -30,6 +31,7 @@ class Config:
 
             algorithm_config = config['algorithms']
             kohonen_config = algorithm_config['kohonen']
+            hopfield_config = algorithm_config['hopfield']
             plot_config = config['plots']
 
             self.algorithms = {
@@ -39,20 +41,18 @@ class Config:
                     'weight_initializer': CONFIG_MAP['weight_initializer'][kohonen_config['weight_initializer']],
                     'radius': kohonen_config['radius'],
                     'learning_rate': kohonen_config['learning_rate'],
-                }
+                },
+                'hopfield': {
+                    'training_letters': hopfield_config['training_letters'],
+                    'input': hopfield_config['input'],
+                    'max_epochs': hopfield_config['max_epochs'],
+                    'noise': hopfield_config['noise']
+                },
             }
 
             self.plots = {
-                'letters': {
-                    'training_letters': plot_config['letters']['training_letters'],
-                    'input': plot_config['letters']['input'],
-                    'max_epochs': plot_config['letters']['max_epochs'],
-                    'noise': plot_config['letters']['noise'],
-                },
-                'big_letters': {
-                    'training_letters': plot_config['big_letters']['training_letters'],
-                    'input': plot_config['big_letters']['input'],
-                    'max_epochs': plot_config['big_letters']['max_epochs'],
-                    'noise': plot_config['big_letters']['noise'],
+                'oja_epochs': {
+                    'max_epochs': plot_config[PlotNames.OJA_EPOCHS]['max_epochs'],
+                    'learning_rate': plot_config[PlotNames.OJA_EPOCHS]['learning_rate'],
                 }
             }
