@@ -105,4 +105,4 @@ def icons_progression_plot(selected_icons, input_icon, epochs, ratio):
 
 # letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5, 0)
 # big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10, 0.05)
-icons_progression_plot(["close", "share", "arrow", "arrow_back", "arrow_right"], "close", 5, 0.0000001)
+# icons_progression_plot(["close", "share", "arrow", "arrow_back", "arrow_right"], "close", 5, 0.0000001)

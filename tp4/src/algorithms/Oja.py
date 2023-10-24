@@ -4,7 +4,7 @@ import os
 
 from src.benchmarks.plot import OjaByEpochs
 from src.benchmarks.plot.OjaByEpochs import OjaEpochsGraph
-from src.benchmarks.plot.PCAScatterGraph import  PCAGraphs
+from src.benchmarks.plot.PCAScatterGraph import PCAGraphs
 from src.classes.algorithms.OjaAlgorithm import OjaAlgorithm
 from src.classes.algorithms.PCAAlgorithm import PCAAlgorithm
 
@@ -49,15 +49,14 @@ with open(INPUT_PATH, 'r') as file:
             first = True
             ITEMS = row[1:]
             continue
-        #append all row except first position
+        # append all row except first position
         INPUT.append(row[1:])
         COUNTRIES.append(row[0])
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(INPUT)
 
 oja_network = Oja(len(INPUT[0]))
-# Implementacion casera
 # Implementacion de scikit
 pca = PCA(n_components=7)
 pca = pca.fit_transform(scaled_data)
-OjaEpochsGraph.plot(oja_network,scaled_data, 0.0001,10000,pca[:,0])
+OjaEpochsGraph.plot(oja_network, scaled_data, 0.0001, 10000, pca[:, 0])

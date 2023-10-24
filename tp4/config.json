@@ -1,16 +1,15 @@
 {
-  "run": [ "letters", "big_letters" ],
+  "run": ["oja_epochs"],
   "algorithms": {
     "kohonen": {
       "neuron_qty": 4,
       "similarity": "euclidean",
-      "weights_initializer": "random",
+      "weight_initializer": "random",
       "radius": 4,
-      "learning_rate": 0.1,
-      "input_path": "/data/elecciones2023_sinblancos.csv"
+      "learning_rate": 0.1
     },
     "pca": {
-      "input_path": "/data/elecciones2023_sinblancos.csv",
+      "input_path": "/data/europe.csv",
       "weight_initializer": "random",
       "radius": 3,
       "learning_rate": 0.1
@@ -28,9 +27,10 @@
       "input": "z",
       "max_epochs": 5,
       "noise": 0.1
+    },
+    "oja_epochs": {
+      "max_epochs": 10000,
+      "learning_rate": 0.0001
     }
-  },
-  "pca": {
-    "input_path": "/data/europe.csv"
   }
 }
