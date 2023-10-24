@@ -29,10 +29,15 @@ class Hopfield(NetworkABC):
 
         return weights
     
-    def calculate_energy(self, state) -> float:
-         weights = [neuron.get_weights() for neuron in self.neurons]
-         return -0.5 * np.einsum("i,ij,j", state, weights, state)
-        
+    def calculate_energy(self, states, weights) -> float:
+        energy = 0
+        for i in range(len(weights[0])):
+            for j in range(len(weights[0])):
+                if j > i:
+                    energy = energy + weights[i][j]*states[i]*states[j]
+
+        energy = -1 * energy
+        return energy
 
     def __initialize_neurons(self, input_state):
         neurons = []
@@ -51,6 +56,13 @@ class Hopfield(NetworkABC):
             if state == 0:
                 raise Exception("State value is 0")
             neuron.set_state(state)
+
+    def get_weights_matrix(self) -> list[list[float]]:
+        weights = []
+        for neuron in self.neurons:
+            weights.append(neuron.get_weights())
+
+        return weights
 
     def get_states(self) -> list[int]:
         states = []

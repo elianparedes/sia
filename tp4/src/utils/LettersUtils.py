@@ -1,5 +1,6 @@
 import ast
 from string import ascii_lowercase as alc
+import numpy as np
 
 
 class LettersUtils:
@@ -22,3 +23,17 @@ class LettersUtils:
             letters_map[alphabet[i]] = letter
 
         return letters_map
+
+    @staticmethod
+    def add_noise_random(array, ratio):
+        if ratio < 0 or ratio > 1:
+            raise ValueError("ratio must be between [0, 1]")
+
+        num_elements_to_change = int(ratio * len(array))
+
+        random_indices = np.random.choice(len(array), num_elements_to_change, replace=False)
+
+        for index in random_indices:
+            array[index] = -array[index]
+
+        return array
