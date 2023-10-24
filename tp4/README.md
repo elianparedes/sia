@@ -10,8 +10,8 @@
 In order to run the project you need to first complete de `config.json` file. After that, you can  use the `cli` to run the project.
 
 ### config.json
-See `options.json` to know how to fill out `config.json`.  
-Note: For number metrics the activation function is TAN_H and cannot be changed.
+See `options.json` to know how to fill out `config.json`.
+_Note_: Plots which use a kohonen network need you to fill the "kohonen" element in the json (these plots are: country_association, umatrix, umatrix_byvar).
 
 ### cli.py
 ```bash
