@@ -12,7 +12,7 @@ class IconsUtils:
 
     @staticmethod
     def load_icons_map_from_file(file_path):
-        ICONS_NAMES = ["thumb_up", "home", "search", "share", "arrow", "person", "delete", "close", "thumb_down", "arrow_right", "arrow_back", "inv_close"]
+        ICONS_NAMES = ["thumb_up", "home", "search", "share", "arrow", "person", "delete", "close", "thumb_down", "arrow_right", "arrow_back", "inv_close", "eva_arrow_right", "eva_delete", "eva_home", "eva_person", "eva_share", "lucide_arrow", "lucide_delete", "lucide_home", "lucide_user"]
 
         icons = []
 
