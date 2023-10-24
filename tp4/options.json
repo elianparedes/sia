@@ -1,0 +1,30 @@
+{
+  "run": "[ country_association | umatrix | umatrix_byvar | letters | big_letters | oja_epochs]",
+  "algorithms": {
+    "kohonen": {
+      "neuron_qty": ">0",
+      "similarity": "euclidean | exponential",
+      "weight_initializer": "random | set_based",
+      "radius": ">0",
+      "learning_rate": "[0,1]"
+    }
+  },
+  "plots": {
+    "letters": {
+      "training_letters": "list of up to 4 letters. Eg. ['a', 'b', 'c', 'd']",
+      "input": "letter",
+      "max_epochs": ">0",
+      "noise": "[0,1]"
+    },
+    "big_letters": {
+      "training_letters": "list of up to 4 letters. Eg. ['a', 'b', 'c', 'd']",
+      "input": "letter",
+      "max_epochs": ">0",
+      "noise": "[0,1]"
+    },
+    "oja_epochs": {
+      "max_epochs": ">0",
+      "learning_rate": "[0,1], we recommend 0.0001"
+    }
+  }
+}
