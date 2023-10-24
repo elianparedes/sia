@@ -1,5 +1,5 @@
 {
-  "run": ["energy", "letters", "big_letters"],
+  "run": ["energy", "letters"],
   "algorithms": {
     "kohonen": {
       "neuron_qty": 4,
@@ -9,7 +9,7 @@
       "learning_rate": 0.1
     },
     "hopfield": {
-      "training_letters": [ "r", "b", "c", "d" ],
+      "training_letters": [ "b", "q", "t", "v" ],
       "input": "z",
       "max_epochs": 5,
       "noise": 0.2

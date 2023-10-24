@@ -99,7 +99,8 @@ def main():
             if PlotNames.ENERGY in config.run:
                 hopfield_energy_plot(hopfield_config['max_epochs'],
                                      hopfield_config['training_letters'],
-                                     hopfield_config['input'])
+                                     hopfield_config['input'],
+                                     hopfield_config['noise'])
 
         # Oja
         if PlotNames.OJA_EPOCHS in config.run:
