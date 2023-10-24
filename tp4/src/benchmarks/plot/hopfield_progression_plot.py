@@ -78,6 +78,19 @@ def letter_progression_plot(selected_letters, input_letter, epochs, ratio):
     hopfield_progression_plot(patterns, input_pattern, epochs, 5, ratio)
     return
 
+def inverted_letters_progression_plot(selected_letters, input_letter, epochs, ratio):
+    letters = LettersUtils.load_letters_map_from_file(LETTERS_PATH)
+    patterns = []
+    for letter in selected_letters:
+        patterns.append(np.array(letters[letter]).flatten().tolist())
+
+    input_pattern = np.array(letters[input_letter]).flatten().tolist()
+    input_pattern = [-x for x in input_pattern]
+
+    hopfield_progression_plot(patterns, input_pattern, epochs, 5, ratio)
+    return
+
+
 
 def big_letter_progression_plot(selected_letters, input_letter, epochs, ratio):
     letters = LettersUtils.load_letters_map_from_file(BIG_LETTERS_PATH)
@@ -105,4 +118,5 @@ def icons_progression_plot(selected_icons, input_icon, epochs, ratio):
 
 # letter_progression_plot(['a', 'b', 'c', 'd'], 'z', 5, 0)
 # big_letter_progression_plot(['a', 'b', 'c', 'd', 'e'], 'z', 10, 0.05)
-icons_progression_plot(["close", "share", "arrow", "arrow_back", "arrow_right"], "close", 5, 0.0000001)
+icons_progression_plot(["delete", "thumb_down", "person"], "hand_delete", 5, 0.0000001)
+#letter_progression_plot(['b', 'q', 't', 'v'], 'b', 5, 0.00001)
