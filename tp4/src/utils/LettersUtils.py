@@ -26,8 +26,8 @@ class LettersUtils:
 
     @staticmethod
     def add_noise_random(array, ratio):
-        if ratio <= 0 or ratio > 1:
-            raise ValueError("ratio must be between (0, 1]")
+        if ratio < 0 or ratio > 1:
+            raise ValueError("ratio must be between [0, 1]")
 
         num_elements_to_change = int(ratio * len(array))
 
