@@ -31,8 +31,8 @@ class Hopfield(NetworkABC):
     
     def calculate_energy(self, states, weights) -> float:
         energy = 0
-        for i in enumerate(weights[0]):
-            for j in enumerate(weights[0]):
+        for i in range(len(weights[0])):
+            for j in range(len(weights[0])):
                 if j > i:
                     energy = energy + weights[i][j]*states[i]*states[j]
 

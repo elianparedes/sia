@@ -4,6 +4,7 @@ import sys
 from src.Config import Config
 from src.benchmarks.plot.KohonenGraphs import KohonenGraphs
 from src.benchmarks.plot.OjaByEpochs import OjaEpochsGraph
+from src.benchmarks.plot.hopfield_energy_plot import hopfield_energy_plot
 from src.benchmarks.plot.hopfield_progression_plot import letter_progression_plot, big_letter_progression_plot
 from src.classes.algorithms.KohonenAlgorithm import KohonenAlgorithm
 from src.classes.networks.Kohonen import Kohonen
@@ -80,19 +81,25 @@ def main():
                 KohonenGraphs.PlotUMatrixByVariable(kohonen_network, var_names)
 
         # Hopfield
-        if PlotNames.LETTERS in config.run:
-            letters_config = config.plots[PlotNames.LETTERS]
-            letter_progression_plot(letters_config['training_letters'],
-                                    letters_config['input'],
-                                    letters_config['max_epochs'],
-                                    letters_config['noise'])
+        if any(s in config.run for s in (PlotNames.LETTERS, PlotNames.BIG_LETTERS, PlotNames.ENERGY)):
+            hopfield_config = config.algorithms['hopfield']
 
-        if PlotNames.BIG_LETTERS in config.run:
-            big_letters_config = config.plots[PlotNames.BIG_LETTERS]
-            big_letter_progression_plot(big_letters_config['training_letters'],
-                                        big_letters_config['input'],
-                                        big_letters_config['max_epochs'],
-                                        big_letters_config['noise'])
+            if PlotNames.LETTERS in config.run:
+                letter_progression_plot(hopfield_config['training_letters'],
+                                        hopfield_config['input'],
+                                        hopfield_config['max_epochs'],
+                                        hopfield_config['noise'])
+
+            if PlotNames.BIG_LETTERS in config.run:
+                big_letter_progression_plot(hopfield_config['training_letters'],
+                                            hopfield_config['input'],
+                                            hopfield_config['max_epochs'],
+                                            hopfield_config['noise'])
+
+            if PlotNames.ENERGY in config.run:
+                hopfield_energy_plot(hopfield_config['max_epochs'],
+                                     hopfield_config['training_letters'],
+                                     hopfield_config['input'])
 
         # Oja
         if PlotNames.OJA_EPOCHS in config.run:

@@ -31,6 +31,7 @@ class Config:
 
             algorithm_config = config['algorithms']
             kohonen_config = algorithm_config['kohonen']
+            hopfield_config = algorithm_config['hopfield']
             plot_config = config['plots']
 
             self.algorithms = {
@@ -40,22 +41,16 @@ class Config:
                     'weight_initializer': CONFIG_MAP['weight_initializer'][kohonen_config['weight_initializer']],
                     'radius': kohonen_config['radius'],
                     'learning_rate': kohonen_config['learning_rate'],
-                }
+                },
+                'hopfield': {
+                    'training_letters': hopfield_config['training_letters'],
+                    'input': hopfield_config['input'],
+                    'max_epochs': hopfield_config['max_epochs'],
+                    'noise': hopfield_config['noise']
+                },
             }
 
             self.plots = {
-                'letters': {
-                    'training_letters': plot_config[PlotNames.LETTERS]['training_letters'],
-                    'input': plot_config[PlotNames.LETTERS]['input'],
-                    'max_epochs': plot_config[PlotNames.LETTERS]['max_epochs'],
-                    'noise': plot_config[PlotNames.LETTERS]['noise'],
-                },
-                'big_letters': {
-                    'training_letters': plot_config[PlotNames.BIG_LETTERS]['training_letters'],
-                    'input': plot_config[PlotNames.BIG_LETTERS]['input'],
-                    'max_epochs': plot_config[PlotNames.BIG_LETTERS]['max_epochs'],
-                    'noise': plot_config[PlotNames.BIG_LETTERS]['noise'],
-                },
                 'oja_epochs': {
                     'max_epochs': plot_config[PlotNames.OJA_EPOCHS]['max_epochs'],
                     'learning_rate': plot_config[PlotNames.OJA_EPOCHS]['learning_rate'],

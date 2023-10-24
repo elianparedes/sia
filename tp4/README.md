@@ -11,7 +11,9 @@ In order to run the project you need to first complete de `config.json` file. Af
 
 ### config.json
 See `options.json` to know how to fill out `config.json`.
-_Note_: Plots which use a kohonen network need you to fill the "kohonen" element in the json (these plots are: country_association, umatrix, umatrix_byvar).
+_Note on plots_: 
+- Plots which use a kohonen network need you to fill the "kohonen" element in the json (these plots are: country_association, umatrix, umatrix_byvar).
+- Plots which use the hopfield model need you to fill the "hopfield" element in the json (these plots are: letters, big_letters, energy).
 
 ### cli.py
 ```bash

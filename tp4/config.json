@@ -1,5 +1,5 @@
 {
-  "run": ["oja_epochs"],
+  "run": ["energy", "letters", "big_letters"],
   "algorithms": {
     "kohonen": {
       "neuron_qty": 4,
@@ -7,6 +7,12 @@
       "weight_initializer": "random",
       "radius": 4,
       "learning_rate": 0.1
+    },
+    "hopfield": {
+      "training_letters": [ "r", "b", "c", "d" ],
+      "input": "z",
+      "max_epochs": 5,
+      "noise": 0.2
     },
     "pca": {
       "input_path": "/data/europe.csv",
@@ -16,18 +22,6 @@
     }
   },
   "plots": {
-    "letters": {
-      "training_letters": [ "r", "b", "c", "d" ],
-      "input": "z",
-      "max_epochs": 5,
-      "noise": 0.2
-    },
-    "big_letters": {
-      "training_letters": [ "a", "b", "c", "d" ],
-      "input": "z",
-      "max_epochs": 5,
-      "noise": 0.1
-    },
     "oja_epochs": {
       "max_epochs": 10000,
       "learning_rate": 0.0001
