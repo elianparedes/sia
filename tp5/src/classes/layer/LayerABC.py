@@ -2,6 +2,8 @@ from abc import ABC
 
 import numpy as np
 
+from src.algorithms.ADAM import ADAM
+
 
 class LayerABC(ABC):
 
@@ -26,6 +28,7 @@ class LayerABC(ABC):
         self.learning_rate = learning_rate
         self.input = None
         self.h = None
+        self.adam = ADAM(0.9,0.999,1e-8,0.001,input_qty,neuron_qty)
 
     def activate(self, layer_input):
         """Calculates the activation function ``theta``"""
@@ -59,9 +62,7 @@ class LayerABC(ABC):
         self.weights = weights
 
     def set_delta_w(self):
-        for i in range(self.input_qty):
-            for j in range(self.neuron_qty):
-                self.delta_w[i][j] += self.delta_w[i][j] + self.learning_rate * self.deltas[j] * self.input[i]
+        self.delta_w = -self.adam.optimize(self.deltas)
 
     def update_weights(self):
         self.weights = np.add(self.weights, self.delta_w)
