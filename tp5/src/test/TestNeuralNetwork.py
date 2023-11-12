@@ -54,22 +54,6 @@ def neural_network_test(training_set, training_expected, test_set, test_expected
     return w_min, network
 
 
-def test_xor():
-    dataset = [[0, 1], [1, 0], [0, 0], [1, 1]]
-    expected = [[1], [1], [0], [0]]
-    architecture = [2, 1]
-    neural_network_test(dataset, expected, dataset, expected, architecture)
-
-
-def test_even():
-    dataset = ExerciseUtils.load_ex3_file(DIGITS_PATH)
-    expected = [[1], [0], [1], [0], [1], [0], [1], [0], [1], [0]]
-    architecture = [35, 1]
-    # does not work if we split the dataset. TODO: check different configurations
-    # training_set, training_expected, test_set, test_expected = DatasetUtils.split_dataset(dataset, expected, 0.9)
-    neural_network_test(dataset, expected, dataset, expected, architecture)
-
-
 def test_digits():
     dataset = ExerciseUtils.load_ex3_file(DIGITS_PATH)
     expected = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -93,7 +77,6 @@ def neural_network_heatmap():
     weights = test_digits()
     df = pd.DataFrame(weights[0])
     df.to_csv('weights.csv', index=False, header=False)
-
 
     num_matrices = 10
     rows = 7

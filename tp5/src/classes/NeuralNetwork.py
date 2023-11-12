@@ -54,11 +54,7 @@ class NeuralNetwork:
         new_input = dataset
         for i in range(0, len(self.layers)):
             new_input = self.layers[i].test_activation(new_input)
-        
-        x = np.argsort(new_input)[::-1][:3]
-        print(f"Match: {x[0]}")
-        print(f"Candidate: {x[1]}")
-        print(f"Candidate: {x[2]}")
+
         return new_input
 
     def back_propagation(self, expected):
