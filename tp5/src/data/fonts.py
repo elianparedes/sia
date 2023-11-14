@@ -39,8 +39,11 @@ def get_characters():
     for i in range(32):
         # Get the binary representation for each hex value as a list of integers
         binary_representation = [list(map(int, format(value, '08b'))) for value in font3[i]]
-
+        # binary_representation = binary_representation[3:8]
+        for i in range(len(binary_representation)):
+            binary_representation[i] = binary_representation[i][3:8]
         flatten_characters.append(np.array(binary_representation).flatten())
     return flatten_characters
 
 
+get_characters()

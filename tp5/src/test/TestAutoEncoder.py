@@ -19,7 +19,7 @@ def autoencoder_test(training_set, training_expected, test_set, test_expected, a
     min_error = sys.maxsize
 
     limit = 50000
-    epsilon = 0.01
+    epsilon = 1
     w_min = None
     start = time.process_time()
 
@@ -31,6 +31,7 @@ def autoencoder_test(training_set, training_expected, test_set, test_expected, a
         encoder.update_weights()
         error = encoder.compute_error(training_set, training_expected)
         if error < min_error:
+            print("Global Error: ", error)
             min_error = error
             w_min = w
         i += 1
@@ -52,7 +53,7 @@ training_set = get_characters()
 test_set = training_set.copy()
 test_expected = test_set.copy()
 
-architecture = [56, 4, 2, 4, 56]
+architecture = [35, 20, 10, 5, 2, 5, 10, 20, 35]
 
 w_min, encoder = autoencoder_test(training_set, training_set, test_set, test_expected, architecture, 2)
 
