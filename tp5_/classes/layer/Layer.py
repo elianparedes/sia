@@ -7,7 +7,7 @@ class Layer:
         self.layer_input = None
         self.excitement_states = None
         self.layer_output = None
-        self.weights = np.random.rand(input_size, output_size) - 0.5
+        self.weights = np.random.uniform(-1, 1, size=(input_size, output_size))
         self.activation = activation
         self.activation_prime = activation_prime
         self.optimizer = optimizer
@@ -20,12 +20,13 @@ class Layer:
         return self.layer_output
 
     # output_error: error array from previous layer
-    def backward_propagation(self, output_error, learning_rate):
-        output_error = self.activation_prime(self.excitement_states) * output_error  # deltas
+    def backward_propagation(self, output_error, learning_rate, epoch):
+        output_error = np.multiply(self.activation_prime(self.excitement_states), output_error)  # deltas
         input_error = np.dot(output_error, self.weights.T)  # sum error for next iterations
+
         weights_error = np.dot(self.layer_input.T, output_error)  # delta w
 
         # update parameters
-        self.weights -= self.optimizer.calculate_delta_w(learning_rate,weights_error)
+        self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
 
         return input_error

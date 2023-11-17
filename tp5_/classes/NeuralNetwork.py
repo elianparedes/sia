@@ -37,7 +37,28 @@ class NeuralNetwork:
 
                 error = self.loss_prime(y_train[j], output)
                 for layer in reversed(self.layers):
-                    error = layer.backward_propagation(error, learning_rate)
+                    error = layer.backward_propagation(error, learning_rate, i)
 
             err /= samples
-            print('epoch %d/%d   error=%f' % (i+1, epochs, err))
+            print("error:", self.compute_error(x_train, y_train))
+
+
+    def compute_error(self, dataset, expected):
+        to_return = 0
+        result = self.predict(dataset)[0]
+        expected = expected[0]
+
+    
+        for i in range(0, len(result)):
+            # result[i] = (result[i] + 1) / 2
+            result[i] = result[i].round().astype(int)
+
+            errors = 0
+            for j in range(0, len(result[i])):
+                if result[i][j] != expected[i][j]:
+                    errors += 1
+                    
+            if errors > to_return:
+                to_return = errors
+
+        return to_return
