@@ -28,26 +28,34 @@ def generate_batches(characters, batch_size):
     
 # network
 net = NeuralNetwork()
-net.add(Layer(35, 20, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(20, 10, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(10, 5, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(5, 2, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(2, 5, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(5, 10, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(10, 20, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-net.add(Layer(20, 35, SIGMOID, SIGMOID_DERIVATIVE, Adam()))
-
+net.add(Layer(35, 28, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(28, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(20, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(10, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(5, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(2, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(5, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(20, 28, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(28, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
 characters = get_characters()
 
-training_set = np.array(generate_batches(characters, 3))
+training_set = np.array(generate_batches(characters.copy(), 15))
 training_expected = training_set.copy()
 
-test_set = characters.copy()
+test_set = np.array(characters.copy())
 test_expected = characters.copy()
 
 # train
 net.use(mse, mse_prime)
 net.fit(training_set, test_set, 1000000000, 0.0005, training_expected, test_expected)
 
+
 # test
-out = net.predict(training_set)
+out = net.predict(test_set)[0]
+for i in range(len(test_set)):
+    print("--------------------------------")
+    print("Expected",test_set[i])
+    print("--------------------------------")
+    print("Result",out[i])
+

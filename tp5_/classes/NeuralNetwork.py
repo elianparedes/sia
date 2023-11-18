@@ -12,9 +12,9 @@ class NeuralNetwork:
         self.loss_prime = loss_prime
 
     def predict(self, input_data):
+        input_data = [input_data]
         samples = len(input_data)
         result = []
-
         for i in range(samples):
             output = input_data[i]
             for layer in self.layers:
@@ -44,16 +44,15 @@ class NeuralNetwork:
             computed_error = self.compute_error(test_set, test_expected)
             print("error: ", computed_error)
 
-            if computed_error == 0:
+            if computed_error == 1:
                 break
 
 
 
     def compute_error(self, dataset, expected):
         to_return = 0
-        result = self.predict(dataset)
+        result = self.predict(dataset)[0]
         expected = expected
-
         for i in range(0, len(result)):
             # result[i] = (result[i] + 1) / 2
             result[i] = result[i].round().astype(int)

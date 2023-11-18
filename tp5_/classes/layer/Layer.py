@@ -7,7 +7,7 @@ class Layer:
         self.layer_input = None
         self.excitement_states = None
         self.layer_output = None
-        self.weights = np.random.uniform(0, 1, size=(input_size, output_size))
+        self.weights = np.random.uniform(-1, 1, size=(input_size, output_size))
         self.activation = activation
         self.activation_prime = activation_prime
         self.optimizer = optimizer
