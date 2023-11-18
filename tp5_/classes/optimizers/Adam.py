@@ -19,14 +19,6 @@ class Adam():
             self.m = np.zeros(np.shape(g))
             self.v = np.zeros(np.shape(g))
 
-        # self.m = self.b1 * self.m + (1 - self.b1) * g
-        # self.v = self.b2 * self.v + (1 - self.b2) * np.power(g, 2)
-
-        # m_hat = self.m / (1 - self.b1)
-        # v_hat = self.v / (1 - self.b2)
-
-        # return self.learning_rate * m_hat / (np.sqrt(v_hat) + self.eps)
-
         self.m = self.b1 * self.m + (1 - self.b1) * g
         self.v = self.b2 * self.v + (1 - self.b2) * np.power(g, 2)
         m_hat = self.m / (1 - (self.b1 ** (epoch + 1)))

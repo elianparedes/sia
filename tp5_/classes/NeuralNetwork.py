@@ -23,32 +23,37 @@ class NeuralNetwork:
 
         return result
 
-    def fit(self, x_train, y_train, epochs, learning_rate):
-        samples = len(x_train)
+    def fit(self, training_set, test_set, epochs, learning_rate, training_expected, test_expected):
+        samples = len(training_set)
+        computed_error = None
 
         for i in range(epochs):
             err = 0
             for j in range(samples):
-                output = x_train[j]
+                output = training_set[j]
                 for layer in self.layers:
                     output = layer.forward_propagation(output)
 
-                err += self.loss(y_train[j], output)
+                err += self.loss(training_expected[j], output)
 
-                error = self.loss_prime(y_train[j], output)
+                error = self.loss_prime(training_expected[j], output)
                 for layer in reversed(self.layers):
                     error = layer.backward_propagation(error, learning_rate, i)
 
             err /= samples
-            print("error:", self.compute_error(x_train, y_train))
+            computed_error = self.compute_error(test_set, test_expected)
+            print("error: ", computed_error)
+
+            if computed_error == 0:
+                break
+
 
 
     def compute_error(self, dataset, expected):
         to_return = 0
-        result = self.predict(dataset)[0]
-        expected = expected[0]
+        result = self.predict(dataset)
+        expected = expected
 
-    
         for i in range(0, len(result)):
             # result[i] = (result[i] + 1) / 2
             result[i] = result[i].round().astype(int)
