@@ -20,7 +20,7 @@ class Layer:
         return self.layer_output
 
     # output_error: error array from previous layer
-    def backward_propagation(self, output_error, learning_rate, epoch):
+    def backward_propagation(self, output_error, epoch):
         output_error = np.multiply(self.activation_prime(self.excitement_states), output_error)  # deltas
         input_error = np.dot(output_error, self.weights.T)  # sum error for next iterations
 
@@ -29,4 +29,17 @@ class Layer:
         # update parameters
         self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
 
-        return input_error
+        return input_error, weights_error
+    
+    # wip auxiliar function that does not store calculated weights in the layer
+    def _backward_propagation(self, output_error):
+        output_error = np.multiply(self.activation_prime(self.excitement_states), output_error)  # deltas
+        input_error = np.dot(output_error, self.weights.T)  # sum error for next iterations
+
+        weights_error = np.dot(self.layer_input.T, output_error)  # delta w
+
+        return input_error, weights_error
+    
+    def set_weights(self, weights_error, epoch):
+        self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
+    
