@@ -11,6 +11,24 @@ class NeuralNetwork:
         self.loss = loss
         self.loss_prime = loss_prime
 
+    def feed_forward(self, data):
+        input = data
+        for layer in self.layers:
+            input = layer.forward_propagation(input)
+        return input
+    def backpropagation(self,error):
+        gradients = []
+        last_delta = error
+        for layer in reversed(self.layers):
+            input_error, weights_error = layer._backward_propagation(last_delta)
+            last_delta = input_error
+            gradients.append(weights_error)
+        return gradients,last_delta
+    def update_weights(self,gradients,epoch):
+        for layer,gradient in zip(self.layers,gradients):
+            layer.set_weights(gradient,epoch)
+
+
     def predict(self, input_data):
         input_data = [input_data]
         samples = len(input_data)
