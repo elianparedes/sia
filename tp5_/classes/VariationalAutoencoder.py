@@ -2,6 +2,9 @@
 import numpy as np
 
 from numbers import Number
+
+from numpy import ndarray
+
 from classes.NeuralNetwork import NeuralNetwork
 from classes.LossFunctions import mse_prime
 
@@ -27,6 +30,8 @@ class VariationalAutoencoder:
 
             loss = self.loss_function(mean, std, input_data, result)
             print(loss)
+            if loss <= 0.25:
+                break
 
             decoder_output_error = mse_prime(input_data, result)
             decoder_gradients, last_delta = self.decoder.backpropagation(decoder_output_error)
@@ -51,18 +56,26 @@ class VariationalAutoencoder:
             for g1, g2 in zip(encoder_loss_gradients, encoder_reconstruction_gradients):
                 encoder_gradients.append(g1 + g2)
 
+            # print("encoder_gradients", encoder_gradients)
+            # print("done")
+
             self.encoder.update_weights(encoder_gradients, epoch)
             self.decoder.update_weights(decoder_gradients, epoch)
 
+    def predict(self, input_data):
+        result = self.decoder.feed_forward(input_data)
 
+        return result
 
-
-    def reparametrization_trick(self, mean, std) -> tuple[Number, Number]:
-        epsilon = np.random.standard_normal()
-        return epsilon * std + mean, epsilon
+    def reparametrization_trick(self, mean: ndarray[float], std: ndarray[float]) -> tuple[ndarray[float], float]:
+        eps = np.random.standard_normal()
+        return eps * std + mean, eps
     
     def loss_function(self, mean, std, input_data, result):
-        return 0.5 * np.mean((input_data - result) ** 2) - 0.5 * np.sum(1 + std - mean ** 2 - np.exp(std))
+        rec = 0.5 * np.mean((input_data - result) ** 2)
+        kl = -0.5 * np.sum(1 + std - mean ** 2 - np.exp(std))
+
+        return rec + kl
 
     
 

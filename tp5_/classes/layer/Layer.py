@@ -41,5 +41,12 @@ class Layer:
         return input_error, weights_error
     
     def set_weights(self, weights_error, epoch):
-        self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
+        # print("weights_error", weights_error)
+        #  print(weights_error.shape)
+        # print("self.layer_input", self.layer_input)
+        # print("epoch", epoch)
+        # print(self.weights.shape)
+        value = self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
+         # print("value", value)
+        self.weights -= value
     

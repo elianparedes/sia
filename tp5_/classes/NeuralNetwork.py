@@ -16,17 +16,22 @@ class NeuralNetwork:
         for layer in self.layers:
             input = layer.forward_propagation(input)
         return input
-    def backpropagation(self,error):
+
+    def backpropagation(self, error):
         gradients = []
         last_delta = error
         for layer in reversed(self.layers):
             input_error, weights_error = layer._backward_propagation(last_delta)
             last_delta = input_error
             gradients.append(weights_error)
-        return gradients,last_delta
-    def update_weights(self,gradients,epoch):
-        for layer,gradient in zip(self.layers,gradients):
-            layer.set_weights(gradient,epoch)
+        return gradients, last_delta
+
+    def update_weights(self, gradients, epoch):
+        # for layer, gradient in zip(self.layers, gradients):
+        #     print(gradient)
+        #     layer.set_weights(gradient, epoch)
+        for i in range(len(self.layers)):
+            self.layers[i].set_weights(gradients[len(self.layers)-i-1], epoch)
 
 
     def predict(self, input_data):
@@ -65,8 +70,6 @@ class NeuralNetwork:
             if computed_error <= 1:
                 break
 
-
-
     def compute_error(self, dataset, expected):
         to_return = 0
         result = self.predict(dataset)[0]
@@ -79,7 +82,7 @@ class NeuralNetwork:
             for j in range(0, len(result[i])):
                 if result[i][j] != expected[i][j]:
                     errors += 1
-                    
+
             if errors > to_return:
                 to_return = errors
 
