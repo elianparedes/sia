@@ -4,7 +4,7 @@ from classes.optimizers import OptimizerABC
 
 class Adam():
 
-    def __init__(self, learning_rate=0.01, b1=0.9, b2=0.999):
+    def __init__(self, learning_rate=0.001, b1=0.9, b2=0.999):
         self.learning_rate = learning_rate
         self.eps = 1e-8
         self.m = None

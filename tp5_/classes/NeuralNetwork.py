@@ -44,7 +44,7 @@ class NeuralNetwork:
             computed_error = self.compute_error(test_set, test_expected)
             print("error: ", computed_error)
 
-            if computed_error == 1:
+            if computed_error <= 1:
                 break
 
 
