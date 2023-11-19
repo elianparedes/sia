@@ -6,9 +6,10 @@ from classes.NeuralNetwork import NeuralNetwork
 from classes.LossFunctions import mse_prime
 
 class VariationalAutoencoder:
-    def __init__(self, encoder: NeuralNetwork, decoder: NeuralNetwork):
+    def __init__(self, encoder: NeuralNetwork, decoder: NeuralNetwork, latent_space_size: int):
         self.encoder = encoder
         self.decoder = decoder
+        self.latent_space_size = latent_space_size
         pass
 
     def train(self, input_data, epochs):
@@ -25,9 +26,22 @@ class VariationalAutoencoder:
             loss = self.loss_function(mean, std, input_data, result)
 
             decoder_output_error = mse_prime(input_data, result)
-            input_errors, weights_errors = self.decoder.backward_propagation(decoder_output_error)
+            decoder_input_errors, decoder_weights_errors = self.decoder.backward_propagation(decoder_output_error)
+
+            dz_dmean = np.ones([len(decoder_weights_errors), self.latent_space_size])
+            dz_dstd = eps * np.ones([len(decoder_weights_errors), self.latent_space_size])
+
+            mean_error = np.dot(decoder_weights_errors, dz_dmean)
+            std_error = np.dot(decoder_weights_errors, dz_dstd)
+
+            encoder_output_error = np.concatenate((mean_error, std_error), axis=1)
+            encoder_input_error, encoder_weights_errors = self.encoder.backward_propagation(encoder_output_error)
+            
+
 
             # TODO: Propagate the error backwards from the decoder's input
+
+
 
     def reparametrization_trick(self, mean, std) -> tuple[Number, Number]:
         epsilon = np.random.standard_normal()
