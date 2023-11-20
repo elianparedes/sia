@@ -7,9 +7,10 @@ name = "pypi"
 plotly = "*"
 pandas = "*"
 numpy = "*"
+matplotlib = "*"
+scikit-learn = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.11"
-w

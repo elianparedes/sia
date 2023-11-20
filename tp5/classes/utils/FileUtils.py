@@ -12,7 +12,7 @@ class FileUtils:
     @staticmethod
     def save_df_in_file(filename: string, dataframe: DataFrame):
         """
-        File is saved inside "tp5_/benchmarks/df_files"
+        File is saved inside "tp5/benchmarks/df_files"
         """
         path = os.path.join(FILE_PATH, filename + ".csv")
         dataframe.to_csv(path)
