@@ -14,24 +14,25 @@ class NeuralNetwork:
     def feed_forward(self, data):
         input = data
         for layer in self.layers:
-            input = layer.forward_propagation(input)
+            input = layer.forward_propagation_bias(input)
         return input
 
     def backpropagation(self, error):
         gradients = []
         last_delta = error
+        output_error_last = None
         for layer in reversed(self.layers):
-            input_error, weights_error = layer._backward_propagation(last_delta)
+            input_error, weights_error, output_error = layer._backward_propagation(last_delta)
             last_delta = input_error
+            output_error_last = output_error
             gradients.append(weights_error)
-        return gradients, last_delta
+        gradients.reverse()
+        return gradients, output_error_last
 
     def update_weights(self, gradients, epoch):
-        # for layer, gradient in zip(self.layers, gradients):
-        #     print(gradient)
-        #     layer.set_weights(gradient, epoch)
         for i in range(len(self.layers)):
-            self.layers[i].set_weights(gradients[len(self.layers) - i - 1], epoch)
+            self.layers[i].set_weights(gradients[i], epoch)
+
 
     def predict(self, input_data):
         input_data = [input_data]
@@ -42,7 +43,6 @@ class NeuralNetwork:
             for layer in self.layers:
                 output = layer.forward_propagation(output)
             result.append(output)
-
         return result
 
     def fit(self, training_set, test_set, epochs, learning_rate, training_expected, test_expected):
@@ -61,7 +61,7 @@ class NeuralNetwork:
 
                 error = self.loss_prime(training_expected[j], output)
                 for layer in reversed(self.layers):
-                    error, _ = layer.backward_propagation(error, i)
+                    error = layer.backward_propagation(error, i)
 
             err /= samples
             computed_error = self.compute_error(test_set, test_expected)

@@ -20,9 +20,8 @@ class Adam():
 
         self.m = self.b1 * self.m + (1 - self.b1) * g
         self.v = self.b2 * self.v + (1 - self.b2) * np.power(g, 2)
-        m_hat = self.m / (1 - (self.b1 ** (epoch + 1)))
-        v_hat = self.v / (1 - (self.b2 ** (epoch + 1)))
 
-        toReturn = self.learning_rate * m_hat / (np.sqrt(v_hat) + self.eps)
-        # print("toReturn", toReturn)
-        return toReturn
+        m = np.divide(self.m, 1 - self.b1 ** (epoch + 1))
+        v = np.divide(self.v, 1 - self.b2 ** (epoch + 1))
+
+        return -self.learning_rate * np.divide(m, (np.sqrt(v) + self.eps))

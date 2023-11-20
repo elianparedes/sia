@@ -19,34 +19,36 @@ class Layer:
         self.layer_output = self.activation(self.excitement_states)
         return self.layer_output
 
+    def forward_propagation_bias(self, input_data):
+        input_data = np.insert(input_data, 0, 1, axis=1)
+        self.layer_input = input_data
+        self.excitement_states = np.dot(self.layer_input, self.weights)
+        self.layer_output = self.activation(self.excitement_states)
+        return self.layer_output
+
     # output_error: error array from previous layer
     def backward_propagation(self, output_error, epoch):
         output_error = np.multiply(self.activation_prime(self.excitement_states), output_error)  # deltas
-        input_error = np.dot(output_error, self.weights.T)  # sum error for next iterations
+        input_error = np.dot(output_error,self.weights.T)  # sum error for next iterations
 
         weights_error = np.dot(self.layer_input.T, output_error)  # delta w
 
         # update parameters
-        self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
+        self.weights += self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
 
-        return input_error, weights_error
+        return input_error
     
     # wip auxiliar function that does not store calculated weights in the layer
     def _backward_propagation(self, output_error):
+
         output_error = np.multiply(self.activation_prime(self.excitement_states), output_error)  # deltas
-        input_error = np.dot(output_error, self.weights.T)  # sum error for next iterations
 
-        weights_error = np.dot(self.layer_input.T, output_error)  # delta w
+        input_error = np.dot(output_error,  np.delete(self.weights, 0, axis=0).T)  # sum error for next iterations
 
-        return input_error, weights_error
+        weights_error = -np.dot(self.layer_input.T, output_error)  # delta w
+
+        return input_error, weights_error, output_error
     
     def set_weights(self, weights_error, epoch):
-        # print("weights_error", weights_error)
-        #  print(weights_error.shape)
-        # print("self.layer_input", self.layer_input)
-        # print("epoch", epoch)
-        # print(self.weights.shape)
-        value = self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
-         # print("value", value)
-        self.weights -= value
+        self.weights += self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
     

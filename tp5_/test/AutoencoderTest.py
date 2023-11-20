@@ -11,7 +11,7 @@ from data.fonts import get_characters
 
 # network
 net = NeuralNetwork()
-net.add(Layer(35, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(49, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(30, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(20, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(10, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
@@ -20,7 +20,7 @@ net.add(Layer(2, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(5, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
 net.add(Layer(20, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(30, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(30, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))
