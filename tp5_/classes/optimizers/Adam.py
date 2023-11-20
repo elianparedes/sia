@@ -1,6 +1,5 @@
 import numpy as np
 
-from classes.optimizers import OptimizerABC
 
 class Adam():
 
@@ -13,7 +12,7 @@ class Adam():
         self.b1 = b1
         self.b2 = b2
 
-    def calculate_delta_w(self, g: np.ndarray[float], layer_input, epoch):
+    def calculate_delta_w(self, g, layer_input, epoch):
         # If not initialized
         if self.m is None:
             self.m = np.zeros(np.shape(g))

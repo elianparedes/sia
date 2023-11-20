@@ -31,8 +31,7 @@ class NeuralNetwork:
         #     print(gradient)
         #     layer.set_weights(gradient, epoch)
         for i in range(len(self.layers)):
-            self.layers[i].set_weights(gradients[len(self.layers)-i-1], epoch)
-
+            self.layers[i].set_weights(gradients[len(self.layers) - i - 1], epoch)
 
     def predict(self, input_data):
         input_data = [input_data]
@@ -61,13 +60,13 @@ class NeuralNetwork:
 
                 error = self.loss_prime(training_expected[j], output)
                 for layer in reversed(self.layers):
-                    error = layer.backward_propagation(error, learning_rate, i)
+                    error, _ = layer.backward_propagation(error, i)
 
             err /= samples
             computed_error = self.compute_error(test_set, test_expected)
             print("error: ", computed_error)
 
-            if computed_error <= 1:
+            if computed_error == 0:
                 break
 
     def compute_error(self, dataset, expected):

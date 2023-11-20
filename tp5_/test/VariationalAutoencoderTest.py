@@ -1,16 +1,11 @@
 import numpy as np
-import random
-import string
 
-from matplotlib import pyplot as plt
-
-from data.fonts import get_characters
-from classes.optimizers.Adam import Adam
-from classes.ActivationFunctions import SIGMOID, SIGMOID_DERIVATIVE, TAN_H, TAN_H_DERIVATIVE, RELU, RELU_DERIVATIVE
-from classes.LossFunctions import mse_prime, mse
+from classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
 from classes.NeuralNetwork import NeuralNetwork
-from classes.layer.Layer import Layer
 from classes.VariationalAutoencoder import VariationalAutoencoder
+from classes.layer.Layer import Layer
+from classes.optimizers.Adam import Adam
+from data.fonts import get_characters
 
 # network
 encoder = NeuralNetwork()
