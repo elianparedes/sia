@@ -34,7 +34,7 @@ class Layer:
         weights_error = np.dot(self.layer_input.T, output_error)  # delta w
 
         # update parameters
-        self.weights -= self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
+        self.weights += self.optimizer.calculate_delta_w(weights_error, self.layer_input, epoch)
 
         return input_error
     

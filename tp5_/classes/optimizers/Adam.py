@@ -25,4 +25,4 @@ class Adam():
         m = np.divide(self.m, 1 - self.b1 ** (epoch + 1))
         v = np.divide(self.v, 1 - self.b2 ** (epoch + 1))
 
-        return self.learning_rate * np.divide(m, (np.sqrt(v) + self.eps))
+        return -self.learning_rate * np.divide(m, (np.sqrt(v) + self.eps))
