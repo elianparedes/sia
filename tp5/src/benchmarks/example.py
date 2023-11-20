@@ -15,17 +15,17 @@ EPOCHS = 10000
 LEARNING_RATE = 0.0005
 
 # Setup nn
-net = NeuralNetwork()
-net.add(Layer(35, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(30, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(20, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(10, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(5, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(2, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(5, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(20, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(30, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam)
+net.add(Layer(input_size=35, output_size=30,optimizer=Adam()))
+net.add(Layer(input_size=30, output_size=20,optimizer=Adam()))
+net.add(Layer(input_size=20, output_size=10,optimizer= Adam()))
+net.add(Layer(input_size=10, output_size=5,optimizer= Adam()))
+net.add(Layer(input_size=5, output_size=2,optimizer= Adam()))
+net.add(Layer(input_size=2, output_size=5,optimizer= Adam()))
+net.add(Layer(input_size=5, output_size=10,optimizer= Adam()))
+net.add(Layer(input_size=10, output_size=20,optimizer=  Adam()))
+net.add(Layer(input_size=20, output_size=30,optimizer=Adam()))
+net.add(Layer(input_size=30, output_size=35,optimizer= Adam()))
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))
@@ -36,7 +36,7 @@ test_expected = characters.copy()
 
 # Train nn
 net.use(mse, mse_prime)
-net.fit(training_set, test_set, EPOCHS, LEARNING_RATE, training_expected, test_expected)
+net.fit(training_set, test_set, EPOCHS, training_expected, test_expected)
 
 # Plot
 pca_df = ae_latent_space_df(net)

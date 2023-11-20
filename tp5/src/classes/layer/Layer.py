@@ -3,13 +3,13 @@ import numpy as np
 class Layer:
     # input_size = number of input neurons
     # output_size = number of output neurons
-    def __init__(self, input_size, output_size, activation, activation_prime, optimizer):
+    def __init__(self, input_size, output_size, optimizer):
         self.layer_input = None
         self.excitement_states = None
         self.layer_output = None
         self.weights = np.random.uniform(-1, 1, size=(input_size, output_size))
-        self.activation = activation
-        self.activation_prime = activation_prime
+        self.activation = None
+        self.activation_prime = None
         self.optimizer = optimizer
 
     # Calculates new neuron values (output) from a given input

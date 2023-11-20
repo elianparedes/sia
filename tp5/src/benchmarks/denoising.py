@@ -18,16 +18,16 @@ STD_DEVIATION = 0.09
 # ADAM = 0.0001 works better
 
 # Setup nn
-net = NeuralNetwork()
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam)
 
-net.add(Layer(35, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(2, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(25, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(input_size=35, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=2, optimizer=Adam()))
+net.add(Layer(input_size=2, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(Layer(input_size=25, output_size=35, optimizer=Adam()))
 
 characters = get_characters()
 
@@ -58,7 +58,7 @@ print(np.shape(test_expected))
 # Train nn
 net.use(mse, mse_prime)
 net.fit(training_set=noisy_training_set, test_set=test_set,
-        epochs=EPOCHS, learning_rate=LEARNING_RATE, training_expected=[training_expected], test_expected=test_expected)
+        epochs=EPOCHS, training_expected=[training_expected], test_expected=test_expected)
 
 # Plot
 denoising_plot(net, characters, noisy_characters)

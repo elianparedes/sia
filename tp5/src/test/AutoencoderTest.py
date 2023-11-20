@@ -8,19 +8,18 @@ from src.classes.optimizers.Adam import Adam
 from src.classes.utils.TrainingUtils import TrainingUtils
 from src.data.fonts import get_characters
 
-
 # network
-net = NeuralNetwork()
-net.add(Layer(49, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(30, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(20, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(10, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(5, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(2, 5, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(5, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(20, 30, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(30, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam)
+net.add(Layer(input_size=49, output_size=30, optimizer=Adam()))
+net.add(Layer(input_size=30, output_size=20, optimizer=Adam()))
+net.add(Layer(input_size=20, output_size=10,optimizer=Adam()))
+net.add(Layer(input_size=10, output_size=5, optimizer=Adam()))
+net.add(Layer(input_size=5, output_size=2, optimizer=Adam()))
+net.add(Layer(input_size=2, output_size=5, optimizer=Adam()))
+net.add(Layer(input_size=5, output_size=10, optimizer=Adam()))
+net.add(Layer(input_size=10, output_size=20, optimizer=Adam()))
+net.add(Layer(input_size=20, output_size=30, optimizer=Adam()))
+net.add(Layer(input_size=30, output_size=49, optimizer=Adam()))
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))
@@ -31,7 +30,7 @@ test_expected = characters.copy()
 
 # train
 net.use(mse, mse_prime)
-net.fit(training_set, test_set, 1000000000, 0.0005, training_expected, test_expected)
+net.fit(training_set, test_set, 1000000000, training_expected, test_expected)
 
 # test
 out = net.predict(test_set)[0]

@@ -18,7 +18,7 @@ net.add(Layer(3, 1, SIGMOID, SIGMOID_DERIVATIVE, GradientDescent()))
 
 # train
 net.use(mse, mse_prime)
-net.fit(x_train, y_train, 1000, 0.1, x_train, y_train)
+net.fit(x_train, y_train, 1000, x_train, y_train)
 
 # test
 out = net.predict(x_train)

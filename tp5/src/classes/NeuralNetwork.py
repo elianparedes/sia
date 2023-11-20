@@ -1,10 +1,20 @@
+from src.classes.layer.Layer import Layer 
+from src.classes.optimizers.OptimizerABC import OptimizerABC
+
 class NeuralNetwork:
-    def __init__(self):
+    def __init__(self, activation, activation_prime, optimizer: OptimizerABC):
+        self.activation = activation 
+        self.activation_prime = activation_prime
+        self.optimizer = optimizer
         self.layers = []
         self.loss = None
         self.loss_prime = None
 
-    def add(self, layer):
+    def add(self, layer: Layer):
+        if layer.activation is None and layer.activation_prime is None:
+            layer.activation = self.activation
+            layer.activation_prime = self.activation_prime
+
         self.layers.append(layer)
 
     def use(self, loss, loss_prime):
@@ -45,7 +55,7 @@ class NeuralNetwork:
             result.append(output)
         return result
 
-    def fit(self, training_set, test_set, epochs, learning_rate, training_expected, test_expected):
+    def fit(self, training_set, test_set, epochs, training_expected, test_expected):
         samples = len(training_set)
         err_history = []
         computed_error = None
@@ -78,7 +88,6 @@ class NeuralNetwork:
         result = self.predict(dataset)[0]
         expected = expected
         for i in range(0, len(result)):
-            # result[i] = (result[i] + 1) / 2
             result[i] = result[i].round().astype(int)
 
             errors = 0
