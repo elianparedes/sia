@@ -23,20 +23,20 @@ encoder.add(Layer(10+1, 4, TAN_H, TAN_H_DERIVATIVE, Adam()))
 decoder = NeuralNetwork()
 decoder.add(Layer(2+1, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
 decoder.add(Layer(10+1, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+decoder.add(Layer(25+1, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # decoder.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # decoder.add(Layer(20, 28, TAN_H, TAN_H_DERIVATIVE, Adam()))
-decoder.add(Layer(25+1, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
 
 vae = VariationalAutoencoder(encoder=encoder, decoder=decoder,latent_space_size=2,last_delta=10)
 characters = get_characters()
 test_set = np.array(characters.copy())
 
-vae.train(test_set, epochs=10000)
+vae.train(test_set, epochs=15000)
 
 def plot_latent(vae, n=20, fig_size=15, digit_size=7):
     figure = np.zeros((digit_size * n, digit_size * n))
-    grid_x = np.linspace(-1.0, 1.0, n)
-    grid_y = np.linspace(-1.0, 1.0, n)[::-1]
+    grid_x = np.linspace(-1, 1, n)
+    grid_y = np.linspace(-1, 1, n)[::-1]
     for i, yi in enumerate(grid_y):
         for j, xi in enumerate(grid_x):
             z = np.array([[xi, yi]])
