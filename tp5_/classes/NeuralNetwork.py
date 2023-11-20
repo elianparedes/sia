@@ -14,7 +14,7 @@ class NeuralNetwork:
     def feed_forward(self, data):
         input = data
         for layer in self.layers:
-            input = layer.forward_propagation(input)
+            input = layer.forward_propagation_bias(input)
         return input
 
     def backpropagation(self, error):

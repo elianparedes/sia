@@ -4,7 +4,7 @@ from classes.optimizers import OptimizerABC
 
 class Adam():
 
-    def __init__(self, learning_rate=0.001, b1=0.9, b2=0.999):
+    def __init__(self, learning_rate=0.0001, b1=0.9, b2=0.999):
         self.learning_rate = learning_rate
         self.eps = 1e-8
         self.m = None
@@ -25,4 +25,4 @@ class Adam():
         m = np.divide(self.m, 1 - self.b1 ** (epoch + 1))
         v = np.divide(self.v, 1 - self.b2 ** (epoch + 1))
 
-        return -self.learning_rate * np.divide(m, (np.sqrt(v) + self.eps))
+        return self.learning_rate * np.divide(m, (np.sqrt(v) + self.eps))

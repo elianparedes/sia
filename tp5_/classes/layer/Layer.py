@@ -14,6 +14,12 @@ class Layer:
 
     # Calculates new neuron values (output) from a given input
     def forward_propagation(self, input_data):
+        self.layer_input = input_data
+        self.excitement_states = np.dot(self.layer_input, self.weights)
+        self.layer_output = self.activation(self.excitement_states)
+        return self.layer_output
+
+    def forward_propagation_bias(self, input_data):
         input_data = np.insert(input_data, 0, 1, axis=1)
         self.layer_input = input_data
         self.excitement_states = np.dot(self.layer_input, self.weights)
