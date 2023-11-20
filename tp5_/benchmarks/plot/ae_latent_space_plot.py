@@ -11,7 +11,7 @@ def ae_latent_space_plot(pca_df: DataFrame):
         x=pca_df['PCA 1'],
         y=pca_df['PCA 2'],
         mode='markers',
-        marker=dict(color='Red', size=20),
+        marker=dict(color='Blue', size=20),
         text=pca_df['Character'],
         name='PCA Plot'
     ))
@@ -23,7 +23,7 @@ def ae_latent_space_plot(pca_df: DataFrame):
             y=row['PCA 2'],
             text=row['Character'],
             showarrow=False,
-            font=dict(size=20)
+            font=dict(size=20, color='black')
         )
 
     # Customize layout
