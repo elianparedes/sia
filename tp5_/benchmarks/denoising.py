@@ -11,27 +11,24 @@ from classes.utils.TrainingUtils import TrainingUtils
 from data import get_characters
 
 # Change params
-EPOCHS = 1000000
-LEARNING_RATE = 0.001
+EPOCHS = 50000
+LEARNING_RATE = 0.0001
 MEAN = 0
-STD_DEVIATION = 0.1
+STD_DEVIATION = 0.09
 
 # ADAM = 0.0001 works better
 
 # Setup nn
 net = NeuralNetwork()
 
-net.add(Layer(35, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(2, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 64, TAN_H, TAN_H_DERIVATIVE, Adam()))
-net.add(Layer(64, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
-
+net.add(Layer(35, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 2, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(2, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+net.add(Layer(25, 35, TAN_H, TAN_H_DERIVATIVE, Adam()))
 
 characters = get_characters()
 
@@ -39,13 +36,13 @@ noisy_characters = gaussian_noise(characters, MEAN, STD_DEVIATION)
 
 noisy_training_set = []
 for character in noisy_characters:
-    noisy_training_set.append([character])
+    noisy_training_set.append(character)
 
 training_expected = []
 for character in characters:
-    training_expected.append([character])
+    training_expected.append(character)
 
-noisy_training_set = np.array(noisy_training_set)
+noisy_training_set = np.array([noisy_training_set])
 
 test_set = np.array(gaussian_noise(characters.copy(), MEAN, STD_DEVIATION))
 
@@ -62,10 +59,10 @@ print(np.shape(test_expected))
 # Train nn
 net.use(mse, mse_prime)
 net.fit(training_set=noisy_training_set, test_set=test_set,
-        epochs=EPOCHS, learning_rate=LEARNING_RATE, training_expected=training_expected, test_expected=test_expected)
+        epochs=EPOCHS, learning_rate=LEARNING_RATE, training_expected=[training_expected], test_expected=test_expected)
 
 # Plot
-denoising_plot(net, characters)
+denoising_plot(net, characters, noisy_characters)
 
 ## PLUS: You can save the df it in a file
 # FileUtils.save_df_in_file("latent_space", pca_df)
