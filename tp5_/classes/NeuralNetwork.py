@@ -64,8 +64,8 @@ class NeuralNetwork:
 
             err /= samples
             computed_error = self.compute_error(test_set, test_expected)
-            print("error: ", computed_error)
 
+            print("error: ", computed_error)
             if computed_error == 0:
                 break
 
