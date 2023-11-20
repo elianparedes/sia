@@ -1,13 +1,8 @@
-import sys
-
 import numpy as np
-
-from numbers import Number
 
 from numpy import ndarray
 
-from classes.NeuralNetwork import NeuralNetwork
-from classes.LossFunctions import mse_prime
+from src.classes.NeuralNetwork import NeuralNetwork
 
 
 class VariationalAutoencoder:

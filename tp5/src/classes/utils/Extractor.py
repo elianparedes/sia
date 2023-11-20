@@ -1,4 +1,4 @@
-from classes.NeuralNetwork import NeuralNetwork
+from src.classes.NeuralNetwork import NeuralNetwork
 
 
 class Extractor:

@@ -1,14 +1,13 @@
 import numpy as np
 
-from benchmarks.plot.denoising_plot import denoising_plot
-from classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE, SIGMOID, SIGMOID_DERIVATIVE, TAN_H, TAN_H_DERIVATIVE
-from classes.LossFunctions import mse, mse_prime
-from classes.NeuralNetwork import NeuralNetwork
-from classes.NoiseFunctions import gaussian_noise
-from classes.layer.Layer import Layer
-from classes.optimizers.Adam import Adam
-from classes.utils.TrainingUtils import TrainingUtils
-from data import get_characters
+from src.benchmarks.plot.denoising_plot import denoising_plot
+from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.LossFunctions import mse, mse_prime
+from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.NoiseFunctions import gaussian_noise
+from src.classes.layer.Layer import Layer
+from src.classes.optimizers.Adam import Adam
+from src.data import get_characters
 
 # Change params
 EPOCHS = 50000

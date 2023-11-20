@@ -1,9 +1,8 @@
 import pandas as pd
-from pandas import DataFrame
 from sklearn.decomposition import PCA
 
-from classes.NeuralNetwork import NeuralNetwork
-from classes.utils.Extractor import Extractor
+from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.utils.Extractor import Extractor
 
 
 def ae_latent_space_df(trained_nn: NeuralNetwork):

@@ -1,33 +1,34 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from classes.NeuralNetwork import NeuralNetwork
-from classes.VariationalAutoencoder import VariationalAutoencoder
-from classes.layer.Layer import Layer
-from classes.optimizers.Adam import Adam
-from data.fonts import get_characters
+from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.VariationalAutoencoder import VariationalAutoencoder
+from src.classes.layer.Layer import Layer
+from src.classes.optimizers.Adam import Adam
+from src.data.fonts import get_characters
 
 # network
 encoder = NeuralNetwork()
-encoder.add(Layer(49+1, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+encoder.add(Layer(49 + 1, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # encoder.add(Layer(28, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # encoder.add(Layer(20, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-encoder.add(Layer(25+1, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-encoder.add(Layer(10+1, 4, TAN_H, TAN_H_DERIVATIVE, Adam()))
+encoder.add(Layer(25 + 1, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
+encoder.add(Layer(10 + 1, 4, TAN_H, TAN_H_DERIVATIVE, Adam()))
 
 decoder = NeuralNetwork()
-decoder.add(Layer(2+1, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
-decoder.add(Layer(10+1, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
-decoder.add(Layer(25+1, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
+decoder.add(Layer(2 + 1, 10, TAN_H, TAN_H_DERIVATIVE, Adam()))
+decoder.add(Layer(10 + 1, 25, TAN_H, TAN_H_DERIVATIVE, Adam()))
+decoder.add(Layer(25 + 1, 49, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # decoder.add(Layer(10, 20, TAN_H, TAN_H_DERIVATIVE, Adam()))
 # decoder.add(Layer(20, 28, TAN_H, TAN_H_DERIVATIVE, Adam()))
 
-vae = VariationalAutoencoder(encoder=encoder, decoder=decoder,latent_space_size=2,last_delta=10)
+vae = VariationalAutoencoder(encoder=encoder, decoder=decoder, latent_space_size=2, last_delta=10)
 characters = get_characters()
 test_set = np.array(characters.copy())
 
 vae.train(test_set, epochs=15000)
+
 
 def plot_latent(vae, n=20, fig_size=15, digit_size=7):
     figure = np.zeros((digit_size * n, digit_size * n))
@@ -49,6 +50,7 @@ def plot_latent(vae, n=20, fig_size=15, digit_size=7):
     plt.yticks(pixel_range, sample_range_y)
     plt.imshow(figure, cmap="Greys_r")
     plt.show()
+
 
 # def plot_latent(vae, n=20, fig_size=15, digit_size=7):
 #     figure = np.zeros((digit_size * n, 5 * n))
@@ -72,6 +74,3 @@ def plot_latent(vae, n=20, fig_size=15, digit_size=7):
 #     plt.show()
 
 plot_latent(vae)
-
-
-

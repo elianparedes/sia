@@ -1,12 +1,12 @@
 import numpy as np
 
-from classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from classes.LossFunctions import mse_prime, mse
-from classes.NeuralNetwork import NeuralNetwork
-from classes.layer.Layer import Layer
-from classes.optimizers.Adam import Adam
-from classes.utils.TrainingUtils import TrainingUtils
-from data.fonts import get_characters
+from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.LossFunctions import mse_prime, mse
+from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.layer.Layer import Layer
+from src.classes.optimizers.Adam import Adam
+from src.classes.utils.TrainingUtils import TrainingUtils
+from src.data.fonts import get_characters
 
 
 # network

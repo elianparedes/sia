@@ -1,10 +1,7 @@
 import numpy as np
-import plotly.graph_objects as go
-from pandas import DataFrame
 import plotly.express as px
 
-from classes.NeuralNetwork import NeuralNetwork
-from classes.NoiseFunctions import gaussian_noise
+from src.classes.NeuralNetwork import NeuralNetwork
 
 MEAN = 0
 STD_DEVIATION = 0.09

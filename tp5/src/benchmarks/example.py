@@ -1,14 +1,14 @@
 import numpy as np
 
-from benchmarks.dataframe.ae_latent_space_df import ae_latent_space_df
-from benchmarks.plot.ae_latent_space_plot import ae_latent_space_plot
-from classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from classes.LossFunctions import mse, mse_prime
-from classes.NeuralNetwork import NeuralNetwork
-from classes.layer.Layer import Layer
-from classes.optimizers.Adam import Adam
-from classes.utils.TrainingUtils import TrainingUtils
-from data import get_characters
+from src.benchmarks.dataframe.ae_latent_space_df import ae_latent_space_df
+from src.benchmarks.plot.ae_latent_space_plot import ae_latent_space_plot
+from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.LossFunctions import mse, mse_prime
+from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.layer.Layer import Layer
+from src.classes.optimizers.Adam import Adam
+from src.classes.utils.TrainingUtils import TrainingUtils
+from src.data import get_characters
 
 # Change params
 EPOCHS = 10000
