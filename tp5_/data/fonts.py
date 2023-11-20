@@ -43,7 +43,7 @@ def get_characters():
         
         # Extract the 4th to 8th elements from each sub-list
         for j in range(len(binary_representation)):
-            binary_representation[j] = binary_representation[j][3:8]
+            binary_representation[j] = binary_representation[j][1:8]
         
         # Flatten the list of lists into a single list
         flattened_list = [item for sublist in binary_representation for item in sublist]

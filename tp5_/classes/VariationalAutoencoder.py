@@ -34,7 +34,7 @@ class VariationalAutoencoder:
             print(loss)
             if loss <= 0.01:
                 break
-            if epoch == 50000:
+            if epoch >= 200000:
                 break
 
             decoder_output_error = input_data - result
