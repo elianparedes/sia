@@ -19,6 +19,7 @@ class NeuralNetwork:
         self.layers = []
         self.loss = None
         self.loss_prime = None
+        self.biased = biased
         self._create_layers(architecture, biased, init_weights_range)
 
     def add(self, layer: DenseLayer):

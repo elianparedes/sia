@@ -24,7 +24,7 @@ decoder = NeuralNetwork(
     architecture=[2, 10, 25, 49],
 )
 
-vae = VariationalAutoencoder(encoder=encoder, decoder=decoder, latent_space_size=2)
+vae = VariationalAutoencoder(encoder=encoder, decoder=decoder)
 characters = get_characters()
 test_set = np.array(characters.copy())
 

@@ -16,7 +16,6 @@ class DenseLayer(LayerABC):
         self.input_size = input_size
 
         self.weights = np.random.uniform(low=init_weights_range[0], high=init_weights_range[1], size=(input_size, output_size))
-        print(self.weights)
 
     # Calculates new neuron values (output) from a given input
     def forward_propagation(self, input_data):

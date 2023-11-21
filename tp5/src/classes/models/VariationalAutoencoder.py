@@ -10,21 +10,23 @@ class VariationalAutoencoder:
         self,
         encoder: NeuralNetwork,
         decoder: NeuralNetwork,
-        latent_space_size: int,
-        last_delta: int = 0,
     ):
         self.encoder = encoder
         self.decoder = decoder
-        self.latent_space_size = latent_space_size
         self.last_delta_size = decoder.layers[0].output_size
+
+        # infer latent space size
+        latent_space_size = decoder.layers[0].input_size
+        self.latent_space_size = latent_space_size - \
+            1 if decoder.biased else latent_space_size
         pass
 
-    def train(self, input_data, epochs):
+    def train(self, input_data, epochs, max_loss=None):
         for epoch in range(epochs):
             result = self.encoder.feed_forward(input_data)
 
             mean = result[:, : result.shape[1] // 2]
-            std = result[:, result.shape[1] // 2 :]
+            std = result[:, result.shape[1] // 2:]
 
             z, eps = self.reparametrization_trick(mean, std)
 
@@ -32,24 +34,23 @@ class VariationalAutoencoder:
 
             loss = self.loss_function(mean, std, input_data, result)
             print(loss)
-            if loss <= 0.01:
-                break
-            if epoch >= 200000:
+            if max_loss and loss <= max_loss:
                 break
 
             decoder_output_error = input_data - result
-
             decoder_gradients, last_delta = self.decoder.backpropagation(
                 decoder_output_error
             )
 
             dz_dmean = np.ones([self.last_delta_size, self.latent_space_size])
-            dz_dstd = eps * np.ones([self.last_delta_size, self.latent_space_size])
+            dz_dstd = eps * \
+                np.ones([self.last_delta_size, self.latent_space_size])
 
             mean_error = np.dot(last_delta, dz_dmean)
             std_error = np.dot(last_delta, dz_dstd)
 
-            encoder_output_error = np.concatenate((mean_error, std_error), axis=1)
+            encoder_output_error = np.concatenate(
+                (mean_error, std_error), axis=1)
             encoder_reconstruction_gradients, _ = self.encoder.backpropagation(
                 encoder_output_error
             )
@@ -57,9 +58,9 @@ class VariationalAutoencoder:
             dL_dm = mean
             dL_dv = 0.5 * (np.exp(std) - 1)
             encoder_loss_error = np.concatenate((dL_dm, dL_dv), axis=1)
-            encoder_loss_gradients, _ = self.encoder.backpropagation(encoder_loss_error)
+            encoder_loss_gradients, _ = self.encoder.backpropagation(
+                encoder_loss_error)
 
-            # NOTE: update weights with gradients
             encoder_gradients = []
             for g1, g2 in zip(encoder_loss_gradients, encoder_reconstruction_gradients):
                 encoder_gradients.append(g1 + g2)
