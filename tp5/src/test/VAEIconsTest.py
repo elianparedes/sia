@@ -18,7 +18,7 @@ encoder = NeuralNetwork(
     activation_prime=TAN_H_DERIVATIVE,
     optimizer=Adam,
     biased=True,
-    architecture=[400, 150, 20, 4],
+    architecture=[400, 50, 140, 4],
     learning_rate=0.01
 )
 decoder = NeuralNetwork(
@@ -26,7 +26,7 @@ decoder = NeuralNetwork(
     activation_prime=TAN_H_DERIVATIVE,
     optimizer=Adam,
     biased=True,
-    architecture=[2, 20, 150, 400],
+    architecture=[2, 50, 140, 400],
     learning_rate=0.01
 )
 
@@ -35,10 +35,10 @@ characters = IconsUtils.load_icons_map_from_file(FILE_PATH)
 characters = np.array(list(characters))
 test_set = np.array(characters.copy())
 
-vae.train(test_set, epochs=8000)
+vae.train(test_set, epochs=10000)
 
 
-def plot_latent(vae, n=25, fig_size=15, digit_size=20):
+def plot_latent(vae, n=15, fig_size=15, digit_size=20):
     figure = np.zeros((digit_size * n, digit_size * n))
     grid_x = np.linspace(-1, 1, n)
     grid_y = np.linspace(-1, 1, n)[::-1]
