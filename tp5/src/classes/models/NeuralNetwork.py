@@ -1,4 +1,4 @@
-from src.classes.layer.Layer import Layer 
+from src.classes.layers.DenseLayer import DenseLayer 
 from src.classes.optimizers.OptimizerABC import OptimizerABC
 
 class NeuralNetwork:
@@ -10,7 +10,7 @@ class NeuralNetwork:
         self.loss = None
         self.loss_prime = None
 
-    def add(self, layer: Layer):
+    def add(self, layer: DenseLayer):
         if layer.activation is None and layer.activation_prime is None:
             layer.activation = self.activation
             layer.activation_prime = self.activation_prime

@@ -2,10 +2,10 @@ import numpy as np
 
 from src.benchmarks.dataframe.ae_latent_space_df import ae_latent_space_df
 from src.benchmarks.plot.ae_latent_space_plot import ae_latent_space_plot
-from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from src.classes.LossFunctions import mse, mse_prime
-from src.classes.NeuralNetwork import NeuralNetwork
-from src.classes.layer.Layer import Layer
+from src.classes.functions.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.functions.LossFunctions import mse, mse_prime
+from src.classes.models.NeuralNetwork import NeuralNetwork
+from src.classes.layers.DenseLayer import DenseLayer
 from src.classes.optimizers.Adam import Adam
 from src.classes.utils.TrainingUtils import TrainingUtils
 from src.data import get_characters
@@ -16,16 +16,16 @@ LEARNING_RATE = 0.0005
 
 # Setup nn
 net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam)
-net.add(Layer(input_size=35, output_size=30,optimizer=Adam()))
-net.add(Layer(input_size=30, output_size=20,optimizer=Adam()))
-net.add(Layer(input_size=20, output_size=10,optimizer= Adam()))
-net.add(Layer(input_size=10, output_size=5,optimizer= Adam()))
-net.add(Layer(input_size=5, output_size=2,optimizer= Adam()))
-net.add(Layer(input_size=2, output_size=5,optimizer= Adam()))
-net.add(Layer(input_size=5, output_size=10,optimizer= Adam()))
-net.add(Layer(input_size=10, output_size=20,optimizer=  Adam()))
-net.add(Layer(input_size=20, output_size=30,optimizer=Adam()))
-net.add(Layer(input_size=30, output_size=35,optimizer= Adam()))
+net.add(DenseLayer(input_size=35, output_size=30,optimizer=Adam()))
+net.add(DenseLayer(input_size=30, output_size=20,optimizer=Adam()))
+net.add(DenseLayer(input_size=20, output_size=10,optimizer= Adam()))
+net.add(DenseLayer(input_size=10, output_size=5,optimizer= Adam()))
+net.add(DenseLayer(input_size=5, output_size=2,optimizer= Adam()))
+net.add(DenseLayer(input_size=2, output_size=5,optimizer= Adam()))
+net.add(DenseLayer(input_size=5, output_size=10,optimizer= Adam()))
+net.add(DenseLayer(input_size=10, output_size=20,optimizer=  Adam()))
+net.add(DenseLayer(input_size=20, output_size=30,optimizer=Adam()))
+net.add(DenseLayer(input_size=30, output_size=35,optimizer= Adam()))
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))

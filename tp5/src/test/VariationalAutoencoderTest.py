@@ -1,23 +1,23 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from src.classes.NeuralNetwork import NeuralNetwork
-from src.classes.VariationalAutoencoder import VariationalAutoencoder
-from src.classes.layer.Layer import Layer
+from src.classes.functions.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.models.NeuralNetwork import NeuralNetwork
+from src.classes.models.VariationalAutoencoder import VariationalAutoencoder
+from src.classes.layers.DenseLayer import DenseLayer
 from src.classes.optimizers.Adam import Adam
 from src.data.fonts import get_characters
 
 # network
 encoder = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam)
-encoder.add(Layer(input_size=49 + 1,output_size= 25, optimizer=Adam()))
-encoder.add(Layer(input_size=25 + 1,output_size= 10, optimizer=Adam()))
-encoder.add(Layer(input_size=10 + 1,output_size= 4, optimizer=Adam()))
+encoder.add(DenseLayer(input_size=49 + 1,output_size= 25, optimizer=Adam()))
+encoder.add(DenseLayer(input_size=25 + 1,output_size= 10, optimizer=Adam()))
+encoder.add(DenseLayer(input_size=10 + 1,output_size= 4, optimizer=Adam()))
 
 decoder = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam)
-decoder.add(Layer(input_size=2 + 1,output_size= 10, optimizer=Adam()))
-decoder.add(Layer(input_size=10 + 1,output_size= 25, optimizer=Adam()))
-decoder.add(Layer(input_size=25 + 1,output_size= 49, optimizer=Adam()))
+decoder.add(DenseLayer(input_size=2 + 1,output_size= 10, optimizer=Adam()))
+decoder.add(DenseLayer(input_size=10 + 1,output_size= 25, optimizer=Adam()))
+decoder.add(DenseLayer(input_size=25 + 1,output_size= 49, optimizer=Adam()))
 
 vae = VariationalAutoencoder(encoder=encoder, decoder=decoder, latent_space_size=2, last_delta=10)
 characters = get_characters()

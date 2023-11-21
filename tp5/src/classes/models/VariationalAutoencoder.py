@@ -2,7 +2,7 @@ import numpy as np
 
 from numpy import ndarray
 
-from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.models.NeuralNetwork import NeuralNetwork
 
 
 class VariationalAutoencoder:

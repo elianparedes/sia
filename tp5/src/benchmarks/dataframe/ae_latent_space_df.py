@@ -1,7 +1,7 @@
 import pandas as pd
 from sklearn.decomposition import PCA
 
-from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.models.NeuralNetwork import NeuralNetwork
 from src.classes.utils.Extractor import Extractor
 
 

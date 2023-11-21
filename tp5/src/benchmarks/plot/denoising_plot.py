@@ -1,7 +1,7 @@
 import numpy as np
 import plotly.express as px
 
-from src.classes.NeuralNetwork import NeuralNetwork
+from src.classes.models.NeuralNetwork import NeuralNetwork
 
 MEAN = 0
 STD_DEVIATION = 0.09

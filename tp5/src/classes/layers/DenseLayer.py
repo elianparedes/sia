@@ -1,6 +1,7 @@
 import numpy as np
+from src.classes.layers.LayerABC import LayerABC
 
-class Layer:
+class DenseLayer(LayerABC):
     # input_size = number of input neurons
     # output_size = number of output neurons
     def __init__(self, input_size, output_size, optimizer):

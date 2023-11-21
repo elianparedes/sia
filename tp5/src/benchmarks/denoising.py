@@ -1,11 +1,11 @@
 import numpy as np
 
 from src.benchmarks.plot.denoising_plot import denoising_plot
-from src.classes.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
-from src.classes.LossFunctions import mse, mse_prime
-from src.classes.NeuralNetwork import NeuralNetwork
-from src.classes.NoiseFunctions import gaussian_noise
-from src.classes.layer.Layer import Layer
+from src.classes.functions.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
+from src.classes.functions.LossFunctions import mse, mse_prime
+from src.classes.models.NeuralNetwork import NeuralNetwork
+from src.classes.functions.NoiseFunctions import gaussian_noise
+from src.classes.layers.DenseLayer import DenseLayer
 from src.classes.optimizers.Adam import Adam
 from src.data import get_characters
 
@@ -20,14 +20,14 @@ STD_DEVIATION = 0.09
 # Setup nn
 net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam)
 
-net.add(Layer(input_size=35, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=2, optimizer=Adam()))
-net.add(Layer(input_size=2, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(Layer(input_size=25, output_size=35, optimizer=Adam()))
+net.add(DenseLayer(input_size=35, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=2, optimizer=Adam()))
+net.add(DenseLayer(input_size=2, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
+net.add(DenseLayer(input_size=25, output_size=35, optimizer=Adam()))
 
 characters = get_characters()
 
