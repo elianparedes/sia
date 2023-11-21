@@ -72,6 +72,7 @@ class NeuralNetwork:
     def fit(self, training_set, test_set, epochs, training_expected, test_expected):
         samples = len(training_set)
         err_history = []
+        pixel_err_history = []
         computed_error = None
 
         for i in range(epochs):
@@ -90,12 +91,16 @@ class NeuralNetwork:
             err /= samples
             computed_error = self.compute_error(test_set, test_expected)
 
-            print("error: ", computed_error)
-            err_history.append(err)
+            # print("error", computed_error)
+            # Change accordingly
+            if i % 100 == 0:
+                err_history.append(err)
+                pixel_err_history.append(computed_error)
+
             if computed_error == 0:
                 break
 
-        return err_history
+        return err_history, pixel_err_history
 
     def compute_error(self, dataset, expected):
         to_return = 0
