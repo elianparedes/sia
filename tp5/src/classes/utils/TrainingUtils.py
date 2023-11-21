@@ -1,6 +1,26 @@
 import random
 
+import numpy as np
+
+from src.classes.models.NeuralNetwork import NeuralNetwork
+
 class TrainingUtils:
+
+    @staticmethod
+    def encoder_train(encoder: NeuralNetwork, input_data, epochs):
+        sampled_latent_points = []
+        for epoch in range(epochs):
+            result = encoder.feed_forward(input_data)
+
+            mean = result[:, : result.shape[1] // 2]
+            std = result[:, result.shape[1] // 2:]
+
+            eps = np.random.standard_normal()
+            z = eps * std + mean
+            sampled_latent_points.append(z)
+
+        return sampled_latent_points
+
     @staticmethod
     def generate_batches(characters, batch_size):
         batch_size = max(batch_size, 1)

@@ -1,6 +1,10 @@
-import numpy as np
+import os
 
-from src.benchmarks.plot.denoising_plot import denoising_plot
+import numpy as np
+import pandas as pd
+
+from src.Config import Config
+from src.benchmarks.plot.dae_chars_denoise_plot import denoising_plot
 from src.classes.functions.ActivationFunctions import TAN_H, TAN_H_DERIVATIVE
 from src.classes.functions.LossFunctions import mse, mse_prime
 from src.classes.models.NeuralNetwork import NeuralNetwork
@@ -8,56 +12,69 @@ from src.classes.functions.NoiseFunctions import gaussian_noise
 from src.classes.layers.DenseLayer import DenseLayer
 from src.classes.optimizers.Adam import Adam
 from src.data import get_characters
+from src.classes.functions.NoiseFunctions import gaussian_noise, salt_and_pepper
+def denoising(config:Config):
 
-# Change params
-EPOCHS = 50000
-LEARNING_RATE = 0.0001
-MEAN = 0
-STD_DEVIATION = 0.09
+    config_denoising = config.denoising
 
-# ADAM = 0.0001 works better
+    epochs = config_denoising['epochs']
+    learning_rate = config_denoising['learning_rate']
+    noise_function = config_denoising['noise_function']
+    noise_function_params = config_denoising['noise_function_params']
 
-# Setup nn
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam,
-                    architecture=[35, 25, 25, 2, 25, 25, 35])
+    # ADAM = 0.0001 works better
 
-characters = get_characters()
+    # Setup nn
+    net = NeuralNetwork(activation=config_denoising['activation'], activation_prime=config_denoising['activation_prime'], optimizer=Adam,
+                        architecture=config_denoising['layers'], learning_rate=learning_rate)
 
-noisy_characters = gaussian_noise(characters, MEAN, STD_DEVIATION)
+    characters = get_characters()
 
-noisy_training_set = []
-for character in noisy_characters:
-    noisy_training_set.append(character)
-
-training_expected = []
-for character in characters:
-    training_expected.append(character)
-
-noisy_training_set = np.array([noisy_training_set])
-
-test_set = np.array(gaussian_noise(characters.copy(), MEAN, STD_DEVIATION))
-
-test_expected = np.array(characters.copy())
+    if noise_function == gaussian_noise:
+        mean = noise_function_params['mean']
+        std_deviation = noise_function_params['std_deviation']
+        noisy_characters = gaussian_noise(characters,mean,std_deviation)
+    elif noise_function == salt_and_pepper:
+        radio = noise_function_params['radio']
+        noisy_characters = salt_and_pepper(characters,radio)
+    else:
+        raise Exception(f'Unknown noise function {noise_function}')
 
 
-print(np.shape(noisy_training_set))
-print(np.shape(training_expected))
-print('--------------')
-print(np.shape(test_set))
-print(np.shape(test_expected))
+    noisy_training_set = []
+    for character in noisy_characters:
+        noisy_training_set.append(character)
+
+    training_expected = []
+    for character in characters:
+        training_expected.append(character)
+
+    noisy_training_set = np.array([noisy_training_set])
+
+    if noise_function == gaussian_noise:
+        mean = noise_function_params['mean']
+        std_deviation = noise_function_params['std_deviation']
+        test_set = np.array(gaussian_noise(characters.copy(), mean, std_deviation))
+    elif noise_function == salt_and_pepper:
+        radio = noise_function_params['radio']
+        test_set = np.array(salt_and_pepper(characters.copy(),radio))
+    else:
+        raise Exception(f'Unknown noise function {noise_function}')
+
+    test_expected = np.array(characters.copy())
 
 
-# Train nn
-net.use(mse, mse_prime)
-net.fit(training_set=noisy_training_set, test_set=test_set,
-        epochs=EPOCHS, training_expected=[training_expected], test_expected=test_expected)
+    print(np.shape(noisy_training_set))
+    print(np.shape(training_expected))
+    print('--------------')
+    print(np.shape(test_set))
+    print(np.shape(test_expected))
 
-# Plot
-denoising_plot(net, characters, noisy_characters)
 
-## PLUS: You can save the df it in a file
-# FileUtils.save_df_in_file("latent_space", pca_df)
+    # Train nn
+    net.use(mse, mse_prime)
+    net.fit(training_set=noisy_training_set, test_set=test_set,
+            epochs=epochs, training_expected=[training_expected], test_expected=test_expected)
 
-## so that you can use it later
-# path = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "benchmarks", "df_files", "latent_space.csv")
-# pca_df = pd.read_csv(path)
+    # Plot
+    denoising_plot(net, characters, noisy_characters)

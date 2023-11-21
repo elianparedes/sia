@@ -9,6 +9,7 @@ from src.benchmarks.plot.ae_pixel_error_plot import ae_pixel_error_plot
 from src.benchmarks.plot.ae_true_error_plot import ae_true_error_plot
 from src.classes.functions.LossFunctions import mse_prime, mse
 from src.classes.models.NeuralNetwork import NeuralNetwork
+from src.classes.optimizers.Adam import Adam
 from src.classes.utils.FileUtils import FileUtils
 from src.classes.utils.TrainingUtils import TrainingUtils
 from src.data import get_characters
@@ -22,7 +23,7 @@ def ae_true_error_setup(config: Config):
         pca_df = pd.read_csv(path)
     else:
         net = NeuralNetwork(activation=config_ae['activation'], activation_prime=config_ae['activation_prime'],
-                            optimizer=config_ae['optimizer'], architecture=config_ae['layers'])
+                            optimizer=Adam, architecture=config_ae['layers'])
         characters = get_characters()
 
         training_set = np.array(TrainingUtils.generate_batches(characters.copy(), config_ae['batch_size']))
