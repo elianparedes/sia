@@ -12,6 +12,7 @@ class NeuralNetwork:
         architecture: list[int] = [],
         biased: bool = False,
         init_weights_range: tuple[int, int] = [-1, 1],
+        learning_rate: float = 0.0001
     ):
         self.activation = activation
         self.activation_prime = activation_prime
@@ -20,6 +21,7 @@ class NeuralNetwork:
         self.loss = None
         self.loss_prime = None
         self.biased = biased
+        self.learning_rate = learning_rate
         self._create_layers(architecture, biased, init_weights_range)
 
     def add(self, layer: DenseLayer):
@@ -123,11 +125,12 @@ class NeuralNetwork:
         for i in range(len(architecture) - 1):
             input_size = architecture[i]
             output_size = architecture[i + 1]
+            optimizer = self.optimizer(learning_rate=self.learning_rate)
 
             layer = layer_type(
                 input_size=input_size,
                 output_size=output_size,
-                optimizer=self.optimizer(),
+                optimizer=optimizer,
                 init_weights_range=init_weights_range,
             )
             self.add(layer)

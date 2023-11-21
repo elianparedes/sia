@@ -15,6 +15,7 @@ encoder = NeuralNetwork(
     optimizer=Adam,
     biased=True,
     architecture=[49, 25, 10, 4],
+    learning_rate=0.0001
 )
 decoder = NeuralNetwork(
     activation=TAN_H,
@@ -22,6 +23,7 @@ decoder = NeuralNetwork(
     optimizer=Adam,
     biased=True,
     architecture=[2, 10, 25, 49],
+    learning_rate=0.0001
 )
 
 vae = VariationalAutoencoder(encoder=encoder, decoder=decoder)
@@ -41,8 +43,8 @@ def plot_latent(vae, n=20, fig_size=15, digit_size=7):
             output = vae.predict(z)
             digit = output[0].reshape(digit_size, digit_size)
             figure[
-                i * digit_size : (i + 1) * digit_size,
-                j * digit_size : (j + 1) * digit_size,
+                i * digit_size: (i + 1) * digit_size,
+                j * digit_size: (j + 1) * digit_size,
             ] = digit
     plt.figure(figsize=(fig_size, fig_size))
     start_range = digit_size // 2
