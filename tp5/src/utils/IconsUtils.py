@@ -14,7 +14,7 @@ class IconsUtils:
     def load_icons_map_from_file(file_path):
          # ICONS_NAMES = ["thumb_up", "home", "search", "share", "arrow", "person", "delete", "close", "thumb_down", "arrow_right", "arrow_back", "inv_close", "eva_arrow_right", "eva_delete", "eva_home", "eva_person", "eva_share", "lucide_arrow", "lucide_delete", "lucide_home", "lucide_user"]
 
-        ICONS_NAMES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
+        ICONS_NAMES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
 
 
         icons = []
@@ -48,7 +48,7 @@ class IconsUtils:
         return binary_matrix
 
 # ICONS_PATH = os.path.join("../data/small_icons")
-
+#
 # with open(ICONS_FILE, 'a') as file:
 #     for filename in os.listdir(ICONS_PATH):
 #         # file_path = os.path.join(ICONS_PATH, filename)
@@ -56,4 +56,3 @@ class IconsUtils:
 #         print(f"{matrix}\n")
 #         flattened_matrix = matrix.flatten()
 #         file.write("[" + ", ".join(map(str, flattened_matrix)) + "]\n")
-#

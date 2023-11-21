@@ -1,6 +1,6 @@
 {
   "plots": ["vae_latent_space_setup","denoising","ae_true_error_setup","ae_pixel_true_error_setup"],
-  "run": ["ae_pixel_true_error_setup"],
+  "run": [],
   "save_dataframe": false,
   "load_dataframe": false,
   "autoencoder": {
