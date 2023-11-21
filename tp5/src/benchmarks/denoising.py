@@ -18,16 +18,7 @@ STD_DEVIATION = 0.09
 # ADAM = 0.0001 works better
 
 # Setup nn
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam)
-
-net.add(DenseLayer(input_size=35, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=2, optimizer=Adam()))
-net.add(DenseLayer(input_size=2, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=25, optimizer=Adam()))
-net.add(DenseLayer(input_size=25, output_size=35, optimizer=Adam()))
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam, architecture=[35, 25, 25, 2, 25, 25, 35])
 
 characters = get_characters()
 

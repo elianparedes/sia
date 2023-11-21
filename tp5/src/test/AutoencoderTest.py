@@ -8,18 +8,10 @@ from src.classes.optimizers.Adam import Adam
 from src.classes.utils.TrainingUtils import TrainingUtils
 from src.data.fonts import get_characters
 
+
 # network
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam)
-net.add(DenseLayer(input_size=49, output_size=30, optimizer=Adam()))
-net.add(DenseLayer(input_size=30, output_size=20, optimizer=Adam()))
-net.add(DenseLayer(input_size=20, output_size=10,optimizer=Adam()))
-net.add(DenseLayer(input_size=10, output_size=5, optimizer=Adam()))
-net.add(DenseLayer(input_size=5, output_size=2, optimizer=Adam()))
-net.add(DenseLayer(input_size=2, output_size=5, optimizer=Adam()))
-net.add(DenseLayer(input_size=5, output_size=10, optimizer=Adam()))
-net.add(DenseLayer(input_size=10, output_size=20, optimizer=Adam()))
-net.add(DenseLayer(input_size=20, output_size=30, optimizer=Adam()))
-net.add(DenseLayer(input_size=30, output_size=49, optimizer=Adam()))
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam, architecture=[49, 30, 20, 10, 5, 2, 5, 10, 20, 30, 49])
+
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))

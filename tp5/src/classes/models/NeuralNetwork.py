@@ -2,18 +2,19 @@ from src.classes.layers.DenseLayer import DenseLayer
 from src.classes.optimizers.OptimizerABC import OptimizerABC
 
 class NeuralNetwork:
-    def __init__(self, activation, activation_prime, optimizer: OptimizerABC):
+    def __init__(self, activation, activation_prime, optimizer: OptimizerABC, architecture: list[int]):
         self.activation = activation 
         self.activation_prime = activation_prime
         self.optimizer = optimizer
         self.layers = []
         self.loss = None
         self.loss_prime = None
+        
+        self._create_layers(architecture)
 
     def add(self, layer: DenseLayer):
-        if layer.activation is None and layer.activation_prime is None:
-            layer.activation = self.activation
-            layer.activation_prime = self.activation_prime
+        layer.activation = self.activation
+        layer.activation_prime = self.activation_prime
 
         self.layers.append(layer)
 
@@ -99,3 +100,11 @@ class NeuralNetwork:
                 to_return = errors
 
         return to_return
+    
+    def _create_layers(self, architecture: list[int]):
+        for i in range(len(architecture) - 1):
+            input_size = architecture[i]
+            output_size = architecture[i + 1]
+
+            layer = DenseLayer(input_size=input_size, output_size=output_size, optimizer=self.optimizer())
+            self.add(layer)
