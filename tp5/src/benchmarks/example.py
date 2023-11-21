@@ -15,17 +15,8 @@ EPOCHS = 10000
 LEARNING_RATE = 0.0005
 
 # Setup nn
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam)
-net.add(DenseLayer(input_size=35, output_size=30,optimizer=Adam()))
-net.add(DenseLayer(input_size=30, output_size=20,optimizer=Adam()))
-net.add(DenseLayer(input_size=20, output_size=10,optimizer= Adam()))
-net.add(DenseLayer(input_size=10, output_size=5,optimizer= Adam()))
-net.add(DenseLayer(input_size=5, output_size=2,optimizer= Adam()))
-net.add(DenseLayer(input_size=2, output_size=5,optimizer= Adam()))
-net.add(DenseLayer(input_size=5, output_size=10,optimizer= Adam()))
-net.add(DenseLayer(input_size=10, output_size=20,optimizer=  Adam()))
-net.add(DenseLayer(input_size=20, output_size=30,optimizer=Adam()))
-net.add(DenseLayer(input_size=30, output_size=35,optimizer= Adam()))
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam,
+                    architecture=[35, 30, 20, 10, 5, 2, 5, 10, 20, 30, 35])
 characters = get_characters()
 
 training_set = np.array(TrainingUtils.generate_batches(characters.copy(), 10))

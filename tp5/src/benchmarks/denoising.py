@@ -18,7 +18,8 @@ STD_DEVIATION = 0.09
 # ADAM = 0.0001 works better
 
 # Setup nn
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam, architecture=[35, 25, 25, 2, 25, 25, 35])
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer=Adam,
+                    architecture=[35, 25, 25, 2, 25, 25, 35])
 
 characters = get_characters()
 

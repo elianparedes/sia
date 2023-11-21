@@ -10,7 +10,8 @@ from src.data.fonts import get_characters
 
 
 # network
-net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam, architecture=[49, 30, 20, 10, 5, 2, 5, 10, 20, 30, 49])
+net = NeuralNetwork(activation=TAN_H, activation_prime=TAN_H_DERIVATIVE, optimizer = Adam,
+                    architecture=[49, 30, 20, 10, 5, 2, 5, 10, 20, 30, 49])
 
 characters = get_characters()
 

@@ -11,10 +11,8 @@ x_train = np.array([[[[0, 0]], [[0, 1]], [[1, 0]], [[1, 1]]]])
 y_train = np.array([[[[0]], [[1]], [[1]], [[0]]]])
 
 # network
-net = NeuralNetwork()
-net.add(DenseLayer(2, 3, SIGMOID, SIGMOID_DERIVATIVE, GradientDescent()))
-net.add(DenseLayer(3, 3, SIGMOID, SIGMOID_DERIVATIVE, GradientDescent()))
-net.add(DenseLayer(3, 1, SIGMOID, SIGMOID_DERIVATIVE, GradientDescent()))
+net = NeuralNetwork(activation=SIGMOID, activation_prime=SIGMOID_DERIVATIVE, optimizer=GradientDescent,
+                    architecture=[2, 3, 3, 1])
 
 # train
 net.use(mse, mse_prime)
