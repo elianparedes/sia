@@ -1,17 +1,17 @@
 import json
 import os
 
-from classes.functions.ActivationFunctions import SIGMOID
-from classes.functions.ActivationFunctions import SIGMOID_DERIVATIVE
+from src.classes.functions.ActivationFunctions import SIGMOID
+from src.classes.functions.ActivationFunctions import SIGMOID_DERIVATIVE
 
-from classes.functions.ActivationFunctions import TAN_H
-from classes.functions.ActivationFunctions import TAN_H_DERIVATIVE
+from src.classes.functions.ActivationFunctions import TAN_H
+from src.classes.functions.ActivationFunctions import TAN_H_DERIVATIVE
 
-from classes.functions.ActivationFunctions import RELU
-from classes.functions.ActivationFunctions import RELU_DERIVATIVE
+from src.classes.functions.ActivationFunctions import RELU
+from src.classes.functions.ActivationFunctions import RELU_DERIVATIVE
 
-from classes.functions.NoiseFunctions import salt_and_pepper
-from classes.functions.NoiseFunctions import gaussian_noise
+from src.classes.functions.NoiseFunctions import salt_and_pepper
+from src.classes.functions.NoiseFunctions import gaussian_noise
 
 FUNCTIONS_MAPS = {
     "SIGMOID": [SIGMOID,SIGMOID_DERIVATIVE],

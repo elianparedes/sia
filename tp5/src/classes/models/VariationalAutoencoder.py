@@ -22,6 +22,8 @@ class VariationalAutoencoder:
         pass
 
     def train(self, input_data, epochs, max_loss=None):
+        sampled_latent_points = []
+
         for epoch in range(epochs):
             result = self.encoder.feed_forward(input_data)
 
@@ -29,6 +31,7 @@ class VariationalAutoencoder:
             std = result[:, result.shape[1] // 2:]
 
             z, eps = self.reparametrization_trick(mean, std)
+            sampled_latent_points.append(z)
 
             result = self.decoder.feed_forward(z)
 
@@ -67,6 +70,8 @@ class VariationalAutoencoder:
 
             self.encoder.update_weights(encoder_gradients, epoch)
             self.decoder.update_weights(decoder_gradients, epoch)
+
+        return sampled_latent_points
 
     def predict(self, input_data):
         result = self.decoder.feed_forward(input_data)
