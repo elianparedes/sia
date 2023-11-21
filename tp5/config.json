@@ -1,14 +1,14 @@
 {
   "plots": ["vae_latent_space_setup","denoising","ae_true_error_setup","ae_pixel_true_error_setup"],
-  "run": ["ae_pixel_true_error_setup","denoising"],
+  "run": ["ae_pixel_true_error_setup"],
   "save_dataframe": false,
-  "load_dataframe": true,
+  "load_dataframe": false,
   "autoencoder": {
-    "layers": [35,25,25,2,25,25,35],
+    "layers": [35, 30, 20, 10, 5, 2, 5, 10, 20, 30, 35],
     "activation": "TAN_H",
-    "epochs":10000,
+    "epochs":100000,
     "learning_rate": 0.0001,
-    "batch_size": 0
+    "batch_size": 32
   },
   "denoising": {
     "layers": [35,25,25,2,25,25,35],

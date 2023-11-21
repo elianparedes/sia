@@ -91,7 +91,8 @@ class NeuralNetwork:
             err /= samples
             computed_error = self.compute_error(test_set, test_expected)
 
-            # print("error", computed_error)
+            print("Error: ", computed_error, "Epoch:", i)
+            
             # Change accordingly
             if i % 100 == 0:
                 err_history.append(err)

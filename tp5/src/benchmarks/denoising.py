@@ -22,8 +22,6 @@ def denoising(config:Config):
     noise_function = config_denoising['noise_function']
     noise_function_params = config_denoising['noise_function_params']
 
-    # ADAM = 0.0001 works better
-
     # Setup nn
     net = NeuralNetwork(activation=config_denoising['activation'], activation_prime=config_denoising['activation_prime'], optimizer=Adam,
                         architecture=config_denoising['layers'], learning_rate=learning_rate)

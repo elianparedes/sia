@@ -1,8 +1,47 @@
 import plotly.graph_objects as go
+import numpy as np
 from pandas import DataFrame
+
+characters_strings = [
+    '`',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'o',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'u',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+    '{',
+    '|',
+    '}',
+    '~',
+    'DEL'
+]
+
 
 def vae_latent_space_plot(latent_df: DataFrame):
     fig = go.Figure()
+    colorscale = [
+        f'rgba({np.random.randint(0, 256)}, {np.random.randint(0, 256)}, {np.random.randint(0, 256)}, 1)' for _ in range(32)]
 
     for i in range(32):
         group_data = latent_df[latent_df['Group'] == i + 1]
@@ -13,8 +52,8 @@ def vae_latent_space_plot(latent_df: DataFrame):
             x=x_values,
             y=y_values,
             mode='markers',
-            marker=dict(size=5),
-            name=f'Group {i + 1}'
+            marker=dict(size=5, color=colorscale[i]),
+            name=f'Character "{characters_strings[i]}"'
         ))
 
     # Customize layout
