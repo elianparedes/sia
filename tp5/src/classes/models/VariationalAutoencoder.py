@@ -6,20 +6,25 @@ from src.classes.models.NeuralNetwork import NeuralNetwork
 
 
 class VariationalAutoencoder:
-    def __init__(self, encoder: NeuralNetwork, decoder: NeuralNetwork, latent_space_size: int, last_delta: int):
+    def __init__(
+        self,
+        encoder: NeuralNetwork,
+        decoder: NeuralNetwork,
+        latent_space_size: int,
+        last_delta: int = 0,
+    ):
         self.encoder = encoder
         self.decoder = decoder
         self.latent_space_size = latent_space_size
-        self.last_delta_size = last_delta
+        self.last_delta_size = decoder.layers[0].output_size
         pass
 
     def train(self, input_data, epochs):
-
         for epoch in range(epochs):
             result = self.encoder.feed_forward(input_data)
 
-            mean = result[:, :result.shape[1] // 2]
-            std = result[:, result.shape[1] // 2:]
+            mean = result[:, : result.shape[1] // 2]
+            std = result[:, result.shape[1] // 2 :]
 
             z, eps = self.reparametrization_trick(mean, std)
 
@@ -34,7 +39,9 @@ class VariationalAutoencoder:
 
             decoder_output_error = input_data - result
 
-            decoder_gradients, last_delta = self.decoder.backpropagation(decoder_output_error)
+            decoder_gradients, last_delta = self.decoder.backpropagation(
+                decoder_output_error
+            )
 
             dz_dmean = np.ones([self.last_delta_size, self.latent_space_size])
             dz_dstd = eps * np.ones([self.last_delta_size, self.latent_space_size])
@@ -43,7 +50,9 @@ class VariationalAutoencoder:
             std_error = np.dot(last_delta, dz_dstd)
 
             encoder_output_error = np.concatenate((mean_error, std_error), axis=1)
-            encoder_reconstruction_gradients, _ = self.encoder.backpropagation(encoder_output_error)
+            encoder_reconstruction_gradients, _ = self.encoder.backpropagation(
+                encoder_output_error
+            )
 
             dL_dm = mean
             dL_dv = 0.5 * (np.exp(std) - 1)
@@ -62,12 +71,14 @@ class VariationalAutoencoder:
         result = self.decoder.feed_forward(input_data)
         return result
 
-    def reparametrization_trick(self, mean: ndarray[float], std: ndarray[float]) -> tuple[ndarray[float], float]:
+    def reparametrization_trick(
+        self, mean: ndarray[float], std: ndarray[float]
+    ) -> tuple[ndarray[float], float]:
         eps = np.random.standard_normal()
         return eps * std + mean, eps
 
     def loss_function(self, mean, std, data, result):
         rec = 0.5 * np.mean((data - result) ** 2)
-        kl = -0.5 * np.sum(1 + std - mean ** 2 - np.exp(std))
+        kl = -0.5 * np.sum(1 + std - mean**2 - np.exp(std))
 
         return rec + kl

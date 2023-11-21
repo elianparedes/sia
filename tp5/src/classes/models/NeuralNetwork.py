@@ -1,16 +1,25 @@
-from src.classes.layers.DenseLayer import DenseLayer 
+from src.classes.layers.DenseLayer import DenseLayer
+from src.classes.layers.BiasedDenseLayer import BiasedDenseLayer
 from src.classes.optimizers.OptimizerABC import OptimizerABC
 
+
 class NeuralNetwork:
-    def __init__(self, activation, activation_prime, optimizer: OptimizerABC, architecture: list[int]):
-        self.activation = activation 
+    def __init__(
+        self,
+        activation,
+        activation_prime,
+        optimizer: OptimizerABC,
+        architecture: list[int] = [],
+        biased: bool = False,
+        init_weights_range: tuple[int, int] = [-1, 1],
+    ):
+        self.activation = activation
         self.activation_prime = activation_prime
         self.optimizer = optimizer
         self.layers = []
         self.loss = None
         self.loss_prime = None
-        
-        self._create_layers(architecture)
+        self._create_layers(architecture, biased, init_weights_range)
 
     def add(self, layer: DenseLayer):
         layer.activation = self.activation
@@ -33,7 +42,9 @@ class NeuralNetwork:
         last_delta = error
         output_error_last = None
         for layer in reversed(self.layers):
-            input_error, weights_error, output_error = layer._backward_propagation(last_delta)
+            input_error, weights_error, output_error = layer._backward_propagation(
+                last_delta
+            )
             last_delta = input_error
             output_error_last = output_error
             gradients.append(weights_error)
@@ -43,7 +54,6 @@ class NeuralNetwork:
     def update_weights(self, gradients, epoch):
         for i in range(len(self.layers)):
             self.layers[i].set_weights(gradients[i], epoch)
-
 
     def predict(self, input_data):
         input_data = [input_data]
@@ -100,11 +110,23 @@ class NeuralNetwork:
                 to_return = errors
 
         return to_return
-    
-    def _create_layers(self, architecture: list[int]):
+
+    def _create_layers(
+        self,
+        architecture: list[int],
+        biased: bool,
+        init_weights_range: tuple[int, int] = [-1, 1],
+    ):
+        layer_type = DenseLayer if biased is False else BiasedDenseLayer
+
         for i in range(len(architecture) - 1):
             input_size = architecture[i]
             output_size = architecture[i + 1]
 
-            layer = DenseLayer(input_size=input_size, output_size=output_size, optimizer=self.optimizer())
+            layer = layer_type(
+                input_size=input_size,
+                output_size=output_size,
+                optimizer=self.optimizer(),
+                init_weights_range=init_weights_range,
+            )
             self.add(layer)

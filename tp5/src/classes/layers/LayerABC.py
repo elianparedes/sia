@@ -8,15 +8,10 @@ class LayerABC(ABC):
     def forward_propagation(self, input_data):
         pass
 
-    @abstractmethod
-    def forward_propagation_bias(self, input_data):
-        pass
-
     # output_error: error array from previous layer
     @abstractmethod
     def backward_propagation(self, output_error, epoch):
         pass
-    
 
     # wip auxiliar function that does not store calculated weights in the layer
     @abstractmethod
