@@ -1,3 +1,5 @@
+import os.path
+
 import numpy as np
 
 from src.Config import Config
@@ -7,6 +9,7 @@ from src.classes.models.NeuralNetwork import NeuralNetwork
 from src.classes.models.VariationalAutoencoder import VariationalAutoencoder
 from src.classes.optimizers.Adam import Adam
 from src.data.fonts import get_characters
+from src.classes.utils.TrainingUtils import TrainingUtils
 
 
 def vae_latent_space_setup(config: Config):
@@ -35,6 +38,7 @@ def vae_latent_space_setup(config: Config):
     characters = get_characters()
     test_set = np.array(characters.copy())
 
-    sampled_latent = vae.train(test_set, epochs=1000)
+    vae.train(test_set, epochs=config_vae['epochs'])
+    sampled_latent = TrainingUtils.encoder_train(encoder, test_set, 1000)
     latent_df = vae_latent_space_df(sampled_latent)
     vae_latent_space_plot(latent_df)
