@@ -1,40 +1,50 @@
 {
-  "plots": "[...,...] list of available plots",
-  "run": "[...,...] list of plots to run",
-  "save_dataframe": "[true | false] saves the dataframes of all the plots in a different files",
-  "load_dataframe": "[true | false] loads the dataframes for the plots to run. First you should run with NO this option and with YES the previous option to generate them",
+  "plots": ["vae_latent_space_setup","denoising","ae_true_error_setup","ae_pixel_true_error_setup"],
+  "run": ["ae_pixel_true_error_setup","denoising"],
+  "save_dataframe": false,
+  "load_dataframe": true,
   "autoencoder": {
-    "layers": "list of layers and their size. Eg. ['30','20','10','20','30']",
-    "activation": "[SIGMOID | TAN_H | RELU ]",
-    "epochs":"Int >0",
-    "learning_rate": "[0,1], 0.0001 recommended",
-    "batch_size": "Int >0"
+    "layers": [35,25,25,2,25,25,35],
+    "activation": "TAN_H",
+    "epochs":10000,
+    "learning_rate": 0.0001,
+    "batch_size": 0
   },
   "denoising": {
-    "layers": "list of layers and their size. Eg. ['30','20','10','20','30']",
-    "activation": "[SIGMOID | TAN_H | RELU ]",
-    "epochs":"Int >0",
-    "learning_rate": "[0,1], 0.0001 recommended",
-    "batch_size": "Int >0",
-    "noise_function": "[SALT_AND_PEPPER | GAUSSIAN_NOISE]",
+    "layers": [35,25,25,2,25,25,35],
+    "activation": "TAN_H",
+    "epochs":10000,
+    "learning_rate": 0.0001,
+    "batch_size": 0,
+    "noise_function": "GAUSSIAN_NOISE",
     "salt_and_pepper": {
       "radio": "[0, 1]"
     },
     "gaussian_noise": {
-      "mean": "",
-      "std_deviation": ""
+      "mean": 0,
+      "std_deviation": 0.5
     }
   },
   "vae": {
     "encoder": {
-      "layers": "list of layers and their size. Eg. ['30','20','10','20','30']",
-      "activation": "[SIGMOID | TAN_H | RELU ]"
+      "layers": [
+        49,
+        25,
+        25,
+        4
+      ],
+      "activation": "TAN_H"
     },
     "decoder": {
-      "layers": "list of layers and their size. Eg. ['30','20','10','20','30']",
-      "activation": "[SIGMOID | TAN_H | RELU ]"
+      "layers": [
+        2,
+        25,
+        25,
+        49
+      ],
+      "activation": "TAN_H"
     },
-    "epochs":"Int >0",
-    "learning_rate": "[0,1], 0.0001 recommended"
+    "epochs": 1000,
+    "learning_rate": 0.0001
   }
 }

@@ -8,20 +8,21 @@ from src.benchmarks.dataframe.ae_error_df import ae_error_df
 from src.benchmarks.plot.ae_pixel_error_plot import ae_pixel_error_plot
 from src.classes.functions.LossFunctions import mse_prime, mse
 from src.classes.models.NeuralNetwork import NeuralNetwork
+from src.classes.optimizers.Adam import Adam
 from src.classes.utils.FileUtils import FileUtils
 from src.classes.utils.TrainingUtils import TrainingUtils
 from src.data import get_characters
 
 
-def ae_true_error_setup(config: Config):
+def ae_pixel_true_error_setup(config: Config):
     config_ae = config.autoencoder
 
     if config.load_dataframe is True:
-        path = os.path.join(os.path.dirname(__file__), os.pardir, "benchmarks", "df_files", "true_or_pixel_error.csv")
+        path = os.path.join(os.path.dirname(__file__), "df_files", "true_and_pixel_error.csv")
         pca_df = pd.read_csv(path)
     else:
         net = NeuralNetwork(activation=config_ae['activation'], activation_prime=config_ae['activation_prime'],
-                            optimizer=config_ae['optimizer'], architecture=config_ae['layers'])
+                            optimizer=Adam, architecture=config_ae['layers'])
         characters = get_characters()
 
         training_set = np.array(TrainingUtils.generate_batches(characters.copy(), config_ae['batch_size']))
