@@ -73,6 +73,10 @@ KohonenAlgorithm.train(kohonen_network, INPUT, INIT_LEARNING_RATE, INIT_RADIUS)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 4)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 5)
 # KohonenGraphs.SingleVariableHeatMap(kohonen_network, 6)
-# KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES)
+
+#INPUT PATHs filename:
+FILE_NAME = os.path.basename(INPUT_PATH)[:-4]
+
+KohonenGraphs.CompleteHeatmap(kohonen_network, INPUT, COUNTRIES, FILE_NAME)
 # KohonenGraphs.PlotUMatrix(kohonen_network)
 # KohonenGraphs.PlotUMatrixByVariable(kohonen_network, VAR_NAMES)

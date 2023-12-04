@@ -7,7 +7,7 @@ from src.classes.similarity.Euclidean import Euclidean
 class KohonenGraphs:
 
     @staticmethod
-    def CompleteHeatmap(network, training_set, countries):
+    def CompleteHeatmap(network, training_set, countries, title):
         winners = [network.neuron_qty * [0] for _ in range(network.neuron_qty)]
         country_matrix = [network.neuron_qty * [''] for _ in range(network.neuron_qty)]
 
@@ -22,7 +22,7 @@ class KohonenGraphs:
                              textfont={"size": 16, "color": 'rgb(255,255,255)'},
                              )
         # Create a layout for the heatmap
-        layout = go.Layout(title='Complete Heatmap')
+        layout = go.Layout(title=title)
         # Create a figure and plot it
         fig = go.Figure(data=[heatmap], layout=layout)
         # Display the heatmap (you can also save it as an HTML file)
